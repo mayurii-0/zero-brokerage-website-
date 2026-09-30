@@ -1,0 +1,99 @@
+"use client";
+import React from 'react';
+import Link from 'next/link';
+
+const Navbar = () => {
+  const handleTabClick = (tabName: string) => {
+    window.dispatchEvent(new CustomEvent('switchTab', { detail: tabName }));
+  };
+
+  return (
+    <div className="absolute top-0 inset-x-0 z-50 pt-4 sm:pt-6 px-4 sm:px-6 w-full font-sans pointer-events-none animate-slide-down">
+      <nav className="w-[96%] max-w-[1500px] mx-auto pointer-events-auto bg-white shadow-xl shadow-black/5 border border-slate-100 rounded-2xl sm:rounded-full px-4 sm:px-8">
+        <div className="flex justify-between items-center h-16 sm:h-[4.25rem]">
+          
+          {/* Logo Section */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center text-[#1ebbbb]">
+              <svg className="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V5a2 2 0 012-2h4a2 2 0 012 2v2m4 14V11a2 2 0 00-2-2h-4v12m-6-8h2m-2 4h2m6-8h2m-2 4h2" />
+              </svg>
+            </div>
+            <Link href="/" className="text-2xl font-extrabold tracking-tight">
+              <span className="text-[#0F172A] font-[800]">Zero</span>
+              <span className="text-[#1ebbbb]">Broker</span>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-8">
+            <Link href="/" className="text-[#0F172A] hover:text-[#1ebbbb] font-semibold text-sm transition-colors uppercase tracking-wider text-[11px]">
+              Home
+            </Link>
+            
+            {/* Dropdown Menu - Static */}
+            <div className="relative group">
+              <Link href="/properties" className="flex items-center text-[#0F172A] hover:text-[#1ebbbb] font-semibold text-sm transition-colors uppercase tracking-wider text-[11px]">
+                Properties & Assets
+                <svg className="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-[#E2E8F0] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="py-2">
+                  <Link href="/services/buy" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Buy</Link>
+                  <Link href="/services/rent-lease" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Rent / Lease</Link>
+                  <Link href="/services/lands-and-farmlands" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Lands & Farmlands</Link>
+                  <Link href="/services/furniture-rentals" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Furniture Rentals</Link>
+                  <Link href="/services/commercial-offices" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Commercial Offices</Link>
+                  <Link href="/services/residential-properties" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Residential Properties</Link>
+                </div>
+              </div>
+            </div>
+
+            <Link href="/services" className="text-[#0F172A] hover:text-[#1ebbbb] font-semibold text-sm transition-colors uppercase tracking-wider text-[11px]">
+              Services
+            </Link>
+            <Link href="/agency" className="text-[#0F172A] hover:text-[#1ebbbb] font-semibold text-sm transition-colors uppercase tracking-wider text-[11px]">
+              For Agency
+            </Link>
+            <Link href="/about" className="text-[#0F172A] hover:text-[#1ebbbb] font-semibold text-sm transition-colors uppercase tracking-wider text-[11px]">
+              About Us
+            </Link>
+            <Link href="/pricing" className="text-[#0F172A] hover:text-[#1ebbbb] font-semibold text-sm transition-colors uppercase tracking-wider text-[11px]">
+              Pricing
+            </Link>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Link 
+              href="#" 
+              className="px-5 py-2.5 text-[#0F172A] font-bold text-xs uppercase tracking-wider hover:text-[#1ebbbb] transition-colors"
+            >
+              Agency Login
+            </Link>
+            <Link 
+              href="#" 
+              className="px-6 py-3 bg-[#0a0a0a] text-white rounded-lg font-bold text-xs uppercase tracking-wider hover:bg-black/80 transition-colors"
+            >
+              Get App
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center">
+            <button className="text-[#0F172A] hover:text-[#4F46E5]">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
+};
+
+export default Navbar;
