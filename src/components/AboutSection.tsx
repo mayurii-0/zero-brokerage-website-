@@ -80,7 +80,7 @@ const AboutSection = () => {
       <div className="w-full max-w-7xl mx-auto rounded-[28px] md:rounded-[40px] overflow-hidden border border-white/10 bg-[#050505] text-white flex flex-col lg:flex-row min-h-[650px] shadow-2xl relative">
         
         {/* Left Side: Images */}
-        <div className="w-full lg:w-1/2 relative h-[450px] lg:h-auto overflow-hidden bg-[#050505]">
+        <div className="w-full lg:w-1/2 relative h-[280px] md:h-[450px] lg:h-auto overflow-hidden bg-[#050505]">
           
           {/* Background Image (Same as main image, higher opacity) */}
           <div className="absolute inset-0">
@@ -108,7 +108,7 @@ const AboutSection = () => {
                 animate={{ opacity: 1, y: "0%" }}
                 exit={{ opacity: 0, y: "-150%" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-[85%] h-[45%] md:w-[75%] md:h-[40%] lg:w-[75%] lg:h-[40%] rounded-[24px] overflow-hidden shadow-2xl border border-white/10 bg-slate-900"
+                className="relative w-[90%] h-[70%] md:w-[75%] md:h-[40%] lg:w-[75%] lg:h-[40%] rounded-xl md:rounded-[24px] overflow-hidden shadow-2xl border border-white/10 bg-slate-900"
               >
                 <img 
                   src={slide.mainImage} 
@@ -124,12 +124,12 @@ const AboutSection = () => {
         <div className="w-full lg:w-1/2 flex flex-col justify-between p-8 md:p-12 lg:p-16 relative z-20">
           
           {/* Top Bar: List & Big Number */}
-          <div className="flex justify-between items-start w-full">
+          <div className="hidden lg:flex justify-between items-start w-full">
             <div className="flex flex-col gap-[5px] text-[10px] md:text-[11px] tracking-[0.15em] font-medium uppercase font-mono mt-2">
               {ABOUT_SLIDES.map((s, i) => {
                 const isActive = i === activeIndex;
                 return (
-                  <div key={s.id} className="flex gap-3 items-center">
+                  <div key={s.id} className={`flex gap-3 items-center ${isActive ? 'flex' : 'hidden md:flex'}`}>
                     <span className={`${isActive ? 'text-white/60' : 'text-white/30'} min-w-[55px] whitespace-nowrap`}>
                       {s.tag}
                     </span> 
@@ -141,7 +141,7 @@ const AboutSection = () => {
               })}
             </div>
             
-            <div className="overflow-hidden h-[90px] w-[100px] flex justify-end -mt-2">
+            <div className="overflow-hidden h-[60px] md:h-[90px] w-[80px] md:w-[100px] flex justify-end mt-0 md:-mt-2">
               <AnimatePresence mode="popLayout">
                 <motion.div 
                   key={slide.id}
@@ -149,7 +149,7 @@ const AboutSection = () => {
                   animate={{ y: "0%" }}
                   exit={{ y: "-100%" }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-[70px] md:text-[90px] font-medium tracking-tighter leading-none text-white absolute"
+                  className="text-[50px] md:text-[90px] font-medium tracking-tighter leading-none text-white absolute"
                 >
                   {slide.id}
                 </motion.div>
@@ -158,7 +158,7 @@ const AboutSection = () => {
           </div>
 
           {/* Center Content */}
-          <div className="mt-14 lg:mt-0 flex flex-col justify-center flex-grow overflow-hidden relative">
+          <div className="mt-10 lg:mt-0 flex flex-col justify-center flex-grow overflow-hidden relative min-h-[350px] lg:min-h-0">
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={slide.id}
@@ -166,7 +166,7 @@ const AboutSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute w-full"
+                className="w-full"
               >
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4 font-sans">
                   {slide.name}
@@ -203,3 +203,8 @@ const AboutSection = () => {
 };
 
 export default AboutSection;
+
+
+
+
+

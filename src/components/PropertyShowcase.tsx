@@ -1005,7 +1005,7 @@ const PropertyShowcase = () => {
   const displayedProperties = filteredProperties.slice(0, 9);
 
   return (
-    <section className="w-full bg-stone-50 py-16 px-4 md:px-8 font-sans relative">
+    <section className="w-full bg-stone-50 py-8 md:py-16 px-4 md:px-8 font-sans relative">
       <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-200 max-w-6xl mx-auto overflow-hidden">
         
         {/* 1. Dynamic Animated Spotlight Feature */}
@@ -1021,9 +1021,9 @@ const PropertyShowcase = () => {
           <div id="properties-furniture" className="absolute -top-28"></div>
           
           {/* 2. Property Multi-Filter Bar (Now unified) */}
-          <div className="p-8 border-b border-slate-100">
+          <div className="p-4 sm:p-8 border-b border-slate-100">
             {/* Top Type Tabs */}
-            <div className="flex flex-wrap gap-6 border-b border-slate-100">
+            <div className="flex overflow-x-auto whitespace-nowrap gap-4 sm:gap-6 border-b border-slate-100 pb-2 scrollbar-hide">
               {TABS.map(tab => (
                 <button 
                   key={tab}
@@ -1040,20 +1040,15 @@ const PropertyShowcase = () => {
             </div>
 
             {/* Filter Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-              <input 
-                type="text" 
-                placeholder="Search by Title or Location..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-6">
+              <input type="text" placeholder="Search by Title or Location..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="col-span-2 sm:col-span-1 w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
               />
 
               <div>
                 <select 
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                  className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Cities">All Cities</option>
                   {filterOptions.cities.map(c => <option key={c} value={c}>{c}</option>)}
@@ -1064,7 +1059,7 @@ const PropertyShowcase = () => {
                 <select 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
-                  className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                  className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Types</option>
                   {filterOptions.types.map(t => <option key={t} value={t}>{t}</option>)}
@@ -1081,18 +1076,17 @@ const PropertyShowcase = () => {
                   exit={{ opacity: 0, height: 0 }}
                   className="overflow-hidden mt-6"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 pt-2">
                     
                     {/* Status / Age */}
-                    {(activeTab === 'All' || activeTab === 'Buy' || activeTab === 'Rent / Lease') && (
-                      <div>
+                    {(activeTab === 'All' || activeTab === 'Buy' || activeTab === 'Rent / Lease') && (<div className="col-span-2 sm:col-span-1">
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
                           {activeTab === 'Rent / Lease' ? 'Furnishing Status' : 'Property Age'}
                         </label>
                         <select 
                           value={propertyStatus}
                           onChange={(e) => setPropertyStatus(e.target.value)}
-                          className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="All">Any {activeTab === 'Rent / Lease' ? 'Status' : 'Age'}</option>
                           {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
@@ -1106,7 +1100,7 @@ const PropertyShowcase = () => {
                         <select 
                           value={propertyStatus}
                           onChange={(e) => setPropertyStatus(e.target.value)}
-                          className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="All">Any Status</option>
                           {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
@@ -1120,7 +1114,7 @@ const PropertyShowcase = () => {
                         <select 
                           value={propertyStatus}
                           onChange={(e) => setPropertyStatus(e.target.value)}
-                          className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="All">Any Grade</option>
                           {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
@@ -1134,7 +1128,7 @@ const PropertyShowcase = () => {
                         <select 
                           value={propertyStatus}
                           onChange={(e) => setPropertyStatus(e.target.value)}
-                          className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="All">Any Duration</option>
                           {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
@@ -1143,7 +1137,7 @@ const PropertyShowcase = () => {
                     )}
 
                     {/* Manual Price Range */}
-                    <div>
+                    <div className="col-span-2 sm:col-span-1">
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Price / Rent (?)</label>
                       <div className="flex items-center gap-2">
                         <input 
@@ -1151,7 +1145,7 @@ const PropertyShowcase = () => {
                           placeholder="Min Price"
                           value={minPrice}
                           onChange={(e) => setMinPrice(e.target.value)}
-                          className="w-1/2 px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-1/2 px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         />
                         <span className="text-slate-400 font-medium">-</span>
                         <input 
@@ -1159,14 +1153,14 @@ const PropertyShowcase = () => {
                           placeholder="Max Price"
                           value={maxPrice}
                           onChange={(e) => setMaxPrice(e.target.value)}
-                          className="w-1/2 px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-1/2 px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         />
                       </div>
                     </div>
 
                     {/* Manual Size Range */}
                     {activeTab !== 'Furniture Rentals' && (
-                      <div>
+                      <div className="col-span-2 sm:col-span-1">
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Size (Sq. Ft.)</label>
                         <div className="flex items-center gap-2">
                           <input 
@@ -1174,7 +1168,7 @@ const PropertyShowcase = () => {
                             placeholder="Min Size"
                             value={minSize}
                             onChange={(e) => setMinSize(e.target.value)}
-                            className="w-1/2 px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                            className="w-1/2 px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                           />
                           <span className="text-slate-400 font-medium">-</span>
                           <input 
@@ -1182,19 +1176,18 @@ const PropertyShowcase = () => {
                             placeholder="Max Size"
                             value={maxSize}
                             onChange={(e) => setMaxSize(e.target.value)}
-                            className="w-1/2 px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                            className="w-1/2 px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                           />
                         </div>
                       </div>
                     )}
 
-                    {(activeTab === 'All' || activeTab === 'Buy' || activeTab === 'Rent / Lease') && (
-                      <div>
+                    {(activeTab === 'All' || activeTab === 'Buy' || activeTab === 'Rent / Lease') && (<div className="col-span-2 sm:col-span-1">
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">BHK Capacity</label>
                         <select 
                           value={bhk}
                           onChange={(e) => setBhk(e.target.value)}
-                          className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="Any BHK">Any BHK</option>
                           {filterOptions.bhks.map(b => b !== 'Any BHK' && <option key={b} value={b}>{b}</option>)}
@@ -1207,7 +1200,7 @@ const PropertyShowcase = () => {
                       <select 
                         value={listedBy}
                         onChange={(e) => setListedBy(e.target.value)}
-                        className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                        className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">All (Owner, Agency, Broker)</option>
                         {filterOptions.listers.map(l => l !== 'All' && <option key={l} value={l}>{l}</option>)}
@@ -1220,7 +1213,7 @@ const PropertyShowcase = () => {
             </AnimatePresence>
 
             {/* Bottom Action Row */}
-            <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-100">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-6 pt-4 border-t border-slate-100">
               <button 
                 onClick={() => setShowMoreOptions(!showMoreOptions)}
                 className="text-xs font-bold text-indigo-600 uppercase tracking-wide flex items-center gap-1 hover:text-indigo-700 transition-colors"
@@ -1245,16 +1238,16 @@ const PropertyShowcase = () => {
           </div>
 
           {/* 3. Property Cards Grid */}
-          <div className="p-8 bg-slate-50/50" ref={propertiesGridRef}>
-            <div key={activeTab} className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-slide-up">
+          <div className="p-4 sm:p-8 bg-slate-50/50" ref={propertiesGridRef}>
+            <div key={activeTab} className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 animate-slide-up">
               {displayedProperties.length > 0 ? (
-                displayedProperties.map((property) => (
-                  <div key={property.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                displayedProperties.map((property, index) => (
+                  <div key={property.id} className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-col hover:shadow-md transition-shadow ${index >= 4 ? "hidden md:flex" : "flex"}`}>
                     <div className="aspect-[16/9] bg-slate-200 relative overflow-hidden">
                       <img 
                         src={property.image} 
                         alt={property.title} 
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-contain bg-slate-100"
                         style={{ objectPosition: (property as any).objectPosition || 'center' }}
                       />
                       {property.badges.map((badge, index) => (
@@ -1266,14 +1259,14 @@ const PropertyShowcase = () => {
                         </span>
                       ))}
                     </div>
-                    <div className="p-5 flex flex-col grow">
-                      <div className="text-xl font-bold text-slate-900 mb-1">{property.price}</div>
-                      <div className="text-base font-bold text-slate-800">{property.title}</div>
-                      <div className="text-xs text-slate-500 mb-3">{property.location}</div>
-                      <div className="text-xs text-slate-600 font-semibold mb-6 pb-4 border-b border-slate-100">
+                    <div className="p-3 md:p-5 flex flex-col grow">
+                      <div className="text-base md:text-xl font-bold text-slate-900 mb-1">{property.price}</div>
+                      <div className="text-sm md:text-base font-bold text-slate-800 leading-tight mb-1 md:mb-0">{property.title}</div>
+                      <div className="text-[10px] md:text-xs text-slate-500 mb-2 md:mb-3 truncate">{property.location}</div>
+                      <div className="text-[10px] md:text-xs text-slate-600 font-semibold mb-3 md:mb-6 pb-3 md:pb-4 border-b border-slate-100">
                         {property.specs}
                       </div>
-                      <button className="mt-auto w-full bg-slate-900 text-white py-2.5 rounded-xl font-bold text-xs uppercase tracking-wide">
+                      <button className="mt-auto w-full bg-slate-900 text-white py-2 md:py-2.5 rounded-lg md:rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-wide">
                         {property.cta}
                       </button>
                     </div>
@@ -1286,8 +1279,8 @@ const PropertyShowcase = () => {
               )}
             </div>
             
-            {filteredProperties.length > 9 && (
-              <div className="mt-12 flex justify-center">
+            {filteredProperties.length > 4 && (
+              <div className={`mt-12 flex justify-center ${filteredProperties.length <= 9 ? "md:hidden" : ""}`}>
                 <Link 
                   href="/properties"
                   className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-8 py-3 rounded-xl font-bold text-sm uppercase tracking-wide hover:border-slate-300 hover:bg-slate-50 transition-colors shadow-sm"
@@ -1309,6 +1302,20 @@ const PropertyShowcase = () => {
 };
 
 export default PropertyShowcase;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

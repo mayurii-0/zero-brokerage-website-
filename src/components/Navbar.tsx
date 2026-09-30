@@ -1,25 +1,28 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const handleTabClick = (tabName: string) => {
     window.dispatchEvent(new CustomEvent('switchTab', { detail: tabName }));
   };
 
   return (
     <div className="absolute top-0 inset-x-0 z-50 pt-4 sm:pt-6 px-4 sm:px-6 w-full font-sans pointer-events-none animate-slide-down">
-      <nav className="w-[96%] max-w-[1500px] mx-auto pointer-events-auto bg-white shadow-xl shadow-black/5 border border-slate-100 rounded-2xl sm:rounded-full px-4 sm:px-8">
+      <nav className="w-full sm:w-[96%] max-w-[1500px] mx-auto pointer-events-auto bg-white shadow-xl shadow-black/5 border border-slate-100 rounded-2xl sm:rounded-full px-4 sm:px-8">
         <div className="flex justify-between items-center h-16 sm:h-[4.25rem]">
           
           {/* Logo Section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <div className="flex items-center text-[#1ebbbb]">
-              <svg className="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+              <svg className="w-7 h-7 sm:w-9 sm:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V5a2 2 0 012-2h4a2 2 0 012 2v2m4 14V11a2 2 0 00-2-2h-4v12m-6-8h2m-2 4h2m6-8h2m-2 4h2" />
               </svg>
             </div>
-            <Link href="/" className="text-2xl font-extrabold tracking-tight">
+            <Link href="/" className="text-xl sm:text-2xl font-extrabold tracking-tight">
               <span className="text-[#0F172A] font-[800]">Zero</span>
               <span className="text-[#1ebbbb]">Broker</span>
             </Link>
@@ -67,7 +70,7 @@ const Navbar = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             <Link 
               href="#" 
               className="px-5 py-2.5 text-[#0F172A] font-bold text-xs uppercase tracking-wider hover:text-[#1ebbbb] transition-colors"
@@ -84,13 +87,45 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center">
-            <button className="text-[#0F172A] hover:text-[#4F46E5]">
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-[#0F172A] hover:text-[#1ebbbb] p-2"
+            >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
               </svg>
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu Panel */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="lg:hidden overflow-hidden border-t border-slate-100"
+            >
+              <div className="py-4 space-y-4 flex flex-col">
+                <Link href="/" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+                <Link href="/properties" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>Properties & Assets</Link>
+                <Link href="/services" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+                <Link href="/agency" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>For Agency</Link>
+                <Link href="/about" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
+                <Link href="/pricing" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
+                <div className="pt-4 flex flex-col gap-3 px-4 border-t border-slate-100">
+                  <Link href="#" className="w-full text-center px-5 py-3 text-[#0F172A] border border-slate-200 rounded-lg font-bold text-xs uppercase tracking-wider hover:bg-slate-50 transition-colors" onClick={() => setMobileMenuOpen(false)}>Agency Login</Link>
+                  <Link href="#" className="w-full text-center px-6 py-3 bg-[#0a0a0a] text-white rounded-lg font-bold text-xs uppercase tracking-wider hover:bg-black/80 transition-colors" onClick={() => setMobileMenuOpen(false)}>Get App</Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </div>
   );

@@ -9,7 +9,7 @@ const Hero = () => {
     <section className="relative w-full h-screen flex flex-col items-center justify-center">
       {/* Background Image & Overlay */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
       >
         <div className="absolute inset-0 bg-black/30"></div>
@@ -134,3 +134,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

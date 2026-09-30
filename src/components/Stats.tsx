@@ -67,7 +67,7 @@ const Stats = () => {
   const isVisible = useOnScreen(sectionRef);
 
   return (
-    <section ref={sectionRef} className="w-full bg-stone-50 pt-16 pb-8 px-4 md:px-8 font-sans overflow-hidden">
+    <section ref={sectionRef} className="w-full bg-stone-50 pt-8 md:pt-16 pb-8 px-4 md:px-8 font-sans overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         {/* Card 1: Property Listings */}
@@ -136,3 +136,4 @@ const Stats = () => {
 };
 
 export default Stats;
+

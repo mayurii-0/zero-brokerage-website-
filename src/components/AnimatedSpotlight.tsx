@@ -54,7 +54,7 @@ const AnimatedSpotlight = () => {
   const slide = SLIDES[currentIndex];
 
   return (
-    <div className="w-full relative overflow-hidden py-24 min-h-[600px] flex flex-col items-center justify-center">
+    <div className="w-full relative overflow-hidden py-10 lg:py-24 min-h-[auto] lg:min-h-[600px] flex flex-col items-center justify-center">
       
       {/* Blurred Background Image */}
       <AnimatePresence mode="wait">
@@ -71,7 +71,7 @@ const AnimatedSpotlight = () => {
         </motion.div>
       </AnimatePresence>
 
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
         
         {/* Left Text */}
         <div className="w-full lg:w-1/3 text-left">
@@ -99,7 +99,7 @@ const AnimatedSpotlight = () => {
         {/* Center Image - 3D Cube */}
         <div className="w-full lg:w-1/3 flex justify-center" style={{ perspective: '1200px' }}>
           <motion.div
-            className="relative w-[300px] h-[400px]"
+            className="relative w-[300px] h-[400px] scale-[0.8] sm:scale-100 origin-center -my-10 sm:my-0"
             style={{ transformStyle: 'preserve-3d' }}
             animate={{ rotateY: currentIndex * -90 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -165,3 +165,5 @@ const AnimatedSpotlight = () => {
 };
 
 export default AnimatedSpotlight;
+
+

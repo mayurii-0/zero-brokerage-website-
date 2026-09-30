@@ -107,7 +107,7 @@ const Services = () => {
       </ScrollReveal>
 
       {/* Main Banner Area */}
-      <div className="relative w-full h-screen min-h-[800px] overflow-hidden bg-black">
+      <div className="relative w-full h-screen min-h-[550px] sm:min-h-[700px] md:min-h-[800px] overflow-hidden bg-black">
         
         {/* Background Sliced Transition */}
         <div className="absolute inset-0 z-0">
@@ -120,7 +120,7 @@ const Services = () => {
 
 
         {/* Center Card */}
-        <div className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-[#d8cca3] w-[92%] max-w-[460px] py-10 px-10 flex flex-col items-center shadow-2xl z-20 rounded-sm">
+        <div className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-[#d8cca3] w-[92%] max-w-[460px] py-8 md:py-10 px-5 sm:px-10 flex flex-col items-center shadow-2xl z-20 rounded-sm">
           
           <div className="text-[11px] font-medium tracking-[0.3em] text-slate-700 mb-6 flex items-center gap-4">
             <AnimatePresence mode="wait">
@@ -137,7 +137,7 @@ const Services = () => {
             <span>0{SERVICES.length}</span>
           </div>
           
-          <div className="overflow-hidden mb-8 h-12 flex items-center justify-center">
+          <div className="overflow-hidden mb-8 min-h-[48px] sm:h-12 flex items-center justify-center w-full">
             <AnimatePresence mode="wait">
               <motion.h3 
                 key={activeService.title}
@@ -145,7 +145,7 @@ const Services = () => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -30, opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-4xl font-bold text-slate-900 text-center tracking-tight"
+                className="text-2xl sm:text-4xl font-bold text-slate-900 text-center tracking-tight leading-tight"
               >
                 {activeService.title}
               </motion.h3>
@@ -188,3 +188,6 @@ const Services = () => {
 };
 
 export default Services;
+
+
+
