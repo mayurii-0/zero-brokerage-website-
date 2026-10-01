@@ -9,12 +9,12 @@ const Footer = () => {
         Zero Broker
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-8 pt-20 pb-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 pt-8 md:pt-20 pb-6 md:pb-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 mb-6 md:mb-16">
           
           {/* Brand & Description (Col span 5) */}
           <div className="md:col-span-5 flex flex-col items-start">
-            <div className="mb-8">
+            <div className="mb-4 md:mb-8">
               {/* Logo / Brand */}
               <div className="flex items-center gap-3">
                 <div className="flex items-center text-[#1ebbbb]">
@@ -28,7 +28,7 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-            <p className="text-white/50 text-[15px] leading-relaxed max-w-sm mb-8 font-medium">
+            <p className="text-white/50 text-[15px] leading-relaxed max-w-sm mb-4 md:mb-8 font-medium">
               Transforming real estate with smarter property solutions, seamless connections, and a truly premium broker-free experience.
             </p>
             
@@ -51,8 +51,8 @@ const Footer = () => {
 
           {/* Quick Links (Col span 3) */}
           <div className="md:col-span-3 flex flex-col">
-            <h4 className="text-[13px] font-bold tracking-widest uppercase mb-8 text-white/90">QUICK LINKS</h4>
-            <ul className="flex flex-col gap-4">
+            <h4 className="text-[13px] font-bold tracking-widest uppercase mb-4 md:mb-8 text-white/90">QUICK LINKS</h4>
+            <ul className="flex flex-col gap-2 md:gap-4">
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'Properties & Assets', href: '#properties' },
@@ -72,8 +72,8 @@ const Footer = () => {
 
           {/* Contact Info (Col span 4) */}
           <div className="md:col-span-4 flex flex-col">
-            <h4 className="text-[13px] font-bold tracking-widest uppercase mb-8 text-white/90">CONTACT US</h4>
-            <ul className="flex flex-col gap-6">
+            <h4 className="text-[13px] font-bold tracking-widest uppercase mb-4 md:mb-8 text-white/90">CONTACT US</h4>
+            <ul className="flex flex-col gap-4 md:gap-6">
               <li>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@zerobroker.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white/50 hover:text-white text-[15px] font-medium transition-colors group">
                   <Mail size={18} className="text-white/40 group-hover:text-white/80 transition-colors" />
@@ -100,11 +100,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[11px] font-bold tracking-widest text-white/40 uppercase">
+        <div className="pt-4 md:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-4">
+          <p className="text-[11px] font-bold tracking-widest text-white/40 uppercase text-center md:text-left">
             © 2026 ZERO BROKER. ALL RIGHTS RESERVED.
           </p>
-          <div className="flex items-center gap-6 md:gap-8 text-[11px] font-bold tracking-widest text-white/40 uppercase">
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-[11px] font-bold tracking-widest text-white/40 uppercase text-center">
             <a href="#" className="hover:text-white transition-colors">PRIVACY POLICY</a>
             <a href="#" className="hover:text-white transition-colors">TERMS OF USE</a>
             <a href="#" className="hover:text-white transition-colors">COOKIE POLICY</a>

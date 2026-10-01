@@ -179,7 +179,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 12,
@@ -190,7 +190,7 @@ export const PROPERTIES = [
     "specs": "3 BHK • Semi-Furnished",
     "image": "https://images.unsplash.com/photo-1502672260266-1c1de2d93688?w=800&q=80",
     "badges": [],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 13,
@@ -207,7 +207,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 14,
@@ -224,7 +224,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 15,
@@ -235,7 +235,7 @@ export const PROPERTIES = [
     "specs": "1 BHK • Unfurnished",
     "image": "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=800&q=80",
     "badges": [],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 16,
@@ -252,7 +252,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 17,
@@ -263,7 +263,7 @@ export const PROPERTIES = [
     "specs": "5 BHK • Fully Furnished",
     "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
     "badges": [],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 18,
@@ -274,7 +274,7 @@ export const PROPERTIES = [
     "specs": "2 BHK • Unfurnished",
     "image": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&q=80",
     "badges": [],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 19,
@@ -291,7 +291,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 20,
@@ -308,7 +308,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Contact Owner"
+    "cta": "View Property"
   },
   {
     "id": 21,
@@ -325,7 +325,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 22,
@@ -342,7 +342,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 23,
@@ -359,7 +359,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 24,
@@ -376,7 +376,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 25,
@@ -387,7 +387,7 @@ export const PROPERTIES = [
     "specs": "5 Acres • Yielding Trees",
     "image": "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=800&q=80",
     "badges": [],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 26,
@@ -404,7 +404,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 27,
@@ -415,7 +415,7 @@ export const PROPERTIES = [
     "specs": "3 Acres • Commercial/Res",
     "image": "https://images.unsplash.com/photo-1484502249930-e1da807099a5?w=800&q=80",
     "badges": [],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 28,
@@ -432,7 +432,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 29,
@@ -443,7 +443,7 @@ export const PROPERTIES = [
     "specs": "10 Acres • Active Estate",
     "image": "https://images.unsplash.com/photo-1542385151-efd9000785a0?w=800&q=80",
     "badges": [],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 30,
@@ -460,7 +460,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 31,
@@ -477,7 +477,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Office Space"
+    "cta": "View Property"
   },
   {
     "id": 32,
@@ -494,7 +494,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Office Space"
+    "cta": "View Property"
   },
   {
     "id": 33,
@@ -511,7 +511,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Shop Details"
+    "cta": "View Property"
   },
   {
     "id": 34,
@@ -528,7 +528,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Book Desk"
+    "cta": "View Property"
   },
   {
     "id": 35,
@@ -539,7 +539,7 @@ export const PROPERTIES = [
     "specs": "Unfurnished • 4,000 Sq.Ft.",
     "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [],
-    "cta": "View Office Space"
+    "cta": "View Property"
   },
   {
     "id": 36,
@@ -550,7 +550,7 @@ export const PROPERTIES = [
     "specs": "Furnished • 1,200 Sq.Ft.",
     "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80",
     "badges": [],
-    "cta": "View Office Space"
+    "cta": "View Property"
   },
   {
     "id": 37,
@@ -567,7 +567,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Office Space"
+    "cta": "View Property"
   },
   {
     "id": 38,
@@ -584,7 +584,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "View Details"
+    "cta": "View Property"
   },
   {
     "id": 39,
@@ -595,7 +595,7 @@ export const PROPERTIES = [
     "specs": "3 Desks • Sea View",
     "image": "https://images.unsplash.com/photo-1497215898120-1d00c3b01859?w=800&q=80",
     "badges": [],
-    "cta": "View Office Space"
+    "cta": "View Property"
   },
   {
     "id": 40,
@@ -606,7 +606,7 @@ export const PROPERTIES = [
     "specs": "15 Desks • 1,500 Sq.Ft.",
     "image": "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?w=800&q=80",
     "badges": [],
-    "cta": "View Office Space"
+    "cta": "View Property"
   },
   {
     "id": 41,
@@ -623,7 +623,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Rent Bundle"
+    "cta": "View Property"
   },
   {
     "id": 42,
@@ -640,7 +640,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Rent Bundle"
+    "cta": "View Property"
   },
   {
     "id": 43,
@@ -651,7 +651,7 @@ export const PROPERTIES = [
     "specs": "1 Sit-Stand Desk • 1 Mesh Chair",
     "image": "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?w=800&q=80",
     "badges": [],
-    "cta": "Rent Items"
+    "cta": "View Property"
   },
   {
     "id": 44,
@@ -662,7 +662,7 @@ export const PROPERTIES = [
     "specs": "4 Tables • 16 Chairs",
     "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80",
     "badges": [],
-    "cta": "Rent Bundle"
+    "cta": "View Property"
   },
   {
     "id": 45,
@@ -679,7 +679,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Rent Bundle"
+    "cta": "View Property"
   },
   {
     "id": 46,
@@ -690,7 +690,7 @@ export const PROPERTIES = [
     "specs": "20 Folding Desks • 20 Chairs",
     "image": "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=800&q=80",
     "badges": [],
-    "cta": "Rent Bundle"
+    "cta": "View Property"
   },
   {
     "id": 47,
@@ -707,7 +707,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Rent Bundle"
+    "cta": "View Property"
   },
   {
     "id": 48,
@@ -718,7 +718,7 @@ export const PROPERTIES = [
     "specs": "1 Simple Desk • 1 Office Chair",
     "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80",
     "badges": [],
-    "cta": "Rent Combo"
+    "cta": "View Property"
   },
   {
     "id": 49,
@@ -729,7 +729,7 @@ export const PROPERTIES = [
     "specs": "5 Connected Desks • Pedestals",
     "image": "https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?w=800&q=80",
     "badges": [],
-    "cta": "Rent Bundle"
+    "cta": "View Property"
   },
   {
     "id": 50,
@@ -746,7 +746,7 @@ export const PROPERTIES = [
         "position": "left-3"
       }
     ],
-    "cta": "Rent Bundle"
+    "cta": "View Property"
   }
 ];
 
@@ -1239,10 +1239,10 @@ const PropertyShowcase = () => {
 
           {/* 3. Property Cards Grid */}
           <div className="p-4 sm:p-8 bg-slate-50/50" ref={propertiesGridRef}>
-            <div key={activeTab} className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 animate-slide-up">
+            <div key={activeTab} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-slide-up">
               {displayedProperties.length > 0 ? (
                 displayedProperties.map((property, index) => (
-                  <div key={property.id} className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-col hover:shadow-md transition-shadow ${index >= 4 ? "hidden md:flex" : "flex"}`}>
+                  <div key={property.id} className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-col hover:shadow-md transition-shadow w-full max-w-[320px] mx-auto sm:max-w-none ${index >= 4 ? "hidden md:flex" : "flex"}`}>
                     <div className="aspect-[16/9] bg-slate-200 relative overflow-hidden">
                       <img 
                         src={property.image} 
@@ -1250,14 +1250,6 @@ const PropertyShowcase = () => {
                         className="absolute inset-0 w-full h-full object-contain bg-slate-100"
                         style={{ objectPosition: (property as any).objectPosition || 'center' }}
                       />
-                      {property.badges.map((badge, index) => (
-                        <span 
-                          key={index} 
-                          className={`absolute top-3 ${badge.position} ${badge.style} text-[10px] font-bold px-2.5 py-1 rounded uppercase tracking-wide`}
-                        >
-                          {badge.text}
-                        </span>
-                      ))}
                     </div>
                     <div className="p-3 md:p-5 flex flex-col grow">
                       <div className="text-base md:text-xl font-bold text-slate-900 mb-1">{property.price}</div>

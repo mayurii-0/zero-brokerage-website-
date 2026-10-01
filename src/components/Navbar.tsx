@@ -45,12 +45,12 @@ const Navbar = () => {
               
               <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-[#E2E8F0] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="py-2">
-                  <Link href="/services/buy" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Buy</Link>
-                  <Link href="/services/rent-lease" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Rent / Lease</Link>
-                  <Link href="/services/lands-and-farmlands" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Lands & Farmlands</Link>
-                  <Link href="/services/furniture-rentals" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Furniture Rentals</Link>
-                  <Link href="/services/commercial-offices" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Commercial Offices</Link>
-                  <Link href="/services/residential-properties" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Residential Properties</Link>
+                  <Link href="/properties#properties-buy" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Buy</Link>
+                  <Link href="/properties#properties-rent" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Rent / Lease</Link>
+                  <Link href="/properties#properties-lands" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Lands & Farmlands</Link>
+                  <Link href="/properties#properties-furniture" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Furniture Rentals</Link>
+                  <Link href="/properties#properties-commercial" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Commercial Offices</Link>
+                  <Link href="/properties" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Residential Properties</Link>
                 </div>
               </div>
             </div>

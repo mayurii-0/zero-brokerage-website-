@@ -61,7 +61,7 @@ const AboutSection = () => {
   const slide = ABOUT_SLIDES[activeIndex];
 
   return (
-    <section className="w-full bg-stone-50 py-16 md:py-20 px-4 md:px-8">
+    <section className="w-full bg-stone-50 pt-16 pb-8 md:py-20 px-4 md:px-8">
       
       {/* Top Heading */}
       <ScrollReveal yOffset={40}>
@@ -77,7 +77,7 @@ const AboutSection = () => {
       </ScrollReveal>
 
       {/* Rounded Outer Card */}
-      <div className="w-full max-w-7xl mx-auto rounded-[28px] md:rounded-[40px] overflow-hidden border border-white/10 bg-[#050505] text-white flex flex-col lg:flex-row min-h-[650px] shadow-2xl relative">
+      <div className="w-full max-w-7xl mx-auto rounded-[28px] md:rounded-[40px] overflow-hidden border border-white/10 bg-[#050505] text-white flex flex-col lg:flex-row min-h-0 md:min-h-[650px] shadow-2xl relative">
         
         {/* Left Side: Images */}
         <div className="w-full lg:w-1/2 relative h-[280px] md:h-[450px] lg:h-auto overflow-hidden bg-[#050505]">
@@ -121,7 +121,7 @@ const AboutSection = () => {
         </div>
 
         {/* Right Side: Content */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-between p-8 md:p-12 lg:p-16 relative z-20">
+        <div className="w-full lg:w-1/2 flex flex-col justify-between px-6 pt-6 pb-6 md:p-12 lg:p-16 relative z-20">
           
           {/* Top Bar: List & Big Number */}
           <div className="hidden lg:flex justify-between items-start w-full">
@@ -158,7 +158,7 @@ const AboutSection = () => {
           </div>
 
           {/* Center Content */}
-          <div className="mt-10 lg:mt-0 flex flex-col justify-center flex-grow overflow-hidden relative min-h-[350px] lg:min-h-0">
+          <div className="mt-2 lg:mt-0 flex flex-col justify-center flex-grow overflow-hidden relative h-[210px] md:h-auto md:min-h-[350px] lg:min-h-0">
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={slide.id}
@@ -174,10 +174,10 @@ const AboutSection = () => {
                 <h3 className="text-xl md:text-2xl text-[#d4c5b0] font-serif italic leading-tight mb-6 max-w-md">
                   {slide.headline}
                 </h3>
-                <p className="text-sm md:text-base text-white/70 leading-relaxed font-light max-w-md mb-8">
+                <p className="text-sm md:text-base text-white/70 leading-relaxed font-light max-w-md mb-0 md:mb-8">
                   {slide.desc}
                 </p>
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4 max-w-sm">
+                <div className="hidden md:block bg-white/5 border border-white/10 rounded-xl p-4 max-w-sm">
                   <p className="text-[10px] font-bold text-white/40 tracking-widest uppercase mb-2">Key Focus</p>
                   <p className="text-xs md:text-sm text-white/90 font-medium leading-snug">
                     {slide.location.replace('Key focus: ', '')}
@@ -188,9 +188,9 @@ const AboutSection = () => {
           </div>
 
           {/* Bottom Link */}
-          <div className="mt-10 lg:mt-0 w-full flex items-center gap-4">
+          <div className="mt-6 md:mt-10 lg:mt-0 w-full flex items-center gap-4">
             <Link href="/about" className="text-xs md:text-sm font-bold text-white/80 hover:text-white uppercase tracking-wider transition-colors whitespace-nowrap">
-              More Details
+              ABOUT US
             </Link>
             <div className="h-[1px] w-full bg-white/10"></div>
           </div>

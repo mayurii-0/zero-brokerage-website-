@@ -519,13 +519,13 @@ export default function PropertiesPage() {
                   setShowMoreFilters(false); 
                   setAppliedFilters({ searchTerm: '', category: 'All', city: 'All Cities', propertyType: 'All Types', propertyStatus: 'All', bhk: 'Any BHK', listedBy: 'All', minPrice: '', maxPrice: '', minSize: '', maxSize: '' });
                 }}
-                className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors text-sm w-full md:w-auto"
+                className="px-4 py-2 sm:px-6 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors text-xs sm:text-sm w-full md:w-auto"
               >
                 CLEAR FILTERS
               </button>
               <button 
                 onClick={() => setAppliedFilters({ searchTerm, category, city, propertyType, propertyStatus, bhk, listedBy, minPrice, maxPrice, minSize, maxSize })}
-                className="px-8 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl transition-colors shadow-lg text-sm w-full md:w-auto"
+                className="px-4 py-2 sm:px-8 sm:py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl transition-colors shadow-lg text-xs sm:text-sm w-full md:w-auto"
               >
                 SHOW PROPERTIES
               </button>
@@ -534,35 +534,27 @@ export default function PropertiesPage() {
         </div>
 
         {/* Properties Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
           {paginatedProperties.length > 0 ? (
             paginatedProperties.map((item) => (
-              <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col">
-                <div className="aspect-[4/3] sm:h-64 w-full relative group cursor-pointer overflow-hidden bg-slate-100">
+              <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col w-full max-w-[320px] mx-auto sm:max-w-none">
+                <div className="aspect-video sm:aspect-auto sm:h-64 w-full relative group cursor-pointer overflow-hidden bg-slate-100">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">
-                    {item.category}
-                  </div>
-                  {item.badges.map((b, i) => (
-                    <div key={i} className={`absolute bottom-4 ${b.position} ${b.style} text-[10px] font-bold px-2 py-1 rounded shadow-sm`}>
-                      {b.text}
-                    </div>
-                  ))}
                 </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start mb-2 gap-2 sm:gap-0">
-                    <h3 className="text-xl font-bold text-slate-900 line-clamp-1">{item.title}</h3>
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                  <div className="flex flex-col sm:flex-row justify-between items-start mb-1 sm:mb-2 gap-1 sm:gap-0">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 line-clamp-1">{item.title}</h3>
                   </div>
-                  <p className="text-sm text-slate-500 mb-4">{item.location}</p>
-                  <p className="text-slate-600 text-sm font-medium mb-6">
+                  <p className="text-xs sm:text-sm text-slate-500 mb-3 sm:mb-4">{item.location}</p>
+                  <p className="text-slate-600 text-xs sm:text-sm font-medium mb-4 sm:mb-6">
                     {item.specs}
                   </p>
-                  <div className="mt-auto flex justify-between items-center pt-4 border-t border-slate-100">
+                  <div className="mt-auto flex justify-between items-center pt-3 sm:pt-4 border-t border-slate-100">
                     <div>
-                      <span className="text-xl font-bold text-[#1ebbbb]">{item.price}</span>
-                      <p className="text-[10px] uppercase text-slate-400 font-bold mt-1 tracking-wider">By {item.listedBy}</p>
+                      <span className="text-lg sm:text-xl font-bold text-[#1ebbbb]">{item.price}</span>
+                      <p className="text-[9px] sm:text-[10px] uppercase text-slate-400 font-bold mt-0.5 sm:mt-1 tracking-wider">By {item.listedBy}</p>
                     </div>
-                    <button className="bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm px-4 py-2 rounded-lg transition-colors">
+                    <button className="bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-colors">
                       {item.cta}
                     </button>
                   </div>

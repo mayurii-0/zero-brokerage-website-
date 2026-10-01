@@ -171,10 +171,10 @@ export default function SubscriptionSection() {
               <div 
                 key={idx} 
                 onClick={() => setSelectedPlan(plan.name)}
-                className={`relative rounded-3xl p-8 flex flex-col h-full transition-all duration-300 cursor-pointer ${
+                className={`relative rounded-3xl p-5 sm:p-8 flex flex-col h-full transition-all duration-300 cursor-pointer w-full max-w-[320px] mx-auto sm:max-w-none shadow-md sm:shadow-none ${
                   isSelected 
-                    ? 'bg-white border-2 border-indigo-600 shadow-xl shadow-indigo-100 -translate-y-2' 
-                    : 'bg-white border-2 border-slate-100 hover:border-slate-300 hover:shadow-lg hover:-translate-y-1'
+                    ? 'bg-white border-2 border-indigo-600 shadow-xl shadow-indigo-100 sm:-translate-y-2' 
+                    : 'bg-white border-2 border-slate-100 hover:border-slate-300 hover:shadow-lg hover:sm:-translate-y-1'
                 }`}
               >
                 {plan.popular && !isSelected && (
@@ -192,28 +192,28 @@ export default function SubscriptionSection() {
                   </div>
                 )}
 
-                <div className="mb-8 border-b border-slate-100 pb-6">
-                  <h3 className="text-xl font-bold mb-3 text-slate-900">{plan.name}</h3>
-                  <p className="text-sm text-slate-500 min-h-[40px] leading-relaxed">{plan.description}</p>
+                <div className="mb-3 sm:mb-5 border-b border-slate-100 pb-3 sm:pb-4">
+                  <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2 text-slate-900">{plan.name}</h3>
+                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">{plan.description}</p>
                 </div>
 
-                <div className="mb-8">
+                <div className="mb-3 sm:mb-5">
                   <div className="flex items-end gap-1">
-                    <span className="text-4xl font-extrabold tracking-tight text-slate-900">{plan.price}</span>
-                    <span className="text-sm font-medium pb-1 text-slate-500">{plan.period}</span>
+                    <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">{plan.price}</span>
+                    <span className="text-xs sm:text-sm font-medium pb-1 text-slate-500">{plan.period}</span>
                   </div>
                 </div>
 
-                <ul className="space-y-4 mb-10 flex-grow">
+                <ul className="space-y-2 sm:space-y-4 mb-6 sm:mb-10 flex-grow">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <Check className={`w-5 h-5 shrink-0 mt-0.5 ${isSelected ? 'text-indigo-600' : 'text-slate-400'}`} />
-                      <span className="text-sm font-medium leading-relaxed text-slate-700">{feature}</span>
+                      <Check className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5 ${isSelected ? 'text-indigo-600' : 'text-slate-400'}`} />
+                      <span className="text-xs sm:text-sm font-medium leading-relaxed text-slate-700">{feature}</span>
                     </li>
                   ))}
                 </ul>
 
-                <button className={`w-full py-4 rounded-xl font-bold text-sm tracking-wide transition-all ${
+                <button className={`w-full py-3 sm:py-4 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all ${
                   isSelected
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200'
                     : 'bg-slate-100 text-slate-900 hover:bg-slate-200'

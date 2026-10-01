@@ -91,8 +91,8 @@ const AgencyFeatures = () => {
         </h2>
       </div>
 
-      {/* Full-width Seamless Carousel */}
-      <div className="w-full relative overflow-hidden flex flex-col items-center">
+      {/* Desktop Full-width Seamless Carousel */}
+      <div className="hidden md:flex w-full relative overflow-hidden flex-col items-center">
         <motion.div 
           className="flex w-[300%]" // 3 blocks (1: 1-3, 2: 4-6, 3: 1-3)
           animate={{ x: getTransform() }}
@@ -103,18 +103,18 @@ const AgencyFeatures = () => {
             FEATURES.slice(3, 6), // Block 2
             FEATURES.slice(0, 3)  // Block 3 (Duplicate for seamless forward loop)
           ].map((block, blockIdx) => (
-            <div key={blockIdx} className="w-1/3 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8">
+            <div key={blockIdx} className="w-1/3 grid grid-cols-3 gap-8 px-8">
               {block.map((feature) => (
                 <div
                   key={`${blockIdx}-${feature.id}`}
-                  className="w-full h-full rounded-[24px] p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+                  className="w-full h-full rounded-[24px] p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]
                              bg-gradient-to-b from-white via-white to-[#d6ded0]
                              hover:shadow-[0_20px_40px_rgb(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-start border border-white/70 relative"
                 >
-                  <div className="text-[36px] md:text-[48px] font-medium text-slate-900 mb-6 md:mb-10 leading-none">
+                  <div className="text-[48px] font-medium text-slate-900 mb-10 leading-none">
                     {feature.id}
                   </div>
-                  <h3 className="text-xl md:text-[22px] font-bold text-slate-900 mb-4 leading-snug uppercase">
+                  <h3 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug uppercase">
                     {feature.title}
                   </h3>
                   <p className="text-[15px] text-slate-600 leading-relaxed font-medium mt-auto">
@@ -125,6 +125,28 @@ const AgencyFeatures = () => {
             </div>
           ))}
         </motion.div>
+      </div>
+
+      {/* Mobile Swipeable Carousel */}
+      <div className="flex md:hidden w-full overflow-x-auto snap-x snap-mandatory gap-4 px-4 pb-12 scrollbar-hide">
+        {FEATURES.map((feature) => (
+          <div
+            key={feature.id}
+            className="min-w-[85vw] snap-center rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+                       bg-gradient-to-b from-white via-white to-[#d6ded0]
+                       flex flex-col justify-start border border-white/70 relative h-auto"
+          >
+            <div className="text-[36px] font-medium text-slate-900 mb-4 sm:mb-6 leading-none">
+              {feature.id}
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 mb-2 sm:mb-4 leading-snug uppercase">
+              {feature.title}
+            </h3>
+            <p className="text-[15px] text-slate-600 leading-relaxed font-medium mt-auto">
+              {feature.desc}
+            </p>
+          </div>
+        ))}
       </div>
 
 

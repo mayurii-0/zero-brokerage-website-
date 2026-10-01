@@ -40,7 +40,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-base md:text-lg text-white/90 font-medium max-w-2xl mb-10 leading-relaxed"
           >
-            Discover breathtaking villas, timeless interiors, and stunning exteriors — all curated for those who desire more than just a home.
+            Discover premium properties, trusted listings, and exceptional spaces — all in one place, designed to make your property journey simpler.
           </motion.p>
         </div>
 

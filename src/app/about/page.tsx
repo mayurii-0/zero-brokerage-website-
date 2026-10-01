@@ -1,5 +1,7 @@
 import React from 'react';
 import { Shield, Users, Building2, CheckCircle2, Globe, TrendingUp } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AboutPage() {
   return (
@@ -52,7 +54,7 @@ export default function AboutPage() {
             </div>
             
             <div className="relative">
-              <div className="absolute inset-0 bg-indigo-600 rounded-3xl transform translate-x-4 translate-y-4 opacity-10"></div>
+              <div className="absolute inset-0 bg-[#1ebbbb] rounded-3xl transform translate-x-4 translate-y-4 opacity-10"></div>
               <img 
                 src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop" 
                 alt="Modern Architecture" 
@@ -142,33 +144,17 @@ export default function AboutPage() {
               </ul>
             </div>
             
-            <div className="relative">
-              <div className="aspect-square rounded-full border border-slate-700 absolute -top-20 -right-20 w-[600px] h-[600px]"></div>
-              <div className="aspect-square rounded-full border border-slate-800 absolute -top-40 -right-40 w-[800px] h-[800px]"></div>
-              <div className="bg-slate-800 p-8 rounded-3xl border border-slate-700 relative z-10 shadow-2xl">
-                <div className="flex items-center gap-4 mb-6 pb-6 border-b border-slate-700">
-                  <div className="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center">
-                    <Shield className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-lg">Verified Owner</p>
-                    <p className="text-xs text-slate-400 uppercase tracking-widest">ID: ZB-9982-A</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-400 text-sm">Phone Verification</span>
-                    <span className="text-emerald-400 text-sm font-bold flex items-center gap-1"><CheckCircle2 className="w-4 h-4"/> Passed</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-400 text-sm">Govt ID Check</span>
-                    <span className="text-emerald-400 text-sm font-bold flex items-center gap-1"><CheckCircle2 className="w-4 h-4"/> Passed</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-400 text-sm">Property Deed</span>
-                    <span className="text-emerald-400 text-sm font-bold flex items-center gap-1"><CheckCircle2 className="w-4 h-4"/> Passed</span>
-                  </div>
-                </div>
+            <div className="flex justify-center lg:justify-end items-center w-full">
+              <div className="relative flex justify-center items-center w-[400px] h-[400px] lg:w-[500px] lg:h-[500px]">
+                <div className="aspect-square rounded-full border border-slate-700 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] lg:w-[600px] lg:h-[600px]"></div>
+                <div className="aspect-square rounded-full border border-slate-800 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] lg:w-[800px] lg:h-[800px]"></div>
+                <Image 
+                  src="/security-shield.png" 
+                  alt="Security Shield" 
+                  width={450}
+                  height={450}
+                  className="relative z-10 w-full max-w-[350px] lg:max-w-md object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500" 
+                />
               </div>
             </div>
           </div>
@@ -176,16 +162,16 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-indigo-600 text-center px-4">
-        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Ready to Experience Zero Brokerage?</h2>
-        <p className="text-indigo-100 mb-10 text-lg max-w-2xl mx-auto">Join thousands of verified owners, buyers, and top-tier agencies currently reshaping the real estate market.</p>
-        <div className="flex justify-center gap-4">
-          <a href="/#properties-buy" className="bg-white text-indigo-900 px-8 py-4 rounded-xl font-bold uppercase tracking-wide hover:bg-indigo-50 transition-colors shadow-lg">
-            Start Searching
-          </a>
-          <a href="/#pricing" className="border-2 border-indigo-400 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-wide hover:bg-indigo-700 transition-colors">
+      <section className="py-24 bg-stone-50 text-center px-4">
+        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Ready to Experience Zero Brokerage?</h2>
+        <p className="text-slate-600 mb-10 text-lg max-w-2xl mx-auto">Join thousands of verified owners, buyers, and top-tier agencies currently reshaping the real estate market.</p>
+        <div className="group flex flex-col sm:flex-row justify-center gap-4 max-w-sm mx-auto sm:max-w-none">
+          <Link href="/properties" className="border-2 border-[#1ebbbb] bg-[#1ebbbb] text-white px-8 py-4 rounded-xl font-bold uppercase tracking-wide group-hover:bg-white group-hover:text-slate-700 group-hover:border-slate-200 hover:!bg-[#199d9d] hover:!text-white hover:!border-[#199d9d] hover:-translate-y-1 hover:shadow-lg hover:scale-105 transition-all duration-300 shadow-sm">
+            Start Exploring
+          </Link>
+          <Link href="/pricing" className="border-2 border-slate-200 bg-white text-slate-700 px-8 py-4 rounded-xl font-bold uppercase tracking-wide hover:bg-[#1ebbbb] hover:text-white hover:border-[#1ebbbb] hover:-translate-y-1 hover:shadow-lg hover:scale-105 transition-all duration-300 shadow-sm">
             View Pricing
-          </a>
+          </Link>
         </div>
       </section>
     </div>

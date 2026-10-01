@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 const SLIDES = [
   {
@@ -10,7 +11,8 @@ const SLIDES = [
     desc: "A stylish furnished home designed for comfortable, flexible city living.",
     price: "₹45K / mo • 2 BHK • Mumbai",
     image: "/images/urban-stay.jpg",
-    cta: "View Property →"
+    cta: "View Property →",
+    href: "/properties#properties-rent"
   },
   {
     id: 2,
@@ -19,7 +21,8 @@ const SLIDES = [
     desc: "Fully furnished workspace designed for teams ready to move in and get started.",
     price: "₹1.25L / mo • 20 Seats • Pune",
     image: "/images/business-workspace.jpg",
-    cta: "Explore Listing →"
+    cta: "Explore Listing →",
+    href: "/properties#properties-commercial"
   },
   {
     id: 3,
@@ -28,7 +31,8 @@ const SLIDES = [
     desc: "Freshly listed 3 BHK residence with contemporary interiors, natural light, and premium amenities.",
     price: "₹1.85 Cr • 3 BHK • Indore",
     image: "/images/modern-residence.jpg",
-    cta: "Explore Listing →"
+    cta: "Explore Listing →",
+    href: "/properties#properties-buy"
   },
   {
     id: 4,
@@ -37,7 +41,8 @@ const SLIDES = [
     desc: "Well-connected land parcel offering space for future development and long-term plans.",
     price: "₹85L • 1.5 Acres • Indore",
     image: "/images/greenfield-land.jpg",
-    cta: "Explore Opportunity →"
+    cta: "Explore Opportunity →",
+    href: "/properties#properties-lands"
   }
 ];
 
@@ -54,7 +59,7 @@ const AnimatedSpotlight = () => {
   const slide = SLIDES[currentIndex];
 
   return (
-    <div className="w-full relative overflow-hidden py-10 lg:py-24 min-h-[auto] lg:min-h-[600px] flex flex-col items-center justify-center">
+    <div className="w-full relative overflow-hidden py-6 sm:py-10 lg:py-24 min-h-[auto] lg:min-h-[600px] flex flex-col items-center justify-center">
       
       {/* Blurred Background Image */}
       <AnimatePresence mode="wait">
@@ -71,7 +76,7 @@ const AnimatedSpotlight = () => {
         </motion.div>
       </AnimatePresence>
 
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-8 lg:gap-16">
         
         {/* Left Text */}
         <div className="w-full lg:w-1/3 text-left">
@@ -83,23 +88,27 @@ const AnimatedSpotlight = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-[10px] font-bold text-[#1ebbbb] uppercase tracking-widest mb-4">
+              <p className="text-[10px] font-bold text-[#1ebbbb] uppercase tracking-widest mb-2 sm:mb-4">
                 {slide.tag}
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-5">
-                {slide.title}
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-2 sm:mb-5">
+                <span className="bg-[#113f9c] px-3 py-1 box-decoration-clone leading-[1.4]">
+                  {slide.title}
+                </span>
               </h2>
-              <p className="text-slate-300 text-xs md:text-sm leading-relaxed max-w-sm">
-                {slide.desc}
+              <p className="text-slate-100 text-xs md:text-sm leading-relaxed max-w-sm mt-2">
+                <span className="bg-[#113f9c] px-3 py-1.5 box-decoration-clone leading-[1.6]">
+                  {slide.desc}
+                </span>
               </p>
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* Center Image - 3D Cube */}
-        <div className="w-full lg:w-1/3 flex justify-center" style={{ perspective: '1200px' }}>
+        <div className="w-full lg:w-1/3 flex justify-center py-2 sm:py-0" style={{ perspective: '1200px' }}>
           <motion.div
-            className="relative w-[300px] h-[400px] scale-[0.8] sm:scale-100 origin-center -my-10 sm:my-0"
+            className="relative w-[300px] h-[400px] scale-[0.6] sm:scale-100 origin-center -my-20 sm:my-0"
             style={{ transformStyle: 'preserve-3d' }}
             animate={{ rotateY: currentIndex * -90 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -137,7 +146,7 @@ const AnimatedSpotlight = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <h3 className="text-xl md:text-2xl font-bold text-white leading-snug mb-8">
+              <h3 className="text-xl md:text-2xl font-bold text-white leading-snug mb-4 sm:mb-8">
                 {slide.price.split('•').map((part, i, arr) => (
                   <React.Fragment key={i}>
                     {part.trim()} 
@@ -146,7 +155,7 @@ const AnimatedSpotlight = () => {
                 ))}
               </h3>
               
-              <button className="bg-[#1ebbbb] hover:bg-[#159a9a] text-white px-6 py-3.5 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all shadow-lg w-max">
+              <Link href={slide.href} className="bg-[#1ebbbb] hover:bg-[#159a9a] text-white px-6 py-3.5 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all shadow-lg w-max">
                 {slide.cta || "Unlock Listing Details"}
                 {!(slide.cta && slide.cta.includes('→')) && (
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 ml-1">
@@ -154,7 +163,7 @@ const AnimatedSpotlight = () => {
                     <polyline points="7 7 17 7 17 17"></polyline>
                   </svg>
                 )}
-              </button>
+              </Link>
             </motion.div>
           </AnimatePresence>
         </div>

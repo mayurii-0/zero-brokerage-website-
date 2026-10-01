@@ -93,7 +93,6 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
   
   return (
     <main className="min-h-screen bg-stone-50 flex flex-col pt-24 font-sans">
-      <Navbar />
       
       <div className="flex-grow flex flex-col md:flex-row items-center justify-between px-4 md:px-12 lg:px-24 py-16 gap-12 max-w-[1600px] mx-auto w-full">
         
@@ -154,7 +153,6 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
 
       </div>
 
-      <Footer />
     </main>
   );
 }
