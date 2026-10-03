@@ -67,30 +67,30 @@ export default function PricingPage() {
   };
 
   return (
-    <main className="pt-48 min-h-screen flex flex-col items-center px-4 bg-stone-50 overflow-hidden">
+    <main className="pt-24 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4 bg-stone-50 overflow-hidden">
       <div className="max-w-[1400px] mx-auto w-full">
-        <div className="text-center mb-12">
-          <p className="text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-4">SUBSCRIPTION PLANS</p>
-          <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tight text-slate-900 mb-6">
+        <div className="text-center mb-6 md:mb-12">
+          <p className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-2 md:mb-4">SUBSCRIPTION PLANS</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-slate-900 mb-3 md:mb-6 leading-tight px-2">
             Monetization & Architecture
           </h1>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-600 max-w-2xl mx-auto text-[13px] sm:text-[15px] md:text-lg px-2 leading-relaxed">
             Choose a plan tailored to your needs. From micro-passes for casual seekers to platinum enterprise solutions for top builders.
           </p>
         </div>
 
         {/* Toggle Switch */}
-        <div className="flex justify-center mb-24 lg:mb-40">
-          <div className="bg-white p-1.5 rounded-full border border-slate-200 shadow-sm inline-flex">
+        <div className="flex justify-center mb-8 lg:mb-40">
+          <div className="bg-white p-1 md:p-1.5 rounded-[2rem] border border-slate-200 shadow-sm flex max-w-full">
             <button 
               onClick={() => setActiveTab('seekers')}
-              className={`px-6 md:px-8 py-3 rounded-full font-bold text-xs md:text-sm transition-all ${activeTab === 'seekers' ? 'bg-[#1ebbbb] text-white shadow-md' : 'text-slate-600 hover:text-slate-900'}`}
+              className={`px-3 md:px-8 py-2 md:py-3 rounded-[2rem] font-bold text-[10px] sm:text-[11px] md:text-sm transition-all flex-1 text-center leading-snug ${activeTab === 'seekers' ? 'bg-[#1ebbbb] text-white shadow-md' : 'text-slate-600 hover:text-slate-900'}`}
             >
               User Subscription Plans
             </button>
             <button 
               onClick={() => setActiveTab('agency')}
-              className={`px-6 md:px-8 py-3 rounded-full font-bold text-xs md:text-sm transition-all ${activeTab === 'agency' ? 'bg-[#1ebbbb] text-white shadow-md' : 'text-slate-600 hover:text-slate-900'}`}
+              className={`px-3 md:px-8 py-2 md:py-3 rounded-[2rem] font-bold text-[10px] sm:text-[11px] md:text-sm transition-all flex-1 text-center leading-snug ${activeTab === 'agency' ? 'bg-[#1ebbbb] text-white shadow-md' : 'text-slate-600 hover:text-slate-900'}`}
             >
               Agency, Broker & Builder Plans
             </button>
@@ -99,7 +99,7 @@ export default function PricingPage() {
         
         {/* Seekers Pricing (5 Tiers) */}
         {activeTab === 'seekers' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 pb-32 animate-fade-in relative px-4 lg:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 pb-12 md:pb-32 animate-fade-in relative px-4 lg:px-0">
             {renderCard(
               'micro-pass',
               'Micro-Pass',
@@ -165,7 +165,7 @@ export default function PricingPage() {
 
         {/* Agency/Broker/Builder Pricing (3 Tiers) */}
         {activeTab === 'agency' && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-32 animate-fade-in max-w-5xl mx-auto px-4 lg:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 md:pb-32 animate-fade-in max-w-5xl mx-auto px-4 lg:px-0">
             {renderCard(
               'silver-partner',
               'Silver Partner',

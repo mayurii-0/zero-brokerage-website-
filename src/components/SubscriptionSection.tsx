@@ -125,8 +125,8 @@ export default function SubscriptionSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-indigo-600 font-bold tracking-widest uppercase text-sm mb-4 block">Monetization & Subscriptions</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight leading-tight">Zero Brokerage,<br/> Transparent Access.</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">Choose the perfect tier for your property journey. From quick micro-passes for buyers to enterprise CRM tools for agencies.</p>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 md:mb-6 tracking-tight leading-tight px-2">Zero Brokerage,<br/> Transparent Access.</h2>
+          <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto px-4">Choose the perfect tier for your property journey. From quick micro-passes for buyers to enterprise CRM tools for agencies.</p>
         </div>
 
         {/* Toggle */}
@@ -137,7 +137,7 @@ export default function SubscriptionSection() {
                 setActiveTab('user');
                 setSelectedPlan(null);
               }}
-              className={`relative z-10 px-8 py-3.5 text-sm font-bold tracking-wide transition-colors duration-300 rounded-full ${
+              className={`relative z-10 px-4 md:px-8 py-2 md:py-3.5 text-xs md:text-sm font-bold tracking-wide transition-colors duration-300 rounded-full ${
                 activeTab === 'user' ? 'text-slate-900' : 'text-slate-500 hover:text-slate-700'
               }`}
             >
@@ -148,7 +148,7 @@ export default function SubscriptionSection() {
                 setActiveTab('agency');
                 setSelectedPlan(null);
               }}
-              className={`relative z-10 px-8 py-3.5 text-sm font-bold tracking-wide transition-colors duration-300 rounded-full ${
+              className={`relative z-10 px-4 md:px-8 py-2 md:py-3.5 text-xs md:text-sm font-bold tracking-wide transition-colors duration-300 rounded-full ${
                 activeTab === 'agency' ? 'text-slate-900' : 'text-slate-500 hover:text-slate-700'
               }`}
             >

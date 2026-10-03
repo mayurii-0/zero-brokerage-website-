@@ -3,6 +3,14 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import AnimatedSpotlight from './AnimatedSpotlight';
+import ImageCarousel from './ImageCarousel';
+import { Star } from 'lucide-react';
+
+const DUMMY_IMAGES = [
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753086-00f18efc2291?w=800&q=80"
+];
 
 const TABS = ["Buy", "Rent / Lease", "Lands & Farmlands", "Furniture Rentals", "Commercial Offices"];
 
@@ -800,6 +808,14 @@ const PropertyShowcase = () => {
   };
 
   const handleShowProperties = () => {
+    if (minPrice && maxPrice && parseFloat(maxPrice) < parseFloat(minPrice)) {
+      alert("Maximum Price cannot be less than Minimum Price!");
+      return;
+    }
+    if (minSize && maxSize && parseFloat(maxSize) < parseFloat(minSize)) {
+      alert("Maximum Size cannot be less than Minimum Size!");
+      return;
+    }
     setAppliedFilters({ searchTerm, city, propertyType, propertyStatus, bhk, listedBy, minPrice, maxPrice, minSize, maxSize });
     if (propertiesGridRef.current) {
       const yOffset = -100;
@@ -853,8 +869,13 @@ const PropertyShowcase = () => {
       
       let pCity = "Unknown";
       if (p.location) {
-        const parts = p.location.split(',');
-        pCity = parts[parts.length - 1].trim();
+        const validCities = ["Mumbai", "Bengaluru", "Delhi", "Pune", "Chennai", "Gurugram", "Hyderabad", "Kolkata", "Noida", "Thane"];
+        for (const vc of validCities) {
+          if (p.location.toLowerCase().includes(vc.toLowerCase())) {
+            pCity = vc;
+            break;
+          }
+        }
       }
 
       const titleLower = p.title.toLowerCase();
@@ -863,23 +884,23 @@ const PropertyShowcase = () => {
         if (titleLower.includes('agricultural')) pType = "Agricultural Land";
         else if (titleLower.includes('commercial')) pType = "Commercial Plot";
         else if (titleLower.includes('residential')) pType = "Residential Plot";
-        else { const words = p.title.split(' '); pType = words[words.length - 1]; }
+        else pType = "Residential Plot";
       } else if (p.category === 'Commercial Offices') {
         if (titleLower.includes('bare-shell')) pType = "Bare-shell Space";
         else if (titleLower.includes('co-working') || titleLower.includes('desk')) pType = "Co-working Seats";
         else if (titleLower.includes('shop') || titleLower.includes('retail')) pType = "Retail Space";
-        else { const words = p.title.split(' '); pType = words[words.length - 1]; }
+        else pType = "Commercial Space";
       } else if (p.category === 'Furniture Rentals') {
         if (titleLower.includes('bundle') || titleLower.includes('combo')) pType = "Workstation Bundle";
         else if (titleLower.includes('conference') || titleLower.includes('boardroom')) pType = "Conference Room";
         else if (titleLower.includes('cabin')) pType = "Executive Cabin";
-        else { const words = p.title.split(' '); pType = words[words.length - 1]; }
+        else pType = "Furniture Package";
       } else {
         if (titleLower.includes('apartment') || titleLower.includes('flat') || titleLower.includes('condo')) pType = "Flats / Apartments";
         else if (titleLower.includes('villa') || titleLower.includes('house') || titleLower.includes('bungalow')) pType = "Independent House / Villa";
         else if (titleLower.includes('builder floor')) pType = "Builder Floor";
         else if (titleLower.includes('studio') || titleLower.includes('1 rk')) pType = "Studio Apartment";
-        else { const words = p.title.split(' '); pType = words[words.length - 1]; }
+        else pType = "Residential Property";
       }
 
       let status = "";
@@ -937,7 +958,7 @@ const PropertyShowcase = () => {
     const uniqueListers = new Set<string>();
 
     normalizedProperties.forEach(p => {
-      if (p.normalizedCity) uniqueCities.add(p.normalizedCity);
+      if (p.normalizedCity && p.normalizedCity !== "Unknown") uniqueCities.add(p.normalizedCity);
       if (p.listedBy) uniqueListers.add(p.listedBy);
       if (p.category === activeTab) {
         if (p.normalizedType) uniqueTypes.add(p.normalizedType);
@@ -948,10 +969,17 @@ const PropertyShowcase = () => {
       }
     });
 
-    return {
-      cities: Array.from(uniqueCities).sort(),
-      types: Array.from(uniqueTypes).sort(),
-      statuses: Array.from(uniqueStatuses).sort(),
+      let hardcodedStatuses: string[] = [];
+      if (activeTab === 'Buy' || activeTab === 'All') hardcodedStatuses = ["Newly Constructed (Ready)", "Under Construction", "Old / Resale"];
+      else if (activeTab === 'Rent / Lease') hardcodedStatuses = ["Fully Furnished", "Semi-Furnished", "Unfurnished"];
+      else if (activeTab === 'Lands & Farmlands') hardcodedStatuses = ["Clear Title Verified", "RERA Approved", "A-Katha"];
+      else if (activeTab === 'Commercial Offices') hardcodedStatuses = ["Grade A Building", "Premium Tech Park", "Standard Commercial"];
+      else if (activeTab === 'Furniture Rentals') hardcodedStatuses = ["6 Months"];
+
+      return {
+        cities: Array.from(uniqueCities).sort(),
+        types: Array.from(uniqueTypes).sort(),
+        statuses: hardcodedStatuses,
       bhks: Array.from(uniqueBhks).sort(),
       listers: Array.from(uniqueListers).sort(),
     };
@@ -990,14 +1018,26 @@ const PropertyShowcase = () => {
     const matchBhk = appliedFilters.bhk === "Any BHK" || p.normalizedBhk === appliedFilters.bhk;
 
     let matchPrice = true;
-    const pPrice = parsePrice(p.price);
-    if (appliedFilters.minPrice && pPrice < parseFloat(appliedFilters.minPrice)) matchPrice = false;
-    if (appliedFilters.maxPrice && pPrice > parseFloat(appliedFilters.maxPrice)) matchPrice = false;
+    if (appliedFilters.minPrice || appliedFilters.maxPrice) {
+      const pPrice = parsePrice(p.price);
+      if (pPrice === 0) {
+        matchPrice = false;
+      } else {
+        if (appliedFilters.minPrice && pPrice < parseFloat(appliedFilters.minPrice)) matchPrice = false;
+        if (appliedFilters.maxPrice && pPrice > parseFloat(appliedFilters.maxPrice)) matchPrice = false;
+      }
+    }
 
     let matchSize = true;
-    const pSize = parseSize(p.specs);
-    if (appliedFilters.minSize && pSize > 0 && pSize < parseFloat(appliedFilters.minSize)) matchSize = false;
-    if (appliedFilters.maxSize && pSize > 0 && pSize > parseFloat(appliedFilters.maxSize)) matchSize = false;
+    if (appliedFilters.minSize || appliedFilters.maxSize) {
+      const pSize = parseSize(p.specs);
+      if (pSize === 0) {
+        matchSize = false;
+      } else {
+        if (appliedFilters.minSize && pSize < parseFloat(appliedFilters.minSize)) matchSize = false;
+        if (appliedFilters.maxSize && pSize > parseFloat(appliedFilters.maxSize)) matchSize = false;
+      }
+    }
 
     return matchSearch && matchLister && matchCity && matchPropType && matchStatus && matchBhk && matchPrice && matchSize;
   });
@@ -1142,6 +1182,7 @@ const PropertyShowcase = () => {
                       <div className="flex items-center gap-2">
                         <input 
                           type="number" 
+                          step="10000"
                           placeholder="Min Price"
                           value={minPrice}
                           onChange={(e) => setMinPrice(e.target.value)}
@@ -1150,6 +1191,7 @@ const PropertyShowcase = () => {
                         <span className="text-slate-400 font-medium">-</span>
                         <input 
                           type="number" 
+                          step="10000"
                           placeholder="Max Price"
                           value={maxPrice}
                           onChange={(e) => setMaxPrice(e.target.value)}
@@ -1229,9 +1271,9 @@ const PropertyShowcase = () => {
                 </button>
                 <button 
                   onClick={handleShowProperties}
-                  className="bg-slate-900 text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wide hover:bg-slate-800 transition-colors shadow-sm"
+                  className="bg-[#1ebbbb] text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wide hover:bg-[#19a5a5] transition-colors shadow-sm"
                 >
-                  Show properties
+                  APPLY FILTER
                   </button>
                 </div>
             </div>
@@ -1243,24 +1285,31 @@ const PropertyShowcase = () => {
               {displayedProperties.length > 0 ? (
                 displayedProperties.map((property, index) => (
                   <div key={property.id} className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-col hover:shadow-md transition-shadow w-full max-w-[320px] mx-auto sm:max-w-none ${index >= 4 ? "hidden md:flex" : "flex"}`}>
-                    <div className="aspect-[16/9] bg-slate-200 relative overflow-hidden">
-                      <img 
-                        src={property.image} 
+                    <div className="aspect-[16/9] bg-slate-200 relative overflow-hidden group cursor-pointer">
+                      <ImageCarousel 
+                        images={[property.image, ...DUMMY_IMAGES]} 
                         alt={property.title} 
-                        className="absolute inset-0 w-full h-full object-contain bg-slate-100"
-                        style={{ objectPosition: (property as any).objectPosition || 'center' }}
+                        imageClassName="absolute inset-0 w-full h-full object-contain bg-slate-100" 
+                        objectPosition={(property as any).objectPosition || 'center'}
                       />
                     </div>
                     <div className="p-3 md:p-5 flex flex-col grow">
                       <div className="text-base md:text-xl font-bold text-slate-900 mb-1">{property.price}</div>
-                      <div className="text-sm md:text-base font-bold text-slate-800 leading-tight mb-1 md:mb-0">{property.title}</div>
+                      <div className="flex items-start justify-between gap-1 mb-1 md:mb-0">
+                        <div className="text-sm md:text-base font-bold text-slate-800 leading-tight">{property.title}</div>
+                        {property.category === 'Rent / Lease' && (
+                          <span className="flex items-center shrink-0 text-amber-500 font-bold text-[10px] bg-amber-50 px-1.5 py-0.5 rounded border border-amber-100">
+                            <Star size={10} className="fill-amber-500 mr-1" /> 4.8
+                          </span>
+                        )}
+                      </div>
                       <div className="text-[10px] md:text-xs text-slate-500 mb-2 md:mb-3 truncate">{property.location}</div>
                       <div className="text-[10px] md:text-xs text-slate-600 font-semibold mb-3 md:mb-6 pb-3 md:pb-4 border-b border-slate-100">
                         {property.specs}
                       </div>
-                      <button className="mt-auto w-full bg-slate-900 text-white py-2 md:py-2.5 rounded-lg md:rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-wide">
+                      <Link href={`/properties/${property.id}`} className="mt-auto w-full bg-slate-900 text-white py-2 md:py-2.5 rounded-lg md:rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-wide flex justify-center items-center hover:bg-slate-800 transition-colors">
                         {property.cta}
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 ))

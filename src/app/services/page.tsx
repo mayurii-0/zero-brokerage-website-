@@ -1,19 +1,19 @@
 export default function ServicesPage() {
   return (
-    <main className="pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4 bg-stone-50">
+    <main className="pt-28 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4 bg-stone-50">
       <div className="max-w-7xl mx-auto w-full">
-        <div className="text-center mb-24">
-          <p className="text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-4">WHAT WE OFFER</p>
-          <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tight text-slate-900 mb-6">
+        <div className="text-center mb-12 md:mb-24">
+          <p className="text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-3 md:mb-4">WHAT WE OFFER</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-slate-900 mb-4 md:mb-6 px-2">
             Our Services
           </h1>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-600 max-w-2xl mx-auto text-[15px] md:text-lg px-2">
             We provide comprehensive end-to-end real estate solutions for buyers, sellers, renters, and property investors with zero brokerage.
           </p>
         </div>
         
         {/* Services detail list */}
-        <div className="space-y-32 pb-32">
+        <div className="space-y-16 md:space-y-32 pb-16 md:pb-32">
           {[
             { 
               title: "Residential Buying & Selling", 
@@ -36,20 +36,20 @@ export default function ServicesPage() {
               img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop"
             }
           ].map((service, idx) => (
-            <div key={idx} className={`flex flex-col gap-12 lg:gap-16 items-stretch group ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-              <div className="w-full md:w-1/2 bg-slate-100 rounded-[2rem] overflow-hidden relative shrink-0 shadow-2xl min-h-[300px]">
+            <div key={idx} className={`flex flex-col gap-6 md:gap-12 lg:gap-16 items-center md:items-stretch group ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+              <div className="w-full md:w-1/2 bg-slate-100 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden relative shrink-0 shadow-lg md:shadow-2xl min-h-[220px] md:min-h-[350px] mx-auto">
                 <img 
                   src={service.img} 
                   alt={service.title}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
-              <div className="w-full md:w-1/2 md:px-8 flex flex-col justify-center py-4 md:py-8">
-                <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">{service.title}</h3>
-                <p className="text-slate-600 text-lg md:text-xl mb-8 leading-relaxed">
+              <div className="w-full md:w-1/2 md:px-8 flex flex-col justify-center items-center md:items-start text-center md:text-left py-2 md:py-8">
+                <h3 className="text-2xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-6 leading-snug">{service.title}</h3>
+                <p className="text-slate-600 text-[15px] md:text-xl mb-6 md:mb-8 leading-relaxed">
                   {service.desc}
                 </p>
-                <button className="px-8 py-4 bg-[#1ebbbb] text-white rounded-xl font-bold uppercase tracking-wide text-sm hover:bg-[#199d9d] hover:-translate-y-1 shadow-md hover:shadow-lg transition-all duration-300">
+                <button className="w-[80%] sm:w-max px-6 py-3.5 md:px-8 md:py-4 bg-[#1ebbbb] text-white rounded-xl font-bold uppercase tracking-wide text-[13px] md:text-sm hover:bg-[#199d9d] hover:-translate-y-1 shadow-md hover:shadow-lg transition-all duration-300">
                   Explore More
                 </button>
               </div>

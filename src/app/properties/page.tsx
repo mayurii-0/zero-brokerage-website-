@@ -1,7 +1,16 @@
 "use client";
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import { Star } from 'lucide-react';
 import { PROPERTIES } from '@/components/PropertyShowcase';
+import ImageCarousel from '@/components/ImageCarousel';
+
+const DUMMY_IMAGES = [
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753086-00f18efc2291?w=800&q=80"
+];
 
 export default function PropertiesPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,8 +57,13 @@ export default function PropertiesPage() {
       // City
       let city = "Unknown";
       if (p.location) {
-        const parts = p.location.split(',');
-        city = parts[parts.length - 1].trim();
+        const validCities = ["Mumbai", "Bengaluru", "Delhi", "Pune", "Chennai", "Gurugram", "Hyderabad", "Kolkata", "Noida", "Thane"];
+        for (const vc of validCities) {
+          if (p.location.toLowerCase().includes(vc.toLowerCase())) {
+            city = vc;
+            break;
+          }
+        }
       }
 
       // Property Type
@@ -59,35 +73,23 @@ export default function PropertiesPage() {
         if (titleLower.includes('agricultural')) pType = "Agricultural Land";
         else if (titleLower.includes('commercial')) pType = "Commercial Plot";
         else if (titleLower.includes('residential')) pType = "Residential Plot";
-        else {
-          const words = p.title.split(' ');
-          pType = words[words.length - 1];
-        }
+        else pType = "Residential Plot";
       } else if (p.category === 'Commercial Offices') {
         if (titleLower.includes('bare-shell')) pType = "Bare-shell Space";
         else if (titleLower.includes('co-working') || titleLower.includes('desk')) pType = "Co-working Seats";
         else if (titleLower.includes('shop') || titleLower.includes('retail')) pType = "Retail Space";
-        else {
-          const words = p.title.split(' ');
-          pType = words[words.length - 1];
-        }
+        else pType = "Commercial Space";
       } else if (p.category === 'Furniture Rentals') {
         if (titleLower.includes('bundle') || titleLower.includes('combo')) pType = "Workstation Bundle";
         else if (titleLower.includes('conference') || titleLower.includes('boardroom')) pType = "Conference Room";
         else if (titleLower.includes('cabin')) pType = "Executive Cabin";
-        else {
-          const words = p.title.split(' ');
-          pType = words[words.length - 1];
-        }
+        else pType = "Furniture Package";
       } else {
         if (titleLower.includes('apartment') || titleLower.includes('flat') || titleLower.includes('condo')) pType = "Flats / Apartments";
         else if (titleLower.includes('villa') || titleLower.includes('house') || titleLower.includes('bungalow')) pType = "Independent House / Villa";
         else if (titleLower.includes('builder floor')) pType = "Builder Floor";
         else if (titleLower.includes('studio') || titleLower.includes('1 rk')) pType = "Studio Apartment";
-        else {
-          const words = p.title.split(' ');
-          pType = words[words.length - 1];
-        }
+        else pType = "Residential Property";
       }
 
       // Status
@@ -151,13 +153,20 @@ export default function PropertiesPage() {
 
     normalizedProperties.forEach(p => {
       // Collect all cities and listers globally
-      if (p.normalizedCity) uniqueCities.add(p.normalizedCity);
+      if (p.normalizedCity && p.normalizedCity !== "Unknown") uniqueCities.add(p.normalizedCity);
       if (p.listedBy) uniqueListers.add(p.listedBy);
       
       // Types, Statuses, and BHKs depend on the currently selected Category in the UI
       if (category === 'All' || p.category === category) {
         if (p.normalizedType) uniqueTypes.add(p.normalizedType);
-        if (p.normalizedStatus) uniqueStatuses.add(p.normalizedStatus);
+        
+        if (category === 'All') {
+          if (p.normalizedStatus && ["Newly Constructed (Ready)", "Under Construction", "Old / Resale"].includes(p.normalizedStatus)) {
+            uniqueStatuses.add(p.normalizedStatus);
+          }
+        } else {
+          if (p.normalizedStatus) uniqueStatuses.add(p.normalizedStatus);
+        }
         
         // Only collect BHK for categories where it makes sense (Buy/Rent/All)
         if (p.category === 'Buy' || p.category === 'Rent / Lease') {
@@ -166,10 +175,17 @@ export default function PropertiesPage() {
       }
     });
 
+    let hardcodedStatuses: string[] = [];
+    if (category === 'Buy' || category === 'All') hardcodedStatuses = ["Newly Constructed (Ready)", "Under Construction", "Old / Resale"];
+    else if (category === 'Rent / Lease') hardcodedStatuses = ["Fully Furnished", "Semi-Furnished", "Unfurnished"];
+    else if (category === 'Lands & Farmlands') hardcodedStatuses = ["Clear Title Verified", "RERA Approved", "A-Katha"];
+    else if (category === 'Commercial Offices') hardcodedStatuses = ["Grade A Building", "Premium Tech Park", "Standard Commercial"];
+    else if (category === 'Furniture Rentals') hardcodedStatuses = ["6 Months"];
+
     return {
       cities: Array.from(uniqueCities).sort(),
       types: Array.from(uniqueTypes).sort(),
-      statuses: Array.from(uniqueStatuses).sort(),
+      statuses: hardcodedStatuses,
       bhks: Array.from(uniqueBhks).sort(),
       listers: Array.from(uniqueListers).sort(),
     };
@@ -211,15 +227,27 @@ export default function PropertiesPage() {
 
     // Price Match
     let matchPrice = true;
-    const pPrice = parsePrice(p.price);
-    if (appliedFilters.minPrice && pPrice < parseFloat(appliedFilters.minPrice)) matchPrice = false;
-    if (appliedFilters.maxPrice && pPrice > parseFloat(appliedFilters.maxPrice)) matchPrice = false;
+    if (appliedFilters.minPrice || appliedFilters.maxPrice) {
+      const pPrice = parsePrice(p.price);
+      if (pPrice === 0) {
+        matchPrice = false;
+      } else {
+        if (appliedFilters.minPrice && pPrice < parseFloat(appliedFilters.minPrice)) matchPrice = false;
+        if (appliedFilters.maxPrice && pPrice > parseFloat(appliedFilters.maxPrice)) matchPrice = false;
+      }
+    }
 
     // Size Match
     let matchSize = true;
-    const pSize = parseSize(p.specs);
-    if (appliedFilters.minSize && pSize > 0 && pSize < parseFloat(appliedFilters.minSize)) matchSize = false;
-    if (appliedFilters.maxSize && pSize > 0 && pSize > parseFloat(appliedFilters.maxSize)) matchSize = false;
+    if (appliedFilters.minSize || appliedFilters.maxSize) {
+      const pSize = parseSize(p.specs);
+      if (pSize === 0) {
+        matchSize = false;
+      } else {
+        if (appliedFilters.minSize && pSize < parseFloat(appliedFilters.minSize)) matchSize = false;
+        if (appliedFilters.maxSize && pSize > parseFloat(appliedFilters.maxSize)) matchSize = false;
+      }
+    }
 
     return matchSearch && matchCategory && matchLister && matchCity && matchPropType && matchStatus && matchBhk && matchPrice && matchSize;
   });
@@ -231,11 +259,11 @@ export default function PropertiesPage() {
   );
 
   return (
-    <main className="pt-32 pb-20 min-h-screen flex flex-col items-center px-4 bg-stone-50">
+    <main className="pt-28 lg:pt-48 pb-20 min-h-screen flex flex-col items-center px-4 bg-stone-50">
       <div className="max-w-7xl mx-auto w-full">
         
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tight text-slate-900 mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-slate-900 mb-3 md:mb-4 px-2">
             All Properties & Assets
           </h1>
           <p className="text-slate-600 max-w-2xl mx-auto text-lg">
@@ -407,6 +435,7 @@ export default function PropertiesPage() {
                     <div className="flex items-center gap-2">
                       <input 
                         type="number" 
+                        step="10000"
                         placeholder="Min Price"
                         value={minPrice}
                         onChange={(e) => setMinPrice(e.target.value)}
@@ -415,6 +444,7 @@ export default function PropertiesPage() {
                       <span className="text-slate-400 font-medium">-</span>
                       <input 
                         type="number" 
+                        step="10000"
                         placeholder="Max Price"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
@@ -524,10 +554,20 @@ export default function PropertiesPage() {
                 CLEAR FILTERS
               </button>
               <button 
-                onClick={() => setAppliedFilters({ searchTerm, category, city, propertyType, propertyStatus, bhk, listedBy, minPrice, maxPrice, minSize, maxSize })}
-                className="px-4 py-2 sm:px-8 sm:py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl transition-colors shadow-lg text-xs sm:text-sm w-full md:w-auto"
+                onClick={() => {
+                  if (minPrice && maxPrice && parseFloat(maxPrice) < parseFloat(minPrice)) {
+                    alert("Maximum Price cannot be less than Minimum Price!");
+                    return;
+                  }
+                  if (minSize && maxSize && parseFloat(maxSize) < parseFloat(minSize)) {
+                    alert("Maximum Size cannot be less than Minimum Size!");
+                    return;
+                  }
+                  setAppliedFilters({ searchTerm, category, city, propertyType, propertyStatus, bhk, listedBy, minPrice, maxPrice, minSize, maxSize });
+                }}
+                className="px-4 py-2 sm:px-8 sm:py-3 bg-[#1ebbbb] hover:bg-[#19a5a5] text-white font-bold rounded-xl transition-colors shadow-lg text-xs sm:text-sm w-full md:w-auto tracking-wide uppercase"
               >
-                SHOW PROPERTIES
+                APPLY FILTER
               </button>
             </div>
           </div>
@@ -539,11 +579,20 @@ export default function PropertiesPage() {
             paginatedProperties.map((item) => (
               <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col w-full max-w-[320px] mx-auto sm:max-w-none">
                 <div className="aspect-video sm:aspect-auto sm:h-64 w-full relative group cursor-pointer overflow-hidden bg-slate-100">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <ImageCarousel 
+                    images={[item.image, ...DUMMY_IMAGES]} 
+                    alt={item.title} 
+                    imageClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
                 </div>
                 <div className="p-4 sm:p-6 flex flex-col flex-grow">
                   <div className="flex flex-col sm:flex-row justify-between items-start mb-1 sm:mb-2 gap-1 sm:gap-0">
                     <h3 className="text-lg sm:text-xl font-bold text-slate-900 line-clamp-1">{item.title}</h3>
+                    {item.category === 'Rent / Lease' && (
+                      <span className="flex items-center text-amber-500 font-bold text-xs bg-amber-50 px-2 py-0.5 rounded border border-amber-100">
+                        <Star size={12} className="fill-amber-500 mr-1" /> 4.8
+                      </span>
+                    )}
                   </div>
                   <p className="text-xs sm:text-sm text-slate-500 mb-3 sm:mb-4">{item.location}</p>
                   <p className="text-slate-600 text-xs sm:text-sm font-medium mb-4 sm:mb-6">
@@ -554,9 +603,9 @@ export default function PropertiesPage() {
                       <span className="text-lg sm:text-xl font-bold text-[#1ebbbb]">{item.price}</span>
                       <p className="text-[9px] sm:text-[10px] uppercase text-slate-400 font-bold mt-0.5 sm:mt-1 tracking-wider">By {item.listedBy}</p>
                     </div>
-                    <button className="bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-colors">
+                    <Link href={`/properties/${item.id}`} className="bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-colors flex items-center justify-center">
                       {item.cta}
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

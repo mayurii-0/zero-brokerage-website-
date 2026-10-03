@@ -97,7 +97,7 @@ const Services = () => {
       <ScrollReveal yOffset={40}>
         <div className="pt-8 pb-8 md:pb-12 text-center px-4 relative z-20 bg-stone-50">
           <p className="text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-4">OUR SERVICES</p>
-          <h2 className="text-3xl md:text-5xl lg:text-5xl font-bold uppercase tracking-tight text-slate-900 max-w-4xl mx-auto leading-tight mb-4">
+          <h2 className="text-2xl md:text-5xl lg:text-5xl font-bold uppercase tracking-tight text-slate-900 max-w-4xl mx-auto leading-tight mb-4 px-2">
             Smarter Real Estate. <br className="hidden md:block" /> Zero Brokerage.
           </h2>
           <h6 className="text-sm md:text-base text-slate-600 font-medium max-w-2xl mx-auto">

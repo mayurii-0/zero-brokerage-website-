@@ -67,7 +67,7 @@ const AboutSection = () => {
       <ScrollReveal yOffset={40}>
         <div className="pb-12 md:pb-16 text-center px-4 relative z-10">
           <p className="text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-4">About Us</p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-tight text-slate-900 max-w-6xl mx-auto leading-tight mb-4">
+          <h2 className="text-2xl md:text-5xl lg:text-5xl font-bold uppercase tracking-tight text-slate-900 max-w-6xl mx-auto leading-tight mb-4 px-2">
             Redefining Real Estate Transactions.
           </h2>
           <h6 className="text-sm md:text-base text-slate-600 font-medium max-w-6xl mx-auto">
@@ -168,7 +168,7 @@ const AboutSection = () => {
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="w-full"
               >
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4 font-sans">
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4 font-sans">
                   {slide.name}
                 </h2>
                 <h3 className="text-xl md:text-2xl text-[#d4c5b0] font-serif italic leading-tight mb-6 max-w-md">

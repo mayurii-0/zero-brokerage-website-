@@ -4,6 +4,7 @@ import Stats from "@/components/Stats";
 import Services from "@/components/Services";
 import AgencyFeatures from "@/components/AgencyFeatures";
 import AboutSection from "@/components/AboutSection";
+import ContactSection from "@/components/ContactSection";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <ScrollReveal yOffset={20}><div id="services" className="w-full"><Services /></div></ScrollReveal>
       <ScrollReveal yOffset={20}><div id="agency" className="w-full"><AgencyFeatures /></div></ScrollReveal>
       <ScrollReveal yOffset={20}><div id="about" className="w-full"><AboutSection /></div></ScrollReveal>
+      <ScrollReveal yOffset={20}><div id="contact" className="w-full"><ContactSection /></div></ScrollReveal>
     </main>
   );
 }

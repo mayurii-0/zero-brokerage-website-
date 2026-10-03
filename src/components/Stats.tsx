@@ -76,7 +76,7 @@ const Stats = () => {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
           }`}
         >
-          <h2 className="text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight">
+          <h2 className="text-3xl lg:text-5xl font-medium text-slate-900 tracking-tight">
             <Counter target={2} suffix="k+" isVisible={isVisible} />
           </h2>
           <h3 className="text-sm font-semibold text-slate-800 mt-10 mb-2">Property Listings</h3>
@@ -91,7 +91,7 @@ const Stats = () => {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
           }`}
         >
-          <h2 className="text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight">
+          <h2 className="text-3xl lg:text-5xl font-medium text-slate-900 tracking-tight">
             <Counter target={200} suffix="+" isVisible={isVisible} />
           </h2>
           <h3 className="text-sm font-semibold text-slate-800 mt-10 mb-2">Agency Network</h3>
@@ -106,7 +106,7 @@ const Stats = () => {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
           }`}
         >
-          <h2 className="text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight">
+          <h2 className="text-3xl lg:text-5xl font-medium text-slate-900 tracking-tight">
             <Counter target={1.5} suffix="k+" isVisible={isVisible} decimals={1} />
           </h2>
           <h3 className="text-sm font-semibold text-slate-800 mt-10 mb-2">Property Visits</h3>
@@ -121,7 +121,7 @@ const Stats = () => {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
           }`}
         >
-          <h2 className="text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight">
+          <h2 className="text-3xl lg:text-5xl font-medium text-slate-900 tracking-tight">
             <Counter target={12} suffix="+" isVisible={isVisible} />
           </h2>
           <h3 className="text-sm font-semibold text-slate-800 mt-10 mb-2">Cities Served</h3>

@@ -16,19 +16,20 @@ const FEATURES = [
 const AgencyFeatures = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const TOTAL_FEATURES = FEATURES.length; // 6
 
-  // Auto-scroll logic: 0 -> 1 -> 2 (which visually matches 0)
+  // Auto-scroll logic: Slide 1 card at a time with 1 second pause (+0.8s transition)
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev === 1 ? 2 : 1));
-    }, 5000);
+      setCurrentSlide((prev) => prev + 1);
+    }, 1800);
     return () => clearInterval(timer);
   }, []);
 
-  // Seamless loop trick: when we reach the duplicate slide (2),
+  // Seamless loop trick: when we reach the duplicate first card,
   // wait for animation to finish, then instantly snap back to 0.
   useEffect(() => {
-    if (currentSlide === 2) {
+    if (currentSlide === TOTAL_FEATURES) {
       const snapTimer = setTimeout(() => {
         setIsTransitioning(false); // disable animation
         setCurrentSlide(0); // instant snap to true first slide
@@ -41,10 +42,9 @@ const AgencyFeatures = () => {
   }, [currentSlide]);
 
   const getTransform = () => {
-    if (currentSlide === 0) return "0%";
-    if (currentSlide === 1) return `-${100 / 3}%`;
-    if (currentSlide === 2) return `-${200 / 3}%`;
-    return "0%";
+    // 100% is the motion.div width (which is the padded viewport width).
+    // We need to shift by 1 card + 1 gap = calc((100% + 2rem) / 3)
+    return `calc(-${currentSlide} * (100% + 2rem) / 3)`;
   };
 
   return (
@@ -65,7 +65,7 @@ const AgencyFeatures = () => {
         </div>
 
         {/* Main Title reveal */}
-        <h2 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-slate-900 leading-[1.1] uppercase tracking-tight max-w-4xl mx-auto flex flex-col items-center">
+        <h2 className="text-3xl md:text-5xl lg:text-[56px] font-bold text-slate-900 leading-[1.1] uppercase tracking-tight max-w-4xl mx-auto flex flex-col items-center">
           <span className="overflow-hidden inline-block pb-1">
             <motion.span
               className="inline-block"
@@ -92,61 +92,64 @@ const AgencyFeatures = () => {
       </div>
 
       {/* Desktop Full-width Seamless Carousel */}
-      <div className="hidden md:flex w-full relative overflow-hidden flex-col items-center">
+      <div className="hidden md:flex w-full relative overflow-hidden flex-col items-center px-8">
         <motion.div 
-          className="flex w-[300%]" // 3 blocks (1: 1-3, 2: 4-6, 3: 1-3)
+          className="flex w-full gap-8"
           animate={{ x: getTransform() }}
           transition={{ duration: isTransitioning ? 0.8 : 0, ease: "easeInOut" }}
         >
-          {[
-            FEATURES.slice(0, 3), // Block 1
-            FEATURES.slice(3, 6), // Block 2
-            FEATURES.slice(0, 3)  // Block 3 (Duplicate for seamless forward loop)
-          ].map((block, blockIdx) => (
-            <div key={blockIdx} className="w-1/3 grid grid-cols-3 gap-8 px-8">
-              {block.map((feature) => (
-                <div
-                  key={`${blockIdx}-${feature.id}`}
-                  className="w-full h-full rounded-[24px] p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]
-                             bg-gradient-to-b from-white via-white to-[#d6ded0]
-                             hover:shadow-[0_20px_40px_rgb(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-start border border-white/70 relative"
-                >
-                  <div className="text-[48px] font-medium text-slate-900 mb-10 leading-none">
-                    {feature.id}
-                  </div>
-                  <h3 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug uppercase">
-                    {feature.title}
-                  </h3>
-                  <p className="text-[15px] text-slate-600 leading-relaxed font-medium mt-auto">
-                    {feature.desc}
-                  </p>
+          {[...FEATURES, ...FEATURES.slice(0, 3)].map((feature, idx) => (
+            <div 
+              key={`${idx}-${feature.id}`} 
+              className="shrink-0" 
+              style={{ width: "calc((100% - 4rem) / 3)" }}
+            >
+              <div
+                className="w-full h-full rounded-[24px] p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+                           bg-gradient-to-b from-white via-white to-[#d6ded0]
+                           hover:shadow-[0_20px_40px_rgb(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-start border border-white/70 relative"
+              >
+                <div className="text-[48px] font-medium text-slate-900 mb-10 leading-none">
+                  {feature.id}
                 </div>
-              ))}
+                <h3 className="text-[22px] font-bold text-slate-900 mb-4 leading-snug uppercase">
+                  {feature.title}
+                </h3>
+                <p className="text-[15px] text-slate-600 leading-relaxed font-medium mt-auto">
+                  {feature.desc}
+                </p>
+              </div>
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* Mobile Swipeable Carousel */}
-      <div className="flex md:hidden w-full overflow-x-auto snap-x snap-mandatory gap-4 px-4 pb-12 scrollbar-hide">
-        {FEATURES.map((feature) => (
-          <div
-            key={feature.id}
-            className="min-w-[85vw] snap-center rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]
-                       bg-gradient-to-b from-white via-white to-[#d6ded0]
-                       flex flex-col justify-start border border-white/70 relative h-auto"
-          >
-            <div className="text-[36px] font-medium text-slate-900 mb-4 sm:mb-6 leading-none">
-              {feature.id}
+      {/* Mobile Auto-Scrolling Carousel */}
+      <div className="flex md:hidden w-full relative overflow-hidden flex-col items-start px-4 pb-12">
+        <motion.div 
+          className="flex w-max gap-4"
+          animate={{ x: `calc(-${currentSlide} * (85vw + 1rem))` }}
+          transition={{ duration: isTransitioning ? 0.8 : 0, ease: "easeInOut" }}
+        >
+          {[...FEATURES, ...FEATURES.slice(0, 3)].map((feature, idx) => (
+            <div
+              key={`mob-${idx}-${feature.id}`}
+              className="w-[85vw] shrink-0 rounded-[24px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+                         bg-gradient-to-b from-white via-white to-[#d6ded0]
+                         flex flex-col justify-start border border-white/70 relative h-auto"
+            >
+              <div className="text-[36px] font-medium text-slate-900 mb-4 sm:mb-6 leading-none">
+                {feature.id}
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-2 sm:mb-4 leading-snug uppercase">
+                {feature.title}
+              </h3>
+              <p className="text-[15px] text-slate-600 leading-relaxed font-medium mt-auto">
+                {feature.desc}
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2 sm:mb-4 leading-snug uppercase">
-              {feature.title}
-            </h3>
-            <p className="text-[15px] text-slate-600 leading-relaxed font-medium mt-auto">
-              {feature.desc}
-            </p>
-          </div>
-        ))}
+          ))}
+        </motion.div>
       </div>
 
 

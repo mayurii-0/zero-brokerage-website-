@@ -101,7 +101,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
           <span className="text-[#1ebbbb] text-sm font-bold tracking-widest uppercase mb-4">
             Zero Broker Services
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 capitalize mb-6 leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 capitalize mb-4 md:mb-6 leading-tight px-1">
             {data.title}
           </h1>
           <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-xl">
@@ -127,9 +127,9 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
           <div className="flex items-center gap-4">
             <Link 
               href={`/${data.hash}`} 
-              className="px-8 py-3.5 bg-slate-900 text-white rounded-full font-bold text-sm tracking-wider uppercase hover:bg-slate-800 hover:shadow-lg transition-all"
+              className="px-8 py-3.5 bg-[#1ebbbb] text-white rounded-full font-bold text-sm tracking-wider uppercase hover:bg-[#159a9a] hover:shadow-lg transition-all"
             >
-              SCHEDULE VISIT
+              Explore More
             </Link>
             <Link 
               href="/#services" 

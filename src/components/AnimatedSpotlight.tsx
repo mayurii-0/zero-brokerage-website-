@@ -91,15 +91,11 @@ const AnimatedSpotlight = () => {
               <p className="text-[10px] font-bold text-[#1ebbbb] uppercase tracking-widest mb-2 sm:mb-4">
                 {slide.tag}
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-2 sm:mb-5">
-                <span className="bg-[#113f9c] px-3 py-1 box-decoration-clone leading-[1.4]">
-                  {slide.title}
-                </span>
+              <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight mb-3 sm:mb-5">
+                {slide.title}
               </h2>
-              <p className="text-slate-100 text-xs md:text-sm leading-relaxed max-w-sm mt-2">
-                <span className="bg-[#113f9c] px-3 py-1.5 box-decoration-clone leading-[1.6]">
-                  {slide.desc}
-                </span>
+              <p className="text-slate-100 text-sm md:text-base leading-relaxed max-w-sm">
+                {slide.desc}
               </p>
             </motion.div>
           </AnimatePresence>
@@ -155,7 +151,7 @@ const AnimatedSpotlight = () => {
                 ))}
               </h3>
               
-              <Link href={slide.href} className="bg-[#1ebbbb] hover:bg-[#159a9a] text-white px-6 py-3.5 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all shadow-lg w-max">
+              <Link href={slide.href} className="bg-[#1ebbbb] hover:bg-[#159a9a] text-white px-4 py-2.5 md:px-6 md:py-3.5 rounded-xl font-semibold text-xs md:text-sm flex items-center gap-2 transition-all shadow-lg w-max">
                 {slide.cta || "Unlock Listing Details"}
                 {!(slide.cta && slide.cta.includes('→')) && (
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 ml-1">
