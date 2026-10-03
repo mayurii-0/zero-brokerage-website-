@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { PROPERTIES } from '@/components/PropertyShowcase';
 import ImageCarousel from '@/components/ImageCarousel';
 import Navbar from '@/components/Navbar';
-import { ArrowLeft, CheckCircle2, MapPin, Building2, BedDouble, Calendar, Home, ArrowRight, LayoutGrid, X, ShieldCheck, Zap, Car, ArrowUpDown, Dumbbell, Waves, Coffee, Compass, Heart, Share, Star } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, MapPin, Building2, BedDouble, Calendar, Home, ArrowRight, LayoutGrid, X, ShieldCheck, Zap, Car, ArrowUpDown, Dumbbell, Waves, Coffee, Compass, Heart, Share } from 'lucide-react';
 
 const DUMMY_IMAGES = [
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
@@ -16,6 +16,7 @@ const DUMMY_IMAGES = [
 
 export default function PropertyDetailPage() {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const params = useParams();
   const router = useRouter();
   
@@ -92,7 +93,7 @@ export default function PropertyDetailPage() {
               </span>
               {property.category === 'Rent / Lease' && (
                 <span className="flex items-center text-amber-500 font-bold text-sm bg-amber-50 px-2.5 py-1 rounded-md border border-amber-100">
-                  <Star size={14} className="fill-amber-500 mr-1" /> 4.8 Rating
+                  <svg className="w-3.5 h-3.5 fill-amber-500 mr-1" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.8 Rating
                 </span>
               )}
             </div>
@@ -102,7 +103,7 @@ export default function PropertyDetailPage() {
           </div>
           
           {/* Action Buttons */}
-          <div className="flex items-center gap-3 pb-1 md:pb-2">
+          <div className="hidden md:flex items-center gap-3 pb-1 md:pb-2">
             <button className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 text-slate-700 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-all font-semibold group/btn shadow-sm">
               <Heart size={18} className="group-hover/btn:fill-red-500 transition-colors" /> Save
             </button>
@@ -149,10 +150,22 @@ export default function PropertyDetailPage() {
 
         {/* Location & Price Header (Bottom) */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-2 md:gap-4">
-          <div>
-            <p className="flex items-center text-slate-600 text-lg font-medium">
-              <MapPin size={20} className="mr-1.5 text-slate-400" /> {property.location}
-            </p>
+          <div className="w-full md:w-auto">
+            <div className="flex justify-between items-center w-full md:w-auto gap-4">
+              <p className="flex items-center text-slate-600 text-[15px] sm:text-lg font-medium">
+                <MapPin size={20} className="mr-1.5 text-slate-400" /> {property.location}
+              </p>
+              
+              {/* Action Buttons (Mobile Only) */}
+              <div className="flex md:hidden items-center gap-2">
+                <button className="flex items-center justify-center p-2 bg-white rounded-lg border border-slate-200 text-slate-700 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-all group/btn shadow-sm">
+                  <Heart size={16} className="group-hover/btn:fill-red-500 transition-colors" />
+                </button>
+                <button className="flex items-center justify-center p-2 bg-white rounded-lg border border-slate-200 text-slate-700 hover:text-[#1ebbbb] hover:border-[#1ebbbb]/30 hover:bg-[#1ebbbb]/5 transition-all shadow-sm">
+                  <Share size={16} />
+                </button>
+              </div>
+            </div>
           </div>
           <div className="text-left md:text-right">
             <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Listed By {(property as any).listedBy || 'Owner'}</p>
@@ -225,18 +238,36 @@ export default function PropertyDetailPage() {
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Interested?</h3>
               <p className="text-slate-500 mb-6">Contact the {((property as any).listedBy || 'Owner').toLowerCase()} directly for the best deal.</p>
               
-              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Request sent successfully!"); }}>
+              {showSuccessPopup && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/95 backdrop-blur-sm rounded-3xl">
+                  <div className="text-center p-6 bg-white rounded-2xl shadow-xl border border-slate-100 transform scale-100 animate-in fade-in zoom-in duration-300">
+                    <div className="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle2 size={32} />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Request Sent!</h3>
+                    <p className="text-slate-500 text-sm">The owner will contact you soon.</p>
+                  </div>
+                </div>
+              )}
+              <form className="space-y-4" onSubmit={(e) => { 
+                e.preventDefault(); 
+                setShowSuccessPopup(true);
+                setTimeout(() => {
+                  setShowSuccessPopup(false);
+                  (e.target as HTMLFormElement).reset();
+                }, 3000);
+              }}>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Your Name</label>
-                  <input type="text" required placeholder="Full Name" className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" />
+                  <input type="text" required className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" placeholder="Full Name" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Phone Number</label>
-                  <input type="tel" required placeholder="+91 98765 43210" className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" />
+                  <input type="tel" required pattern="\d{10}" maxLength={10} title="Phone number must be exactly 10 digits" className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" placeholder="9876543210" />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Email (Optional)</label>
-                  <input type="email" placeholder="Email Address" className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" />
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Email</label>
+                  <input type="email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" placeholder="Email Address" />
                 </div>
                 <button type="submit" className="w-full bg-[#1ebbbb] hover:bg-[#19a5a5] text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-[#1ebbbb]/30 flex items-center justify-center text-lg mt-4">
                   Schedule Visit <ArrowRight size={20} className="ml-2" />

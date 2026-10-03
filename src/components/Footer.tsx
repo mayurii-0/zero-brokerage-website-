@@ -1,5 +1,6 @@
                             import React from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -22,10 +23,10 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V5a2 2 0 012-2h4a2 2 0 012 2v2m4 14V11a2 2 0 00-2-2h-4v12m-6-8h2m-2 4h2m6-8h2m-2 4h2" />
                   </svg>
                 </div>
-                <a href="/" className="text-2xl font-extrabold tracking-tight">
+                <Link href="/" className="text-2xl font-extrabold tracking-tight">
                   <span className="text-white font-[800]">Zero</span>
                   <span className="text-[#1ebbbb]">Broker</span>
-                </a>
+                </Link>
               </div>
             </div>
             <p className="text-white/50 text-[15px] leading-relaxed max-w-sm mb-4 md:mb-8 font-medium">
@@ -54,17 +55,16 @@ const Footer = () => {
             <h4 className="text-[13px] font-bold tracking-widest uppercase mb-4 md:mb-8 text-white/90">QUICK LINKS</h4>
             <ul className="flex flex-col gap-2 md:gap-4">
               {[
-                { label: 'Home', href: '#home' },
-                { label: 'Properties & Assets', href: '#properties' },
-                { label: 'Services', href: '#services' },
-                { label: 'For Agency', href: '#agency' },
-                { label: 'About Us', href: '#about' },
-                { label: 'Contact', href: '#contact' }
+                { label: 'Home', href: '/' },
+                { label: 'Properties & Assets', href: '/properties' },
+                { label: 'Services', href: '/services' },
+                { label: 'For Agency', href: '/agency' },
+                { label: 'About Us', href: '/about' }
               ].map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-white/50 hover:text-white text-[15px] font-medium transition-colors">
+                  <Link href={link.href} className="text-white/50 hover:text-white text-[15px] font-medium transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

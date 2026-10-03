@@ -175,10 +175,10 @@ const Services = () => {
           </p>
           
           <Link 
-            href={activeService.href}
+            href="/properties"
             className="border border-slate-900 text-slate-900 px-8 py-3 rounded-[4px] text-[12px] font-bold transition-all hover:bg-slate-900 hover:text-[#d8cca3] flex items-center gap-3"
           >
-            Discover More 
+            Explore More 
           </Link>
         </div>
 

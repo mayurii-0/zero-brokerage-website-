@@ -126,7 +126,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
           
           <div className="flex items-center gap-4">
             <Link 
-              href={`/${data.hash}`} 
+              href="/properties" 
               className="px-8 py-3.5 bg-[#1ebbbb] text-white rounded-full font-bold text-sm tracking-wider uppercase hover:bg-[#159a9a] hover:shadow-lg transition-all"
             >
               Explore More

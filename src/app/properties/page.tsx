@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Star } from 'lucide-react';
+// Removed Star import to fix Turbopack caching issue
 import { PROPERTIES } from '@/components/PropertyShowcase';
 import ImageCarousel from '@/components/ImageCarousel';
 
@@ -590,7 +590,7 @@ export default function PropertiesPage() {
                     <h3 className="text-lg sm:text-xl font-bold text-slate-900 line-clamp-1">{item.title}</h3>
                     {item.category === 'Rent / Lease' && (
                       <span className="flex items-center text-amber-500 font-bold text-xs bg-amber-50 px-2 py-0.5 rounded border border-amber-100">
-                        <Star size={12} className="fill-amber-500 mr-1" /> 4.8
+                        <svg className="w-3 h-3 fill-amber-500 mr-1" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.8
                       </span>
                     )}
                   </div>

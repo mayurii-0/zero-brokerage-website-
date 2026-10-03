@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function ServicesPage() {
   return (
     <main className="pt-28 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4 bg-stone-50">
@@ -49,9 +51,9 @@ export default function ServicesPage() {
                 <p className="text-slate-600 text-[15px] md:text-xl mb-6 md:mb-8 leading-relaxed">
                   {service.desc}
                 </p>
-                <button className="w-[80%] sm:w-max px-6 py-3.5 md:px-8 md:py-4 bg-[#1ebbbb] text-white rounded-xl font-bold uppercase tracking-wide text-[13px] md:text-sm hover:bg-[#199d9d] hover:-translate-y-1 shadow-md hover:shadow-lg transition-all duration-300">
+                <Link href="/properties" className="inline-block w-[80%] sm:w-max px-6 py-3.5 md:px-8 md:py-4 bg-[#1ebbbb] text-white text-center rounded-xl font-bold uppercase tracking-wide text-[13px] md:text-sm hover:bg-[#199d9d] hover:-translate-y-1 shadow-md hover:shadow-lg transition-all duration-300">
                   Explore More
-                </button>
+                </Link>
               </div>
             </div>
           ))}

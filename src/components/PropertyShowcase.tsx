@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import AnimatedSpotlight from './AnimatedSpotlight';
 import ImageCarousel from './ImageCarousel';
-import { Star } from 'lucide-react';
+// Removed Star
 
 const DUMMY_IMAGES = [
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
@@ -1299,7 +1299,7 @@ const PropertyShowcase = () => {
                         <div className="text-sm md:text-base font-bold text-slate-800 leading-tight">{property.title}</div>
                         {property.category === 'Rent / Lease' && (
                           <span className="flex items-center shrink-0 text-amber-500 font-bold text-[10px] bg-amber-50 px-1.5 py-0.5 rounded border border-amber-100">
-                            <Star size={10} className="fill-amber-500 mr-1" /> 4.8
+                            <svg className="w-2.5 h-2.5 fill-amber-500 mr-1" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.8
                           </span>
                         )}
                       </div>

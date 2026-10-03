@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
@@ -11,8 +11,8 @@ const SLIDES = [
     desc: "A stylish furnished home designed for comfortable, flexible city living.",
     price: "₹45K / mo • 2 BHK • Mumbai",
     image: "/images/urban-stay.jpg",
-    cta: "View Property →",
-    href: "/properties#properties-rent"
+    cta: "Explore Property →",
+    href: "/properties"
   },
   {
     id: 2,
@@ -21,8 +21,8 @@ const SLIDES = [
     desc: "Fully furnished workspace designed for teams ready to move in and get started.",
     price: "₹1.25L / mo • 20 Seats • Pune",
     image: "/images/business-workspace.jpg",
-    cta: "Explore Listing →",
-    href: "/properties#properties-commercial"
+    cta: "Explore Property →",
+    href: "/properties"
   },
   {
     id: 3,
@@ -31,8 +31,8 @@ const SLIDES = [
     desc: "Freshly listed 3 BHK residence with contemporary interiors, natural light, and premium amenities.",
     price: "₹1.85 Cr • 3 BHK • Indore",
     image: "/images/modern-residence.jpg",
-    cta: "Explore Listing →",
-    href: "/properties#properties-buy"
+    cta: "Explore Property →",
+    href: "/properties"
   },
   {
     id: 4,
@@ -41,8 +41,8 @@ const SLIDES = [
     desc: "Well-connected land parcel offering space for future development and long-term plans.",
     price: "₹85L • 1.5 Acres • Indore",
     image: "/images/greenfield-land.jpg",
-    cta: "Explore Opportunity →",
-    href: "/properties#properties-lands"
+    cta: "Explore Property →",
+    href: "/properties"
   }
 ];
 
