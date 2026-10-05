@@ -102,7 +102,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-4 md:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-4">
           <p className="text-[11px] font-bold tracking-widest text-white/40 uppercase text-center md:text-left">
-            © 2026 ZERO BROKER. ALL RIGHTS RESERVED.
+            Ã‚Â© 2026 ZERO BROKER. ALL RIGHTS RESERVED.
           </p>
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-[11px] font-bold tracking-widest text-white/40 uppercase text-center">
             <a href="#" className="hover:text-white transition-colors">PRIVACY POLICY</a>

@@ -53,7 +53,7 @@ export default function AgencyPage() {
   const activeFeature = FEATURES[activeFeatureIndex];
 
   return (
-    <main className="pt-28 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4 bg-stone-50">
+    <main className="pt-28 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4">
       <div className="max-w-[1400px] mx-auto w-full">
         
         {/* Header */}

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function ServicesPage() {
   return (
-    <main className="pt-28 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4 bg-stone-50">
+    <main className="pt-28 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4">
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center mb-12 md:mb-24">
           <p className="text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-3 md:mb-4">WHAT WE OFFER</p>

@@ -69,3 +69,8 @@ html, body {
   overflow-x: hidden;
 }
 
+
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.06) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}

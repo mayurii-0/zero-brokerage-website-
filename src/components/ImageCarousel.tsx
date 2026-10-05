@@ -41,6 +41,21 @@ export default function ImageCarousel({ images, alt = "Property", imageClassName
     }
   };
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isHovered && images.length > 1) {
+      interval = setInterval(() => {
+        if (scrollContainerRef.current) {
+          const container = scrollContainerRef.current;
+          // If we reach the end, go back to 0, otherwise next
+          const nextIndex = (currentIndex + 1) % images.length;
+          container.scrollTo({ left: nextIndex * container.clientWidth, behavior: 'smooth' });
+        }
+      }, 1500); // Auto-slide every 1.5 seconds on hover
+    }
+    return () => clearInterval(interval);
+  }, [isHovered, currentIndex, images.length]);
+
   return (
     <div 
       className={`relative group overflow-hidden ${containerClassName}`} 

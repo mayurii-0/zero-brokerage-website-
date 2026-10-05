@@ -20,45 +20,44 @@ export default function PricingPage() {
   ) => {
     // Dynamic styling based on whether the card is selected or not
     // The selected card elevates and scales up ("like a center card")
-    // Unselected cards are slightly smaller and sit lower.
     const dynamicPositionClass = isSelected 
-      ? "lg:-translate-y-2 shadow-2xl z-30" 
-      : "lg:translate-y-0 z-10 hover:z-20";
+      ? "lg:scale-110 lg:-translate-y-5 shadow-2xl z-30" 
+      : "lg:scale-100 lg:translate-y-0 z-10 hover:z-20 hover:scale-[1.06] hover:-translate-y-2 hover:shadow-xl hover:ring-2 hover:ring-[#1ebbbb]/50";
 
     return (
       <div 
         onClick={onClick}
-        className={`cursor-pointer p-5 md:p-6 rounded-3xl border flex flex-col relative transition-all duration-500 ease-out ${dynamicPositionClass} ${
+        className={`cursor-pointer p-6 md:p-7 rounded-[2rem] border flex flex-col relative transition-all duration-500 ease-out ${dynamicPositionClass} ${
           isSelected 
             ? 'bg-slate-900 border-slate-800' 
-            : 'bg-white border-slate-200 hover:border-[#1ebbbb] shadow-sm hover:shadow-lg'
+            : 'bg-white border-slate-200 hover:border-[#1ebbbb] hover:bg-stone-50/30'
         }`}
       >
         {badgeText && isSelected && (
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#1ebbbb] text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full tracking-widest uppercase whitespace-nowrap">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#1ebbbb] text-white text-[11px] font-black px-4 py-1.5 rounded-full tracking-widest uppercase whitespace-nowrap shadow-lg">
             {badgeText}
           </div>
         )}
-        <h3 className={`text-xl font-bold mb-1 ${isSelected ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
-        <p className={`text-xs md:text-sm mb-6 ${isSelected ? 'text-slate-400' : 'text-slate-500'}`}>{targetUser}</p>
-        <div className="mb-6">
-          <span className={`text-3xl md:text-4xl font-bold ${isSelected ? 'text-white' : 'text-slate-900'}`}>{price}</span>
-          <span className={`text-xs md:text-sm ${isSelected ? 'text-slate-400' : 'text-slate-500'}`}>{priceSub}</span>
+        <h3 className={`text-xl md:text-2xl font-bold mb-2 ${isSelected ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
+        <p className={`text-xs md:text-sm mb-5 lg:mb-8 font-medium ${isSelected ? 'text-slate-400' : 'text-slate-500'}`}>{targetUser}</p>
+        <div className="mb-8 flex items-baseline">
+          <span className={`text-xl md:text-2xl font-semibold tracking-tight ${isSelected ? 'text-white' : 'text-slate-900'}`}>{price}</span>
+          <span className={`text-xs md:text-sm ml-1.5 font-medium ${isSelected ? 'text-slate-400' : 'text-slate-500'}`}>{priceSub}</span>
         </div>
-        <ul className="space-y-3 md:space-y-4 mb-8 flex-grow">
+        <ul className="space-y-4 mb-10 flex-grow">
           {features.map((feature, idx) => (
-            <li key={idx} className={`flex items-start gap-2 md:gap-3 text-xs md:text-sm ${isSelected ? 'text-slate-300' : 'text-slate-700'}`}>
-              <svg className={`w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5 ${isSelected ? 'text-[#1ebbbb]' : 'text-emerald-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+            <li key={idx} className={`flex items-start gap-3 text-xs md:text-sm leading-relaxed font-medium ${isSelected ? 'text-slate-300' : 'text-slate-700'}`}>
+              <svg className={`w-5 h-5 shrink-0 mt-0.5 ${isSelected ? 'text-[#1ebbbb]' : 'text-emerald-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7"></path>
               </svg>
               <span>{feature}</span>
             </li>
           ))}
         </ul>
-        <button className={`w-full py-2.5 md:py-3 rounded-xl font-bold text-sm transition-colors ${
+        <button className={`w-full py-3 md:py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase transition-all ${
           isSelected 
-            ? 'bg-[#1ebbbb] text-white hover:bg-[#19a5a5]' 
-            : 'border-2 border-slate-200 text-slate-900 hover:border-slate-900'
+            ? 'bg-[#1ebbbb] text-white hover:bg-[#159a9a] hover:shadow-[0_0_15px_rgba(30,187,187,0.4)]' 
+            : 'bg-slate-100 text-slate-900 hover:bg-[#1ebbbb] hover:text-white hover:shadow-md'
         }`}>
           {buttonText}
         </button>
@@ -67,8 +66,8 @@ export default function PricingPage() {
   };
 
   return (
-    <main className="pt-24 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4 bg-stone-50 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto w-full">
+    <main className="pt-24 md:pt-40 lg:pt-48 min-h-screen flex flex-col items-center px-4 overflow-hidden">
+      <div className="max-w-[1500px] mx-auto w-full">
         <div className="text-center mb-6 md:mb-12">
           <p className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-widest uppercase mb-2 md:mb-4">SUBSCRIPTION PLANS</p>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-slate-900 mb-3 md:mb-6 leading-tight px-2">

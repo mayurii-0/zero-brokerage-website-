@@ -259,7 +259,7 @@ export default function PropertiesPage() {
   );
 
   return (
-    <main className="pt-28 lg:pt-48 pb-20 min-h-screen flex flex-col items-center px-4 bg-stone-50">
+    <main className="pt-28 lg:pt-48 pb-20 min-h-screen flex flex-col items-center px-4">
       <div className="max-w-7xl mx-auto w-full">
         
         <div className="text-center mb-10">
@@ -282,7 +282,7 @@ export default function PropertiesPage() {
               <select 
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
               >
                 <option value="All">All Categories</option>
                 <option value="Buy">Buy</option>
@@ -298,7 +298,7 @@ export default function PropertiesPage() {
               <select 
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
               >
                 <option value="All Cities">All Cities</option>
                 {filterOptions.cities.map(c => c !== 'All Cities' && <option key={c} value={c}>{c}</option>)}
@@ -311,7 +311,7 @@ export default function PropertiesPage() {
                 <select 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Types</option>
                   {filterOptions.types.map(t => t !== 'All Types' && <option key={t} value={t}>{t}</option>)}
@@ -324,7 +324,7 @@ export default function PropertiesPage() {
                 <select 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Land Types</option>
                   {filterOptions.types.map(t => t !== 'All Types' && <option key={t} value={t}>{t}</option>)}
@@ -337,7 +337,7 @@ export default function PropertiesPage() {
                 <select 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Types</option>
                   {filterOptions.types.map(t => t !== 'All Types' && <option key={t} value={t}>{t}</option>)}
@@ -350,7 +350,7 @@ export default function PropertiesPage() {
                 <select 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Packages</option>
                   {filterOptions.types.map(t => t !== 'All Types' && <option key={t} value={t}>{t}</option>)}
@@ -379,7 +379,7 @@ export default function PropertiesPage() {
                       <select 
                         value={propertyStatus}
                         onChange={(e) => setPropertyStatus(e.target.value)}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">Any {category === 'Rent / Lease' ? 'Status' : 'Age'}</option>
                         {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
@@ -393,7 +393,7 @@ export default function PropertiesPage() {
                       <select 
                         value={propertyStatus}
                         onChange={(e) => setPropertyStatus(e.target.value)}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">Any Status</option>
                         {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
@@ -407,7 +407,7 @@ export default function PropertiesPage() {
                       <select 
                         value={propertyStatus}
                         onChange={(e) => setPropertyStatus(e.target.value)}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">Any Grade</option>
                         {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
@@ -421,7 +421,7 @@ export default function PropertiesPage() {
                       <select 
                         value={propertyStatus}
                         onChange={(e) => setPropertyStatus(e.target.value)}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">Any Duration</option>
                         {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
@@ -439,7 +439,7 @@ export default function PropertiesPage() {
                         placeholder="Min Price"
                         value={minPrice}
                         onChange={(e) => setMinPrice(e.target.value)}
-                        className="w-1/2 px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                        className="w-1/2 px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       />
                       <span className="text-slate-400 font-medium">-</span>
                       <input 
@@ -448,7 +448,7 @@ export default function PropertiesPage() {
                         placeholder="Max Price"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
-                        className="w-1/2 px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                        className="w-1/2 px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       />
                     </div>
                   </div>
@@ -463,7 +463,7 @@ export default function PropertiesPage() {
                           placeholder="Min Size"
                           value={minSize}
                           onChange={(e) => setMinSize(e.target.value)}
-                          className="w-1/2 px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-1/2 px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         />
                         <span className="text-slate-400 font-medium">-</span>
                         <input 
@@ -471,7 +471,7 @@ export default function PropertiesPage() {
                           placeholder="Max Size"
                           value={maxSize}
                           onChange={(e) => setMaxSize(e.target.value)}
-                          className="w-1/2 px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                          className="w-1/2 px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         />
                       </div>
                     </div>
@@ -482,7 +482,7 @@ export default function PropertiesPage() {
                       <select 
                         value={bhk}
                         onChange={(e) => setBhk(e.target.value)}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="Any BHK">Any BHK</option>
                         {filterOptions.bhks.map(b => b !== 'Any BHK' && <option key={b} value={b}>{b}</option>)}
@@ -495,7 +495,7 @@ export default function PropertiesPage() {
                     <select 
                       value={listedBy}
                       onChange={(e) => setListedBy(e.target.value)}
-                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                     >
                       <option value="All">All (Owner, Agency, Broker)</option>
                       {filterOptions.listers.map(l => l !== 'All' && <option key={l} value={l}>{l}</option>)}
@@ -517,7 +517,7 @@ export default function PropertiesPage() {
                   placeholder="Search specific keyword..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
+                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 />
                 <svg className="w-5 h-5 text-slate-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
