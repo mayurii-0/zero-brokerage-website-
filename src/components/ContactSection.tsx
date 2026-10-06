@@ -90,7 +90,7 @@ const ContactSection = () => {
                     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">Message Sent!</h3>
-                  <p className="text-slate-500 text-sm">We'll get back to you shortly.</p>
+                  <p className="text-slate-500 text-sm">We&apos;ll get back to you shortly.</p>
                 </div>
               </div>
             )}

@@ -6,11 +6,14 @@ import Link from 'next/link';
 import { PROPERTIES } from '@/components/PropertyShowcase';
 import ImageCarousel from '@/components/ImageCarousel';
 
-const DUMMY_IMAGES = [
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
-  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-  "https://images.unsplash.com/photo-1600566753086-00f18efc2291?w=800&q=80"
-];
+const RELATED_IMAGES: Record<string, string[]> = {
+  "Buy": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
+  "Rent / Lease": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
+  "Lands & Farmlands": ["/images/service-land.jpg", "/images/greenfield-land.jpg", "/images/service-land.jpg", "/images/greenfield-land.jpg"],
+  "Furniture Rentals": ["/images/service-furniture.jpg", "/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg"],
+  "Commercial Offices": ["/images/service-office.jpg", "/images/business-workspace.jpg", "/images/service-office.jpg", "/images/business-workspace.jpg"]
+};
+const getRelatedImages = (category: string) => RELATED_IMAGES[category] || ["/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg", "/images/service-furniture.jpg"];
 
 export default function PropertiesPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -580,10 +583,37 @@ export default function PropertiesPage() {
               <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col w-full max-w-[320px] mx-auto sm:max-w-none">
                 <div className="aspect-video sm:aspect-auto sm:h-64 w-full relative group cursor-pointer overflow-hidden bg-slate-100">
                   <ImageCarousel 
-                    images={[item.image, ...DUMMY_IMAGES]} 
+                    images={[item.image, ...getRelatedImages(item.category)]} 
                     alt={item.title} 
                     imageClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                   />
+                  {/* Floating Actions */}
+                  <div className="absolute top-3 right-3 flex flex-col gap-2 z-20">
+                    <button 
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = '/login'; }} 
+                      className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center text-slate-400 hover:text-rose-500 hover:scale-110 transition-all"
+                      title="Save property"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </button>
+                    <button 
+                      onClick={(e) => { 
+                        e.preventDefault(); 
+                        e.stopPropagation(); 
+                        const url = window.location.origin + '/properties/' + item.id;
+                        if (navigator.share) {
+                          navigator.share({ title: item.title, url }).catch(() => {});
+                        } else {
+                          navigator.clipboard.writeText(url);
+                          alert('Link copied to clipboard!');
+                        }
+                      }} 
+                      className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center text-slate-400 hover:text-[#1ebbbb] hover:scale-110 transition-all"
+                      title="Share property"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                    </button>
+                  </div>
                 </div>
                 <div className="p-4 sm:p-6 flex flex-col flex-grow">
                   <div className="flex flex-col sm:flex-row justify-between items-start mb-1 sm:mb-2 gap-1 sm:gap-0">
@@ -600,7 +630,7 @@ export default function PropertiesPage() {
                   </p>
                   <div className="mt-auto flex justify-between items-center pt-3 sm:pt-4 border-t border-slate-100">
                     <div>
-                      <span className="text-lg sm:text-xl font-bold text-[#1ebbbb]">{item.price}</span>
+                      <span className="text-sm sm:text-lg font-bold text-[#1ebbbb]">{item.price}</span>
                       <p className="text-[9px] sm:text-[10px] uppercase text-slate-400 font-bold mt-0.5 sm:mt-1 tracking-wider">By {item.listedBy}</p>
                     </div>
                     <Link href={`/properties/${item.id}`} className="bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-colors flex items-center justify-center">

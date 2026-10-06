@@ -7,12 +7,14 @@ import ImageCarousel from '@/components/ImageCarousel';
 import Navbar from '@/components/Navbar';
 import { ArrowLeft, CheckCircle2, MapPin, Building2, BedDouble, Calendar, Home, ArrowRight, LayoutGrid, X, ShieldCheck, Zap, Car, ArrowUpDown, Dumbbell, Waves, Coffee, Compass, Heart, Share } from 'lucide-react';
 
-const DUMMY_IMAGES = [
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
-  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-  "https://images.unsplash.com/photo-1600566753086-00f18efc2291?w=800&q=80",
-  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80"
-];
+const RELATED_IMAGES: Record<string, string[]> = {
+  "Buy": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
+  "Rent / Lease": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
+  "Lands & Farmlands": ["/images/service-land.jpg", "/images/greenfield-land.jpg", "/images/service-land.jpg", "/images/greenfield-land.jpg"],
+  "Furniture Rentals": ["/images/service-furniture.jpg", "/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg"],
+  "Commercial Offices": ["/images/service-office.jpg", "/images/business-workspace.jpg", "/images/service-office.jpg", "/images/business-workspace.jpg"]
+};
+const getRelatedImages = (category: string) => RELATED_IMAGES[category] || ["/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg", "/images/service-furniture.jpg"];
 
 export default function PropertyDetailPage() {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
@@ -43,7 +45,7 @@ export default function PropertyDetailPage() {
     );
   }
 
-  const allImages = [property.image, ...DUMMY_IMAGES];
+  const allImages = [property.image, ...getRelatedImages(property.category)];
 
   return (
     <main className="min-h-screen flex flex-col bg-stone-50">
@@ -69,7 +71,7 @@ export default function PropertyDetailPage() {
             <div className="max-w-4xl mx-auto py-10 px-4 space-y-4">
               {allImages.map((img, idx) => (
                 <div key={idx} className="w-full">
-                  <img src={img} alt={`${property.title} photo ${idx + 1}`} className="w-full h-auto object-cover rounded-lg" />
+                  <img src={img} alt={`${property.title} photo ${idx + 1}`} className="w-full h-auto max-h-[80vh] object-contain bg-slate-100 rounded-lg shadow-sm border border-slate-200" />
                 </div>
               ))}
             </div>

@@ -41,8 +41,8 @@ const ABOUT_SLIDES = [
     location: "Key focus: Discover • Connect • Manage • Grow",
     headline: "Supporting Every Step Forward.",
     desc: "From discovering a property to managing opportunities, our platform helps users and real-estate businesses stay connected and move forward.",
-    bgImage: "/images/about-4-main.jpg",
-    mainImage: "/images/about-4-bg.jpg"
+    bgImage: "/images/about-4-bg.jpg",
+    mainImage: "/images/about-4-main.jpg"
   }
 ];
 

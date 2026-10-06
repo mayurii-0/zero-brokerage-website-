@@ -47,14 +47,20 @@ export default function ImageCarousel({ images, alt = "Property", imageClassName
       interval = setInterval(() => {
         if (scrollContainerRef.current) {
           const container = scrollContainerRef.current;
-          // If we reach the end, go back to 0, otherwise next
-          const nextIndex = (currentIndex + 1) % images.length;
-          container.scrollTo({ left: nextIndex * container.clientWidth, behavior: 'smooth' });
+          const currentScroll = container.scrollLeft;
+          const maxScroll = container.scrollWidth - container.clientWidth;
+          
+          let nextScroll = currentScroll + container.clientWidth;
+          if (nextScroll > maxScroll + 10) {
+            nextScroll = 0;
+          }
+          
+          container.scrollTo({ left: nextScroll, behavior: 'smooth' });
         }
-      }, 1500); // Auto-slide every 1.5 seconds on hover
+      }, 2000);
     }
     return () => clearInterval(interval);
-  }, [isHovered, currentIndex, images.length]);
+  }, [isHovered, images.length]);
 
   return (
     <div 
@@ -66,13 +72,14 @@ export default function ImageCarousel({ images, alt = "Property", imageClassName
         ref={scrollContainerRef}
         onScroll={handleScroll}
         className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollBehavior: 'smooth' }}
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {images.map((img, idx) => (
-          <div key={idx} className="w-full h-full flex-shrink-0 snap-center relative">
+          <div key={idx} className="w-full h-full flex-shrink-0 snap-center relative bg-slate-100">
             <img 
               src={img} 
               alt={`${alt} - view ${idx + 1}`} 
+              loading={idx === 0 ? "eager" : "lazy"}
               className={`w-full h-full ${imageClassName}`}
               style={{ objectPosition }}
             />

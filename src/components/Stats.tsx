@@ -35,6 +35,7 @@ const Counter = ({ target, suffix = "", isVisible, decimals = 0 }: { target: num
   useEffect(() => {
     if (!isVisible) {
       // Reset when out of view so it counts again when scrolling back
+      // eslint-disable-next-line
       setCount(0);
       return;
     }

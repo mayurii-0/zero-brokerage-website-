@@ -6,11 +6,14 @@ import AnimatedSpotlight from './AnimatedSpotlight';
 import ImageCarousel from './ImageCarousel';
 // Removed Star
 
-const DUMMY_IMAGES = [
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
-  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-  "https://images.unsplash.com/photo-1600566753086-00f18efc2291?w=800&q=80"
-];
+const RELATED_IMAGES: Record<string, string[]> = {
+  "Buy": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
+  "Rent / Lease": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
+  "Lands & Farmlands": ["/images/service-land.jpg", "/images/greenfield-land.jpg", "/images/service-land.jpg", "/images/greenfield-land.jpg"],
+  "Furniture Rentals": ["/images/service-furniture.jpg", "/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg"],
+  "Commercial Offices": ["/images/service-office.jpg", "/images/business-workspace.jpg", "/images/service-office.jpg", "/images/business-workspace.jpg"]
+};
+const getRelatedImages = (category: string) => RELATED_IMAGES[category] || ["/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg", "/images/service-furniture.jpg"];
 
 const TABS = ["Buy", "Rent / Lease", "Lands & Farmlands", "Furniture Rentals", "Commercial Offices"];
 
@@ -22,7 +25,7 @@ export const PROPERTIES = [
     "price": "₹2.85 Cr",
     "location": "Bandra West, Mumbai",
     "specs": "3 Beds • 3 Baths • 2,400 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80",
+    "image": "/images/modern-residence.jpg",
     "badges": [
       {
         "text": "0% BROKERAGE",
@@ -1255,27 +1258,27 @@ const PropertyShowcase = () => {
             </AnimatePresence>
 
             {/* Bottom Action Row */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-6 pt-4 border-t border-slate-100">
-              <button 
-                onClick={() => setShowMoreOptions(!showMoreOptions)}
-                className="text-xs font-bold text-indigo-600 uppercase tracking-wide flex items-center gap-1 hover:text-indigo-700 transition-colors"
-              >
-                {showMoreOptions ? '- Less options' : '+ More options'}
-              </button>
+            <div className="flex flex-row justify-between items-center w-full mt-6 pt-4 border-t border-slate-100">
               <div className="flex items-center gap-4">
+                <button 
+                  onClick={handleShowProperties}
+                  className="bg-[#1ebbbb] text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wide hover:bg-[#19a5a5] transition-colors shadow-sm"
+                >
+                  APPLY FILTER
+                </button>
                 <button 
                   onClick={handleClearFilters}
                   className="text-xs font-bold text-slate-500 uppercase tracking-wide hidden sm:block hover:text-slate-700 transition-colors"
                 >
                   Clear filters
                 </button>
-                <button 
-                  onClick={handleShowProperties}
-                  className="bg-[#1ebbbb] text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wide hover:bg-[#19a5a5] transition-colors shadow-sm"
-                >
-                  APPLY FILTER
-                  </button>
-                </div>
+              </div>
+              <button 
+                onClick={() => setShowMoreOptions(!showMoreOptions)}
+                className="text-xs font-bold text-indigo-600 uppercase tracking-wide flex items-center gap-1 hover:text-indigo-700 transition-colors"
+              >
+                {showMoreOptions ? '- Less options' : '+ More options'}
+              </button>
             </div>
           </div>
 
@@ -1287,14 +1290,41 @@ const PropertyShowcase = () => {
                   <div key={property.id} className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-col hover:shadow-md transition-shadow w-full max-w-[320px] mx-auto sm:max-w-none ${index >= 4 ? "hidden md:flex" : "flex"}`}>
                     <div className="aspect-[16/9] bg-slate-200 relative overflow-hidden group cursor-pointer">
                       <ImageCarousel 
-                        images={[property.image, ...DUMMY_IMAGES]} 
+                        images={[property.image, ...getRelatedImages(property.category)]} 
                         alt={property.title} 
-                        imageClassName="absolute inset-0 w-full h-full object-contain bg-slate-100" 
+                        imageClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                         objectPosition={(property as any).objectPosition || 'center'}
                       />
+                      {/* Floating Actions */}
+                      <div className="absolute top-3 right-3 flex flex-col gap-2 z-20">
+                        <button 
+                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = '/login'; }} 
+                          className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center text-slate-400 hover:text-rose-500 hover:scale-110 transition-all"
+                          title="Save property"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
+                        <button 
+                          onClick={(e) => { 
+                            e.preventDefault(); 
+                            e.stopPropagation(); 
+                            const url = window.location.origin + '/properties/' + property.id;
+                            if (navigator.share) {
+                              navigator.share({ title: property.title, url }).catch(() => {});
+                            } else {
+                              navigator.clipboard.writeText(url);
+                              alert('Link copied to clipboard!');
+                            }
+                          }} 
+                          className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center text-slate-400 hover:text-[#1ebbbb] hover:scale-110 transition-all"
+                          title="Share property"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                        </button>
+                      </div>
                     </div>
                     <div className="p-3 md:p-5 flex flex-col grow">
-                      <div className="text-base md:text-xl font-bold text-slate-900 mb-1">{property.price}</div>
+                      <div className="text-sm md:text-lg font-bold text-slate-900 mb-1">{property.price}</div>
                       <div className="flex items-start justify-between gap-1 mb-1 md:mb-0">
                         <div className="text-sm md:text-base font-bold text-slate-800 leading-tight">{property.title}</div>
                         {property.category === 'Rent / Lease' && (

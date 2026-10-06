@@ -5,6 +5,11 @@ export default function PricingPage() {
   const [activeTab, setActiveTab] = useState<'seekers' | 'agency'>('seekers');
   const [selectedSeekerPlan, setSelectedSeekerPlan] = useState<string>('pro-seeker');
   const [selectedAgencyPlan, setSelectedAgencyPlan] = useState<string>('gold-agency');
+  const [hoveredSeekerPlan, setHoveredSeekerPlan] = useState<string | null>(null);
+  const [hoveredAgencyPlan, setHoveredAgencyPlan] = useState<string | null>(null);
+
+  const activeSeeker = hoveredSeekerPlan || selectedSeekerPlan;
+  const activeAgency = hoveredAgencyPlan || selectedAgencyPlan;
 
   const renderCard = (
     id: string,
@@ -16,21 +21,21 @@ export default function PricingPage() {
     buttonText: string,
     badgeText: string | null,
     isSelected: boolean,
-    onClick: () => void
+    onMouseEnter: () => void
   ) => {
     // Dynamic styling based on whether the card is selected or not
     // The selected card elevates and scales up ("like a center card")
     const dynamicPositionClass = isSelected 
       ? "lg:scale-110 lg:-translate-y-5 shadow-2xl z-30" 
-      : "lg:scale-100 lg:translate-y-0 z-10 hover:z-20 hover:scale-[1.06] hover:-translate-y-2 hover:shadow-xl hover:ring-2 hover:ring-[#1ebbbb]/50";
+      : "lg:scale-100 lg:translate-y-0 z-10 hover:z-20";
 
     return (
       <div 
-        onClick={onClick}
+        onMouseEnter={onMouseEnter}
         className={`cursor-pointer p-6 md:p-7 rounded-[2rem] border flex flex-col relative transition-all duration-500 ease-out ${dynamicPositionClass} ${
           isSelected 
             ? 'bg-slate-900 border-slate-800' 
-            : 'bg-white border-slate-200 hover:border-[#1ebbbb] hover:bg-stone-50/30'
+            : 'bg-white border-slate-200'
         }`}
       >
         {badgeText && isSelected && (
@@ -98,7 +103,10 @@ export default function PricingPage() {
         
         {/* Seekers Pricing (5 Tiers) */}
         {activeTab === 'seekers' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 pb-12 md:pb-32 animate-fade-in relative px-4 lg:px-0">
+          <div 
+            onMouseLeave={() => setHoveredSeekerPlan(null)}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 pb-12 md:pb-32 animate-fade-in relative px-4 lg:px-0"
+          >
             {renderCard(
               'micro-pass',
               'Micro-Pass',
@@ -108,8 +116,8 @@ export default function PricingPage() {
               ['5 Direct owner contacts', 'Standard search access'],
               'Get Micro-Pass',
               'Selected',
-              selectedSeekerPlan === 'micro-pass',
-              () => setSelectedSeekerPlan('micro-pass')
+              activeSeeker === 'micro-pass',
+              () => setHoveredSeekerPlan('micro-pass')
             )}
             {renderCard(
               'starter',
@@ -120,8 +128,8 @@ export default function PricingPage() {
               ['15 Owner contacts', 'Instant WhatsApp alerts'],
               'Choose Starter',
               'Selected',
-              selectedSeekerPlan === 'starter',
-              () => setSelectedSeekerPlan('starter')
+              activeSeeker === 'starter',
+              () => setHoveredSeekerPlan('starter')
             )}
             {renderCard(
               'pro-seeker',
@@ -131,9 +139,9 @@ export default function PricingPage() {
               ' / month',
               ['Unlimited owner contacts', 'Digital background check', '0% furniture deposit'],
               'Go Pro',
-              'Most Popular',
-              selectedSeekerPlan === 'pro-seeker',
-              () => setSelectedSeekerPlan('pro-seeker')
+              'Selected',
+              activeSeeker === 'pro-seeker',
+              () => setHoveredSeekerPlan('pro-seeker')
             )}
             {renderCard(
               'investor-pass',
@@ -144,8 +152,8 @@ export default function PricingPage() {
               ['Access to verified land registries', 'Early listings access'],
               'Get Investor Pass',
               'Selected',
-              selectedSeekerPlan === 'investor-pass',
-              () => setSelectedSeekerPlan('investor-pass')
+              activeSeeker === 'investor-pass',
+              () => setHoveredSeekerPlan('investor-pass')
             )}
             {renderCard(
               'vip-concierge',
@@ -156,15 +164,18 @@ export default function PricingPage() {
               ['White-glove matching', 'Priority site visits', '24/7 advisory support'],
               'Become VIP',
               'Selected',
-              selectedSeekerPlan === 'vip-concierge',
-              () => setSelectedSeekerPlan('vip-concierge')
+              activeSeeker === 'vip-concierge',
+              () => setHoveredSeekerPlan('vip-concierge')
             )}
           </div>
         )}
 
         {/* Agency/Broker/Builder Pricing (3 Tiers) */}
         {activeTab === 'agency' && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 md:pb-32 animate-fade-in max-w-5xl mx-auto px-4 lg:px-0">
+          <div 
+            onMouseLeave={() => setHoveredAgencyPlan(null)}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 md:pb-32 animate-fade-in max-w-5xl mx-auto px-4 lg:px-0"
+          >
             {renderCard(
               'silver-partner',
               'Silver Partner',
@@ -174,8 +185,8 @@ export default function PricingPage() {
               ['Standard verified broker profile', 'Direct lead receiving', 'Basic analytics'],
               'Start as Silver',
               'Selected',
-              selectedAgencyPlan === 'silver-partner',
-              () => setSelectedAgencyPlan('silver-partner')
+              activeAgency === 'silver-partner',
+              () => setHoveredAgencyPlan('silver-partner')
             )}
             {renderCard(
               'gold-agency',
@@ -186,8 +197,8 @@ export default function PricingPage() {
               ['5 Boost ad credits/month', 'Prioritized search ranking', 'Office rental integration'],
               'Go Gold',
               'Recommended',
-              selectedAgencyPlan === 'gold-agency',
-              () => setSelectedAgencyPlan('gold-agency')
+              activeAgency === 'gold-agency',
+              () => setHoveredAgencyPlan('gold-agency')
             )}
             {renderCard(
               'platinum-builder',
@@ -198,8 +209,8 @@ export default function PricingPage() {
               ['Custom landing page', 'Direct API access', 'Banner placement', 'Luxury showcase access'],
               'Become Platinum',
               'Selected',
-              selectedAgencyPlan === 'platinum-builder',
-              () => setSelectedAgencyPlan('platinum-builder')
+              activeAgency === 'platinum-builder',
+              () => setHoveredAgencyPlan('platinum-builder')
             )}
           </div>
         )}
