@@ -1168,7 +1168,7 @@ const PropertyShowcase = () => {
                   exit={{ opacity: 0, height: 0 }}
                   className="overflow-hidden mt-6"
                 >
-                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 pt-2">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 pt-2 pb-1 px-1">
                     
                     {/* Status / Age */}
                     {(activeTab === 'All' || activeTab === 'Buy' || activeTab === 'Rent / Lease') && (<div className="col-span-2 sm:col-span-1">
@@ -1233,7 +1233,7 @@ const PropertyShowcase = () => {
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Price / Rent (?)</label>
                       <div className="flex items-center gap-2">
                         <input 
-                          type="number" min="0" 
+                          type="number" min="0" onKeyDown={(e) => (e.key === '-' || e.key === 'e' || e.key === '+') && e.preventDefault()} 
                           step="10000"
                           placeholder="Min Price"
                           value={minPrice}
@@ -1242,7 +1242,7 @@ const PropertyShowcase = () => {
                         />
                         <span className="text-slate-400 font-medium">-</span>
                         <input 
-                          type="number" min="0" 
+                          type="number" min="0" onKeyDown={(e) => (e.key === '-' || e.key === 'e' || e.key === '+') && e.preventDefault()} 
                           step="10000"
                           placeholder="Max Price"
                           value={maxPrice}
@@ -1258,7 +1258,7 @@ const PropertyShowcase = () => {
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Size (Sq. Ft.)</label>
                         <div className="flex items-center gap-2">
                           <input 
-                            type="number" min="100" step="100"
+                            type="number" min="100" onKeyDown={(e) => (e.key === '-' || e.key === 'e' || e.key === '+') && e.preventDefault()} step="100"
                               placeholder="Min Size"
                             value={minSize}
                             onChange={(e) => setMinSize(e.target.value)}
@@ -1266,7 +1266,7 @@ const PropertyShowcase = () => {
                           />
                           <span className="text-slate-400 font-medium">-</span>
                           <input 
-                            type="number" min="100" step="100"
+                            type="number" min="100" onKeyDown={(e) => (e.key === '-' || e.key === 'e' || e.key === '+') && e.preventDefault()} step="100"
                               placeholder="Max Size"
                             value={maxSize}
                             onChange={(e) => setMaxSize(e.target.value)}
@@ -1418,4 +1418,8 @@ const PropertyShowcase = () => {
 }
 
 export default PropertyShowcase;
+
+
+
+
 
