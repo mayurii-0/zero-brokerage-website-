@@ -1,9 +1,12 @@
 "use client";
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 import AnimatedSpotlight from './AnimatedSpotlight';
 import ImageCarousel from './ImageCarousel';
+import CustomSelect from './CustomSelect';
+import ShareModal from './ShareModal';
 // Removed Star
 
 export const CATEGORY_IMAGES: Record<string, string[]> = {
@@ -813,6 +816,8 @@ export const PROPERTIES = [
 import Link from 'next/link';
 
 const PropertyShowcase = () => {
+  const router = useRouter();
+  const [shareData, setShareData] = useState({isOpen: false, title: '', url: ''});
   const [activeTab, setActiveTab] = useState("Buy");
   const [showMoreOptions, setShowMoreOptions] = useState(false);
 
@@ -1083,12 +1088,7 @@ const PropertyShowcase = () => {
     let matchSize = true;
     if (appliedFilters.minSize || appliedFilters.maxSize) {
       const pSize = parseSize(p.specs);
-      if (pSize === 0) {
-        matchSize = false;
-      } else {
-        if (appliedFilters.minSize && pSize < parseFloat(appliedFilters.minSize)) matchSize = false;
-        if (appliedFilters.maxSize && pSize > parseFloat(appliedFilters.maxSize)) matchSize = false;
-      }
+      if (pSize !== 0) { if (appliedFilters.minSize && pSize < parseFloat(appliedFilters.minSize)) matchSize = false; if (appliedFilters.maxSize && pSize > parseFloat(appliedFilters.maxSize)) matchSize = false; }
     }
 
     return matchSearch && matchLister && matchCity && matchPropType && matchStatus && matchBhk && matchPrice && matchSize;
@@ -1137,25 +1137,25 @@ const PropertyShowcase = () => {
               />
 
               <div>
-                <select 
+                <CustomSelect 
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Cities">All Cities</option>
                   {filterOptions.cities.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
+                </CustomSelect>
               </div>
 
               <div>
-                <select 
+                <CustomSelect 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
                   className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Types</option>
                   {filterOptions.types.map(t => <option key={t} value={t}>{t}</option>)}
-                </select>
+                </CustomSelect>
               </div>
             </div>
 
@@ -1175,56 +1175,56 @@ const PropertyShowcase = () => {
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
                           {activeTab === 'Rent / Lease' ? 'Furnishing Status' : 'Property Age'}
                         </label>
-                        <select 
+                        <CustomSelect 
                           value={propertyStatus}
                           onChange={(e) => setPropertyStatus(e.target.value)}
                           className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="All">Any {activeTab === 'Rent / Lease' ? 'Status' : 'Age'}</option>
                           {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
-                        </select>
+                        </CustomSelect>
                       </div>
                     )}
 
                     {activeTab === 'Lands & Farmlands' && (
                       <div>
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Legal Status</label>
-                        <select 
+                        <CustomSelect 
                           value={propertyStatus}
                           onChange={(e) => setPropertyStatus(e.target.value)}
                           className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="All">Any Status</option>
                           {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
-                        </select>
+                        </CustomSelect>
                       </div>
                     )}
 
                     {activeTab === 'Commercial Offices' && (
                       <div>
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Grade</label>
-                        <select 
+                        <CustomSelect 
                           value={propertyStatus}
                           onChange={(e) => setPropertyStatus(e.target.value)}
                           className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="All">Any Grade</option>
                           {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
-                        </select>
+                        </CustomSelect>
                       </div>
                     )}
 
                     {activeTab === 'Furniture Rentals' && (
                       <div>
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Rental Duration</label>
-                        <select 
+                        <CustomSelect 
                           value={propertyStatus}
                           onChange={(e) => setPropertyStatus(e.target.value)}
                           className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="All">Any Duration</option>
                           {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
-                        </select>
+                        </CustomSelect>
                       </div>
                     )}
 
@@ -1233,7 +1233,7 @@ const PropertyShowcase = () => {
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Price / Rent (?)</label>
                       <div className="flex items-center gap-2">
                         <input 
-                          type="number" 
+                          type="number" min="0" 
                           step="10000"
                           placeholder="Min Price"
                           value={minPrice}
@@ -1242,7 +1242,7 @@ const PropertyShowcase = () => {
                         />
                         <span className="text-slate-400 font-medium">-</span>
                         <input 
-                          type="number" 
+                          type="number" min="0" 
                           step="10000"
                           placeholder="Max Price"
                           value={maxPrice}
@@ -1258,16 +1258,16 @@ const PropertyShowcase = () => {
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Size (Sq. Ft.)</label>
                         <div className="flex items-center gap-2">
                           <input 
-                            type="number" 
-                            placeholder="Min Size"
+                            type="number" min="100" step="100"
+                              placeholder="Min Size"
                             value={minSize}
                             onChange={(e) => setMinSize(e.target.value)}
                             className="w-1/2 px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                           />
                           <span className="text-slate-400 font-medium">-</span>
                           <input 
-                            type="number" 
-                            placeholder="Max Size"
+                            type="number" min="100" step="100"
+                              placeholder="Max Size"
                             value={maxSize}
                             onChange={(e) => setMaxSize(e.target.value)}
                             className="w-1/2 px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
@@ -1278,27 +1278,27 @@ const PropertyShowcase = () => {
 
                     {(activeTab === 'All' || activeTab === 'Buy' || activeTab === 'Rent / Lease') && (<div className="col-span-2 sm:col-span-1">
                         <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">BHK Capacity</label>
-                        <select 
+                        <CustomSelect 
                           value={bhk}
                           onChange={(e) => setBhk(e.target.value)}
                           className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                         >
                           <option value="Any BHK">Any BHK</option>
                           {filterOptions.bhks.map(b => b !== 'Any BHK' && <option key={b} value={b}>{b}</option>)}
-                        </select>
+                        </CustomSelect>
                       </div>
                     )}
 
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Listed By</label>
-                      <select 
+                      <CustomSelect 
                         value={listedBy}
                         onChange={(e) => setListedBy(e.target.value)}
                         className="w-full px-3 sm:px-3 sm:px-4 py-2.5 sm:py-2.5 sm:py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">All (Owner, Agency, Broker)</option>
                         {filterOptions.listers.map(l => l !== 'All' && <option key={l} value={l}>{l}</option>)}
-                      </select>
+                      </CustomSelect>
                     </div>
 
                   </div>
@@ -1337,7 +1337,7 @@ const PropertyShowcase = () => {
               {displayedProperties.length > 0 ? (
                 displayedProperties.map((property, index) => (
                   <div key={property.id} className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-col hover:shadow-md transition-shadow w-full max-w-[320px] mx-auto sm:max-w-none ${index >= 4 ? "hidden md:flex" : "flex"}`}>
-                    <div className="aspect-[16/9] bg-slate-200 relative overflow-hidden group cursor-pointer">
+                    <div className="aspect-[16/9] bg-slate-200 relative overflow-hidden group cursor-pointer" onClick={() => router.push(`/properties/${property.id}`)}>
                       <ImageCarousel 
                         images={getUniqueImages(property.id, property.category, 4)} 
                         alt={property.title} 
@@ -1358,12 +1358,7 @@ const PropertyShowcase = () => {
                             e.preventDefault(); 
                             e.stopPropagation(); 
                             const url = window.location.origin + '/properties/' + property.id;
-                            if (navigator.share) {
-                              navigator.share({ title: property.title, url }).catch(() => {});
-                            } else {
-                              navigator.clipboard.writeText(url);
-                              alert('Link copied to clipboard!');
-                            }
+                            setShareData({isOpen: true, title: property.title, url});
                           }} 
                           className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center text-slate-400 hover:text-[#1ebbbb] hover:scale-110 transition-all"
                           title="Share property"
@@ -1417,29 +1412,10 @@ const PropertyShowcase = () => {
         </div>
 
       </div>
+      <ShareModal isOpen={shareData.isOpen} onClose={() => setShareData({...shareData, isOpen: false})} title={shareData.title} url={shareData.url} />
     </section>
   );
-};
+}
 
 export default PropertyShowcase;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

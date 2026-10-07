@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobilePropertiesOpen, setIsMobilePropertiesOpen] = useState(false);
 
   const handleTabClick = (tabName: string) => {
     window.dispatchEvent(new CustomEvent('switchTab', { detail: tabName }));
@@ -45,12 +46,12 @@ const Navbar = () => {
               
               <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-[#E2E8F0] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="py-2">
-                  <Link href="/properties#properties-buy" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Buy</Link>
-                  <Link href="/properties#properties-rent" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Rent / Lease</Link>
-                  <Link href="/properties#properties-lands" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Lands & Farmlands</Link>
-                  <Link href="/properties#properties-furniture" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Furniture Rentals</Link>
-                  <Link href="/properties#properties-commercial" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Commercial Offices</Link>
-                  <Link href="/properties" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Residential Properties</Link>
+                  <Link href="/#properties-buy" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Buy</Link>
+                  <Link href="/#properties-rent" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Rent / Lease</Link>
+                  <Link href="/#properties-lands" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Lands & Farmlands</Link>
+                  <Link href="/#properties-furniture" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Furniture Rentals</Link>
+                  <Link href="/#properties-commercial" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-medium text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#1ebbbb]">Commercial Offices</Link>
+                  <Link href="/properties" className="block px-4 py-2 text-[11px] uppercase tracking-wider font-bold text-[#1ebbbb] hover:bg-[#F8FAFC]">View All Properties</Link>
                 </div>
               </div>
             </div>
@@ -113,7 +114,22 @@ const Navbar = () => {
             >
               <div className="py-4 space-y-4 flex flex-col">
                 <Link href="/" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-                <Link href="/properties" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>Properties & Assets</Link>
+                                  <div>
+                    <div className="flex items-center justify-between px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider cursor-pointer" onClick={() => setIsMobilePropertiesOpen(!isMobilePropertiesOpen)}>
+                      <span>Properties & Assets</span>
+                      <svg className={"w-4 h-4 transition-transform "} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    {isMobilePropertiesOpen && (
+                      <div className="flex flex-col pl-8 py-2 space-y-4 border-l-2 border-[#1ebbbb]/20 ml-4 mt-1 mb-2">
+                        <Link href="/properties" className="text-[#1ebbbb] text-[11px] font-extrabold uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>View All Properties</Link>
+                        <Link href="/#properties-buy" className="text-slate-600 text-[11px] font-bold uppercase tracking-wider hover:text-[#1ebbbb]" onClick={() => setMobileMenuOpen(false)}>Buy</Link>
+                        <Link href="/#properties-rent" className="text-slate-600 text-[11px] font-bold uppercase tracking-wider hover:text-[#1ebbbb]" onClick={() => setMobileMenuOpen(false)}>Rent / Lease</Link>
+                        <Link href="/#properties-lands" className="text-slate-600 text-[11px] font-bold uppercase tracking-wider hover:text-[#1ebbbb]" onClick={() => setMobileMenuOpen(false)}>Lands & Farmlands</Link>
+                        <Link href="/#properties-furniture" className="text-slate-600 text-[11px] font-bold uppercase tracking-wider hover:text-[#1ebbbb]" onClick={() => setMobileMenuOpen(false)}>Furniture Rentals</Link>
+                        <Link href="/#properties-commercial" className="text-slate-600 text-[11px] font-bold uppercase tracking-wider hover:text-[#1ebbbb]" onClick={() => setMobileMenuOpen(false)}>Commercial Offices</Link>
+                      </div>
+                    )}
+                  </div>
                 <Link href="/services" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>Services</Link>
                 <Link href="/agency" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>For Agency</Link>
                 <Link href="/about" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
@@ -132,3 +148,8 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+

@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { PROPERTIES, getUniqueImages } from '@/components/PropertyShowcase';
 import ImageCarousel from '@/components/ImageCarousel';
 import Navbar from '@/components/Navbar';
+import ShareModal from '@/components/ShareModal';
 import { ArrowLeft, CheckCircle2, MapPin, Building2, BedDouble, Calendar, Home, ArrowRight, LayoutGrid, X, ShieldCheck, Zap, Car, ArrowUpDown, Dumbbell, Waves, Coffee, Compass, Heart, Share } from 'lucide-react';
 
 
@@ -12,6 +13,8 @@ import { ArrowLeft, CheckCircle2, MapPin, Building2, BedDouble, Calendar, Home, 
 export default function PropertyDetailPage() {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shareData, setShareData] = useState({isOpen: false, title: '', url: ''});
   const params = useParams();
   const router = useRouter();
   
@@ -34,7 +37,9 @@ export default function PropertyDetailPage() {
             Back to Properties
           </button>
         </div>
-      </main>
+      
+      <ShareModal isOpen={shareData.isOpen} onClose={() => setShareData({...shareData, isOpen: false})} title={shareData.title} url={shareData.url} />
+    </main>
     );
   }
 
@@ -102,7 +107,7 @@ export default function PropertyDetailPage() {
             <button className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 text-slate-700 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-all font-semibold group/btn shadow-sm">
               <Heart size={18} className="group-hover/btn:fill-red-500 transition-colors" /> Save
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 text-slate-700 hover:text-[#1ebbbb] hover:border-[#1ebbbb]/30 hover:bg-[#1ebbbb]/5 transition-all font-semibold shadow-sm">
+            <button onClick={() => setShareData({isOpen: true, title: property.title, url: window.location.href})} className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 text-slate-700 hover:text-[#1ebbbb] hover:border-[#1ebbbb]/30 hover:bg-[#1ebbbb]/5 transition-all font-semibold shadow-sm">
               <Share size={18} /> Share
             </button>
           </div>
@@ -111,16 +116,23 @@ export default function PropertyDetailPage() {
         {/* Image Gallery */}
         <div className="w-full h-[40vh] md:h-[60vh] rounded-3xl overflow-hidden shadow-lg border border-slate-200 mb-4 bg-slate-200 relative group">
           {/* Mobile Carousel */}
-          <div className="md:hidden w-full h-full">
-            <ImageCarousel 
-              images={allImages} 
-              alt={property.title} 
-              imageClassName="object-cover"
-            />
-          </div>
+            <div className="lg:hidden w-full h-full relative">
+              <ImageCarousel 
+                images={allImages} 
+                alt={property.title} 
+                imageClassName="absolute inset-0 w-full h-full object-cover"
+              />
+              <button 
+                onClick={() => setShowAllPhotos(true)} 
+                className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-xl font-bold text-xs shadow-md flex items-center gap-1.5 hover:bg-white transition-colors text-slate-800 z-10"
+              >
+                <LayoutGrid size={14} />
+                View all photos
+              </button>
+            </div>
 
           {/* Desktop Grid */}
-          <div className="hidden md:grid grid-cols-4 grid-rows-2 gap-2 w-full h-full">
+          <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-2 w-full h-full">
             <div className="col-span-2 row-span-2 relative group-hover:brightness-95 hover:!brightness-100 transition-all cursor-pointer">
               <img src={allImages[0]} alt={property.title} className="w-full h-full object-cover" />
             </div>
@@ -156,7 +168,7 @@ export default function PropertyDetailPage() {
                 <button className="flex items-center justify-center p-2 bg-white rounded-lg border border-slate-200 text-slate-700 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-all group/btn shadow-sm">
                   <Heart size={16} className="group-hover/btn:fill-red-500 transition-colors" />
                 </button>
-                <button className="flex items-center justify-center p-2 bg-white rounded-lg border border-slate-200 text-slate-700 hover:text-[#1ebbbb] hover:border-[#1ebbbb]/30 hover:bg-[#1ebbbb]/5 transition-all shadow-sm">
+                <button onClick={() => setShareData({isOpen: true, title: property.title, url: window.location.href})} className="flex items-center justify-center p-2 bg-white rounded-lg border border-slate-200 text-slate-700 hover:text-[#1ebbbb] hover:border-[#1ebbbb]/30 hover:bg-[#1ebbbb]/5 transition-all shadow-sm">
                   <Share size={16} />
                 </button>
               </div>
@@ -244,28 +256,21 @@ export default function PropertyDetailPage() {
                   </div>
                 </div>
               )}
-              <form className="space-y-4" onSubmit={(e) => { 
-                e.preventDefault(); 
-                setShowSuccessPopup(true);
-                setTimeout(() => {
-                  setShowSuccessPopup(false);
-                  (e.target as HTMLFormElement).reset();
-                }, 3000);
-              }}>
+              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); const form = e.target as HTMLFormElement; setIsSubmitting(true); setTimeout(() => { setIsSubmitting(false); setShowSuccessPopup(true); setTimeout(() => { setShowSuccessPopup(false); form.reset(); }, 3000); }, 1500); }}>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Your Name</label>
                   <input type="text" required className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" placeholder="Full Name" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Phone Number</label>
-                  <input type="tel" required pattern="\d{10}" maxLength={10} title="Phone number must be exactly 10 digits" className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" placeholder="9876543210" />
+                  <input type="tel" required pattern="\d{10}" maxLength={10} title="Phone number must be exactly 10 digits" className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" placeholder="9876543210" onInput={(e) => { e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ""); }} />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Email</label>
                   <input type="email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" className="w-full px-4 py-3 bg-stone-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb]" placeholder="Email Address" />
                 </div>
-                <button type="submit" className="w-full bg-[#1ebbbb] hover:bg-[#19a5a5] text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-[#1ebbbb]/30 flex items-center justify-center text-lg mt-4">
-                  Schedule Visit <ArrowRight size={20} className="ml-2" />
+                <button type="submit" disabled={isSubmitting} className="w-full bg-[#1ebbbb] hover:bg-[#19a5a5] text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-[#1ebbbb]/30 flex items-center justify-center text-lg mt-4">
+                  {isSubmitting ? (<><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div> Sending...</>) : (<>Schedule Visit <ArrowRight size={20} className="ml-2" /></>)}
                 </button>
               </form>
             </div>
@@ -273,6 +278,19 @@ export default function PropertyDetailPage() {
         </div>
 
       </div>
+    
+      <ShareModal isOpen={shareData.isOpen} onClose={() => setShareData({...shareData, isOpen: false})} title={shareData.title} url={shareData.url} />
     </main>
   );
 }
+
+
+
+
+
+
+
+
+
+
+

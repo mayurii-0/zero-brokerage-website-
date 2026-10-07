@@ -2,11 +2,16 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 // Removed Star import to fix Turbopack caching issue
 import { PROPERTIES, getUniqueImages } from '@/components/PropertyShowcase';
 import ImageCarousel from '@/components/ImageCarousel';
+import CustomSelect from '@/components/CustomSelect';
+import ShareModal from '@/components/ShareModal';
 
 export default function PropertiesPage() {
+  const router = useRouter();
+  const [shareData, setShareData] = useState({isOpen: false, title: '', url: ''});
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("All");
   const [listedBy, setListedBy] = useState("All");
@@ -235,12 +240,7 @@ export default function PropertiesPage() {
     let matchSize = true;
     if (appliedFilters.minSize || appliedFilters.maxSize) {
       const pSize = parseSize(p.specs);
-      if (pSize === 0) {
-        matchSize = false;
-      } else {
-        if (appliedFilters.minSize && pSize < parseFloat(appliedFilters.minSize)) matchSize = false;
-        if (appliedFilters.maxSize && pSize > parseFloat(appliedFilters.maxSize)) matchSize = false;
-      }
+      if (pSize !== 0) { if (appliedFilters.minSize && pSize < parseFloat(appliedFilters.minSize)) matchSize = false; if (appliedFilters.maxSize && pSize > parseFloat(appliedFilters.maxSize)) matchSize = false; }
     }
 
     return matchSearch && matchCategory && matchLister && matchCity && matchPropType && matchStatus && matchBhk && matchPrice && matchSize;
@@ -273,7 +273,7 @@ export default function PropertiesPage() {
             {/* The 3 Always-Visible Options */}
             <div>
               <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Category</label>
-              <select 
+              <CustomSelect 
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
@@ -284,71 +284,71 @@ export default function PropertiesPage() {
                 <option value="Lands & Farmlands">Lands & Farmlands</option>
                 <option value="Commercial Offices">Commercial Offices</option>
                 <option value="Furniture Rentals">Furniture Rentals</option>
-              </select>
+              </CustomSelect>
             </div>
 
             <div>
               <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">City / Location</label>
-              <select 
+              <CustomSelect 
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
               >
                 <option value="All Cities">All Cities</option>
                 {filterOptions.cities.map(c => c !== 'All Cities' && <option key={c} value={c}>{c}</option>)}
-              </select>
+              </CustomSelect>
             </div>
 
             {/* Dynamic Type (3rd visible filter) */}
             {(category === 'All' || category === 'Buy' || category === 'Rent / Lease') && (<div className="col-span-2 sm:col-span-1">
                 <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Property Type</label>
-                <select 
+                <CustomSelect 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Types</option>
                   {filterOptions.types.map(t => t !== 'All Types' && <option key={t} value={t}>{t}</option>)}
-                </select>
+                </CustomSelect>
               </div>
             )}
             {category === 'Lands & Farmlands' && (
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Land Type</label>
-                <select 
+                <CustomSelect 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Land Types</option>
                   {filterOptions.types.map(t => t !== 'All Types' && <option key={t} value={t}>{t}</option>)}
-                </select>
+                </CustomSelect>
               </div>
             )}
             {category === 'Commercial Offices' && (
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Office Type</label>
-                <select 
+                <CustomSelect 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Types</option>
                   {filterOptions.types.map(t => t !== 'All Types' && <option key={t} value={t}>{t}</option>)}
-                </select>
+                </CustomSelect>
               </div>
             )}
             {category === 'Furniture Rentals' && (
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Package Type</label>
-                <select 
+                <CustomSelect 
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                 >
                   <option value="All Types">All Packages</option>
                   {filterOptions.types.map(t => t !== 'All Types' && <option key={t} value={t}>{t}</option>)}
-                </select>
+                </CustomSelect>
               </div>
             )}
 
@@ -370,56 +370,56 @@ export default function PropertiesPage() {
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
                         {category === 'Rent / Lease' ? 'Furnishing Status' : 'Property Age'}
                       </label>
-                      <select 
+                      <CustomSelect 
                         value={propertyStatus}
                         onChange={(e) => setPropertyStatus(e.target.value)}
                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">Any {category === 'Rent / Lease' ? 'Status' : 'Age'}</option>
                         {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
-                      </select>
+                      </CustomSelect>
                     </div>
                   )}
 
                   {category === 'Lands & Farmlands' && (
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Legal Status</label>
-                      <select 
+                      <CustomSelect 
                         value={propertyStatus}
                         onChange={(e) => setPropertyStatus(e.target.value)}
                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">Any Status</option>
                         {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
-                      </select>
+                      </CustomSelect>
                     </div>
                   )}
 
                   {category === 'Commercial Offices' && (
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Grade</label>
-                      <select 
+                      <CustomSelect 
                         value={propertyStatus}
                         onChange={(e) => setPropertyStatus(e.target.value)}
                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">Any Grade</option>
                         {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
-                      </select>
+                      </CustomSelect>
                     </div>
                   )}
 
                   {category === 'Furniture Rentals' && (
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Rental Duration</label>
-                      <select 
+                      <CustomSelect 
                         value={propertyStatus}
                         onChange={(e) => setPropertyStatus(e.target.value)}
                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="All">Any Duration</option>
                         {filterOptions.statuses.map(s => s !== 'All' && s !== 'Any Status' && <option key={s} value={s}>{s}</option>)}
-                      </select>
+                      </CustomSelect>
                     </div>
                   )}
 
@@ -428,7 +428,7 @@ export default function PropertiesPage() {
                     <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Price / Rent (₹)</label>
                     <div className="flex items-center gap-2">
                       <input 
-                        type="number" 
+                        type="number" min="0" 
                         step="10000"
                         placeholder="Min Price"
                         value={minPrice}
@@ -437,7 +437,7 @@ export default function PropertiesPage() {
                       />
                       <span className="text-slate-400 font-medium">-</span>
                       <input 
-                        type="number" 
+                        type="number" min="0" 
                         step="10000"
                         placeholder="Max Price"
                         value={maxPrice}
@@ -453,7 +453,7 @@ export default function PropertiesPage() {
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Size (Sq. Ft.)</label>
                       <div className="flex items-center gap-2">
                         <input 
-                          type="number" 
+                          type="number" min="0" 
                           placeholder="Min Size"
                           value={minSize}
                           onChange={(e) => setMinSize(e.target.value)}
@@ -461,7 +461,7 @@ export default function PropertiesPage() {
                         />
                         <span className="text-slate-400 font-medium">-</span>
                         <input 
-                          type="number" 
+                          type="number" min="0" 
                           placeholder="Max Size"
                           value={maxSize}
                           onChange={(e) => setMaxSize(e.target.value)}
@@ -473,27 +473,27 @@ export default function PropertiesPage() {
 
                   {(category === 'All' || category === 'Buy' || category === 'Rent / Lease') && (<div className="col-span-2 sm:col-span-1">
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">BHK Capacity</label>
-                      <select 
+                      <CustomSelect 
                         value={bhk}
                         onChange={(e) => setBhk(e.target.value)}
                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                       >
                         <option value="Any BHK">Any BHK</option>
                         {filterOptions.bhks.map(b => b !== 'Any BHK' && <option key={b} value={b}>{b}</option>)}
-                      </select>
+                      </CustomSelect>
                     </div>
                   )}
 
                   <div>
                     <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Listed By</label>
-                    <select 
+                    <CustomSelect 
                       value={listedBy}
                       onChange={(e) => setListedBy(e.target.value)}
                       className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1ebbbb] text-sm text-slate-700 font-medium"
                     >
                       <option value="All">All (Owner, Agency, Broker)</option>
                       {filterOptions.listers.map(l => l !== 'All' && <option key={l} value={l}>{l}</option>)}
-                    </select>
+                    </CustomSelect>
                   </div>
 
                 </div>
@@ -572,11 +572,11 @@ export default function PropertiesPage() {
           {paginatedProperties.length > 0 ? (
             paginatedProperties.map((item) => (
               <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col w-full max-w-[320px] mx-auto sm:max-w-none">
-                <div className="aspect-video sm:aspect-auto sm:h-64 w-full relative group cursor-pointer overflow-hidden bg-slate-100">
+                <div className="aspect-video sm:aspect-auto sm:h-64 w-full relative group cursor-pointer overflow-hidden bg-slate-100" onClick={() => router.push(`/properties/${item.id}`)}>
                   <ImageCarousel 
                     images={getUniqueImages(item.id, item.category, 4)} 
                     alt={item.title} 
-                    imageClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    imageClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                   />
                   {/* Floating Actions */}
                   <div className="absolute top-3 right-3 flex flex-col gap-2 z-20">
@@ -592,12 +592,7 @@ export default function PropertiesPage() {
                         e.preventDefault(); 
                         e.stopPropagation(); 
                         const url = window.location.origin + '/properties/' + item.id;
-                        if (navigator.share) {
-                          navigator.share({ title: item.title, url }).catch(() => {});
-                        } else {
-                          navigator.clipboard.writeText(url);
-                          alert('Link copied to clipboard!');
-                        }
+                        setShareData({isOpen: true, title: item.title, url});
                       }} 
                       className="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center text-slate-400 hover:text-[#1ebbbb] hover:scale-110 transition-all"
                       title="Share property"
@@ -676,9 +671,15 @@ export default function PropertiesPage() {
         )}
 
       </div>
+    
+      <ShareModal isOpen={shareData.isOpen} onClose={() => setShareData({...shareData, isOpen: false})} title={shareData.title} url={shareData.url} />
     </main>
   );
 }
+
+
+
+
 
 
 

@@ -158,7 +158,7 @@ const AboutSection = () => {
           </div>
 
           {/* Center Content */}
-          <div className="mt-2 lg:mt-0 flex flex-col justify-center flex-grow overflow-hidden relative h-[210px] md:h-auto md:min-h-[350px] lg:min-h-0">
+          <div className="mt-2 lg:mt-0 flex flex-col justify-center flex-grow overflow-hidden relative min-h-[300px] py-2 h-auto md:min-h-[350px] lg:min-h-0">
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={slide.id}
@@ -203,6 +203,8 @@ const AboutSection = () => {
 };
 
 export default AboutSection;
+
+
 
 
 

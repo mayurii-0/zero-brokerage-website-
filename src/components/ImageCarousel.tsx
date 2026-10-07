@@ -71,7 +71,7 @@ export default function ImageCarousel({ images, alt = "Property", imageClassName
       <div 
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+        className="flex w-full h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {images.map((img, idx) => (
