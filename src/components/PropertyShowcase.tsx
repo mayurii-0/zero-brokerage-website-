@@ -6,14 +6,63 @@ import AnimatedSpotlight from './AnimatedSpotlight';
 import ImageCarousel from './ImageCarousel';
 // Removed Star
 
-const RELATED_IMAGES: Record<string, string[]> = {
-  "Buy": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
-  "Rent / Lease": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
-  "Lands & Farmlands": ["/images/service-land.jpg", "/images/greenfield-land.jpg", "/images/service-land.jpg", "/images/greenfield-land.jpg"],
-  "Furniture Rentals": ["/images/service-furniture.jpg", "/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg"],
-  "Commercial Offices": ["/images/service-office.jpg", "/images/business-workspace.jpg", "/images/service-office.jpg", "/images/business-workspace.jpg"]
+export const CATEGORY_IMAGES: Record<string, string[]> = {
+  "Buy": [
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+    "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800&q=80",
+    "https://images.unsplash.com/photo-1513311068348-19c8fbdc0bb6?w=800&q=80"
+  ],
+  "Rent / Lease": [
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80"
+  ],
+  "Commercial Offices": [
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
+    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80"
+  ],
+  "Furniture Rentals": [
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
+    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
+    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
+  ],
+  "Lands & Farmlands": [
+    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
+    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80",
+    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&q=80",
+    "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=800&q=80",
+    "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=800&q=80"
+  ]
 };
-const getRelatedImages = (category: string) => RELATED_IMAGES[category] || ["/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg", "/images/service-furniture.jpg"];
+
+export const getUniqueImages = (id: number, category: string, count: number = 3) => {
+  const pool = CATEGORY_IMAGES[category] || CATEGORY_IMAGES["Buy"];
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    const index = (id * 7 + i * 13) % pool.length;
+    result.push(pool[index]);
+  }
+  return result;
+};
 
 const TABS = ["Buy", "Rent / Lease", "Lands & Farmlands", "Furniture Rentals", "Commercial Offices"];
 
@@ -25,7 +74,7 @@ export const PROPERTIES = [
     "price": "₹2.85 Cr",
     "location": "Bandra West, Mumbai",
     "specs": "3 Beds • 3 Baths • 2,400 Sq.Ft.",
-    "image": "/images/modern-residence.jpg",
+    "image": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80",
     "badges": [
       {
         "text": "0% BROKERAGE",
@@ -47,7 +96,7 @@ export const PROPERTIES = [
     "price": "₹5.10 Cr",
     "location": "Worli, Mumbai",
     "specs": "5 Beds • 6 Baths • 4,500 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     "badges": [
       {
         "text": "PREMIUM",
@@ -64,7 +113,7 @@ export const PROPERTIES = [
     "price": "₹1.90 Cr",
     "location": "Indiranagar, Bengaluru",
     "specs": "3 Beds • 2 Baths • 1,800 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     "badges": [
       {
         "text": "VERIFIED",
@@ -98,7 +147,7 @@ export const PROPERTIES = [
     "price": "₹95 L",
     "location": "HSR Layout, Bengaluru",
     "specs": "3 Beds • 2 Baths • 1,500 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -109,7 +158,7 @@ export const PROPERTIES = [
     "price": "₹2.50 Cr",
     "location": "Powai, Mumbai",
     "specs": "3 Beds • 3 Baths • 2,100 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     "badges": [
       {
         "text": "0% BROKERAGE",
@@ -126,7 +175,7 @@ export const PROPERTIES = [
     "price": "₹1.20 Cr",
     "location": "South Extension, Delhi",
     "specs": "4 Beds • 4 Baths • 2,800 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -137,7 +186,7 @@ export const PROPERTIES = [
     "price": "₹1.40 Cr",
     "location": "Whitefield, Bengaluru",
     "specs": "2 Beds • 2 Baths • 1,200 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     "badges": [
       {
         "text": "SMART HOME",
@@ -154,7 +203,7 @@ export const PROPERTIES = [
     "price": "₹12.0 Cr",
     "location": "Koregaon Park, Pune",
     "specs": "6 Beds • 5 Baths • 8,000 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     "badges": [
       {
         "text": "HERITAGE",
@@ -171,7 +220,7 @@ export const PROPERTIES = [
     "price": "₹45 L",
     "location": "Noida Sector 62",
     "specs": "1 Bed • 1 Bath • 650 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -182,7 +231,7 @@ export const PROPERTIES = [
     "price": "₹25k / mo",
     "location": "Indiranagar, Bengaluru",
     "specs": "1 RK • Fully Furnished",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [
       {
         "text": "VERIFIED OWNER",
@@ -199,7 +248,7 @@ export const PROPERTIES = [
     "price": "₹45k / mo",
     "location": "Andheri West, Mumbai",
     "specs": "3 BHK • Semi-Furnished",
-    "image": "https://images.unsplash.com/photo-1502672260266-1c1de2d93688?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -210,7 +259,7 @@ export const PROPERTIES = [
     "price": "₹30k / mo",
     "location": "Koramangala, Bengaluru",
     "specs": "2 BHK • Fully Furnished",
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [
       {
         "text": "BACHELORS ALLOWED",
@@ -227,7 +276,7 @@ export const PROPERTIES = [
     "price": "₹1.2L / mo",
     "location": "Golf Course Road, Gurugram",
     "specs": "4 BHK • Fully Furnished",
-    "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [
       {
         "text": "LUXURY",
@@ -244,7 +293,7 @@ export const PROPERTIES = [
     "price": "₹18k / mo",
     "location": "Viman Nagar, Pune",
     "specs": "1 BHK • Unfurnished",
-    "image": "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -255,7 +304,7 @@ export const PROPERTIES = [
     "price": "₹80k / mo",
     "location": "ECR, Chennai",
     "specs": "4 BHK • Semi-Furnished",
-    "image": "https://images.unsplash.com/photo-1583608205776-bfd35f6d9f83?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [
       {
         "text": "PET FRIENDLY",
@@ -272,7 +321,7 @@ export const PROPERTIES = [
     "price": "₹1.5L / mo",
     "location": "Banjara Hills, Hyderabad",
     "specs": "5 BHK • Fully Furnished",
-    "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -283,7 +332,7 @@ export const PROPERTIES = [
     "price": "₹15k / mo",
     "location": "Rajarhat, Kolkata",
     "specs": "2 BHK • Unfurnished",
-    "image": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -294,7 +343,7 @@ export const PROPERTIES = [
     "price": "₹2.5L / mo",
     "location": "Marine Drive, Mumbai",
     "specs": "4 BHK • Fully Furnished",
-    "image": "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [
       {
         "text": "SEA VIEW",
@@ -311,7 +360,7 @@ export const PROPERTIES = [
     "price": "₹60k / mo",
     "location": "Saket, Delhi",
     "specs": "2 BHK • Serviced",
-    "image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     "badges": [
       {
         "text": "SHORT TERM",
@@ -328,7 +377,7 @@ export const PROPERTIES = [
     "price": "₹1.2 Cr",
     "location": "Nandi Hills, Bengaluru",
     "specs": "2 Acres • Fenced • Well Water",
-    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [
       {
         "text": "CLEAR TITLE",
@@ -345,7 +394,7 @@ export const PROPERTIES = [
     "price": "₹3.2 Cr",
     "location": "Electronic City, Bengaluru",
     "specs": "0.5 Acres • Corner Plot",
-    "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [
       {
         "text": "A KATHA",
@@ -362,7 +411,7 @@ export const PROPERTIES = [
     "price": "₹8.5 Cr",
     "location": "NH-48, Pune",
     "specs": "5 Acres • Commercial Zone",
-    "image": "https://images.unsplash.com/photo-1513311068348-19c8fbdc0bb6?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [
       {
         "text": "HIGHWAY FACING",
@@ -396,7 +445,7 @@ export const PROPERTIES = [
     "price": "₹2.5 Cr",
     "location": "Ratnagiri, Maharashtra",
     "specs": "5 Acres • Yielding Trees",
-    "image": "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -407,7 +456,7 @@ export const PROPERTIES = [
     "price": "₹1.8 Cr",
     "location": "Karjat, Mumbai",
     "specs": "1 Acre • Scenic View",
-    "image": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [
       {
         "text": "LAKEVIEW",
@@ -424,7 +473,7 @@ export const PROPERTIES = [
     "price": "₹4 Cr",
     "location": "Yamuna Expressway",
     "specs": "3 Acres • Commercial/Res",
-    "image": "https://images.unsplash.com/photo-1484502249930-e1da807099a5?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -435,7 +484,7 @@ export const PROPERTIES = [
     "price": "₹1.5 Cr",
     "location": "OMR, Chennai",
     "specs": "2,400 Sq.Ft. • East Facing",
-    "image": "https://images.unsplash.com/photo-1524813686514-a57563d77965?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [
       {
         "text": "PREMIUM",
@@ -452,7 +501,7 @@ export const PROPERTIES = [
     "price": "₹5 Cr",
     "location": "Ooty, Tamil Nadu",
     "specs": "10 Acres • Active Estate",
-    "image": "https://images.unsplash.com/photo-1542385151-efd9000785a0?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -463,7 +512,7 @@ export const PROPERTIES = [
     "price": "₹6 Cr",
     "location": "Bhiwandi, Thane",
     "specs": "4 Acres • Industrial",
-    "image": "https://images.unsplash.com/photo-1587293852726-59fbbed23927?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
     "badges": [
       {
         "text": "WAREHOUSE ZONE",
@@ -480,7 +529,7 @@ export const PROPERTIES = [
     "price": "₹3.5L / mo",
     "location": "BKC, Mumbai",
     "specs": "50 Desks • 5,000 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [
       {
         "text": "GRADE A BUILDING",
@@ -497,7 +546,7 @@ export const PROPERTIES = [
     "price": "₹8.0L / mo",
     "location": "Whitefield, Bengaluru",
     "specs": "100 Desks • 12,000 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [
       {
         "text": "FULLY FURNISHED",
@@ -514,7 +563,7 @@ export const PROPERTIES = [
     "price": "₹1.2L / mo",
     "location": "Connaught Place, Delhi",
     "specs": "Ground Floor • 800 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1555529771-835f59fc5efe?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [
       {
         "text": "PRIME RETAIL",
@@ -531,7 +580,7 @@ export const PROPERTIES = [
     "price": "₹8k / desk",
     "location": "Koramangala, Bengaluru",
     "specs": "Flexible • High Speed WiFi",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [
       {
         "text": "CO-WORKING",
@@ -559,7 +608,7 @@ export const PROPERTIES = [
     "price": "₹80k / mo",
     "location": "Bandra West, Mumbai",
     "specs": "Furnished • 1,200 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -570,7 +619,7 @@ export const PROPERTIES = [
     "price": "₹15L / mo",
     "location": "HITEC City, Hyderabad",
     "specs": "200 Desks • 20,000 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [
       {
         "text": "SEZ ZONE",
@@ -587,7 +636,7 @@ export const PROPERTIES = [
     "price": "₹4L / mo",
     "location": "Indiranagar, Bengaluru",
     "specs": "Ground + 1 • 3,500 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [
       {
         "text": "F&B READY",
@@ -604,7 +653,7 @@ export const PROPERTIES = [
     "price": "₹50k / mo",
     "location": "Nariman Point, Mumbai",
     "specs": "3 Desks • Sea View",
-    "image": "https://images.unsplash.com/photo-1497215898120-1d00c3b01859?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -615,7 +664,7 @@ export const PROPERTIES = [
     "price": "₹60k / mo",
     "location": "HSR Layout, Bengaluru",
     "specs": "15 Desks • 1,500 Sq.Ft.",
-    "image": "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -626,7 +675,7 @@ export const PROPERTIES = [
     "price": "₹14,999 / mo",
     "location": "Free Delivery",
     "specs": "10 Workstations • 10 Chairs",
-    "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [
       {
         "text": "RENTAL BUNDLE",
@@ -643,7 +692,7 @@ export const PROPERTIES = [
     "price": "₹8,500 / mo",
     "location": "Free Setup",
     "specs": "1 Large Table • 8 Leather Chairs",
-    "image": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [
       {
         "text": "PREMIUM",
@@ -660,7 +709,7 @@ export const PROPERTIES = [
     "price": "₹1,200 / mo",
     "location": "Instant Delivery",
     "specs": "1 Sit-Stand Desk • 1 Mesh Chair",
-    "image": "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -671,7 +720,7 @@ export const PROPERTIES = [
     "price": "₹6,000 / mo",
     "location": "Installation Included",
     "specs": "4 Tables • 16 Chairs",
-    "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -682,7 +731,7 @@ export const PROPERTIES = [
     "price": "₹12,000 / mo",
     "location": "White-glove Service",
     "specs": "Mahogany Desk • Sofa • Boss Chair",
-    "image": "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [
       {
         "text": "LUXURY",
@@ -699,7 +748,7 @@ export const PROPERTIES = [
     "price": "₹18,000 / mo",
     "location": "Free Setup",
     "specs": "20 Folding Desks • 20 Chairs",
-    "image": "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -727,7 +776,7 @@ export const PROPERTIES = [
     "price": "₹800 / mo",
     "location": "Same-day Delivery",
     "specs": "1 Simple Desk • 1 Office Chair",
-    "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -738,7 +787,7 @@ export const PROPERTIES = [
     "price": "₹7,500 / mo",
     "location": "Free Assembly",
     "specs": "5 Connected Desks • Pedestals",
-    "image": "https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [],
     "cta": "View Property"
   },
@@ -749,7 +798,7 @@ export const PROPERTIES = [
     "price": "₹15,000 / mo",
     "location": "Professional Setup",
     "specs": "Smart Table • 12 Ergonomic Chairs",
-    "image": "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
     "badges": [
       {
         "text": "HIGH TECH",
@@ -1290,7 +1339,7 @@ const PropertyShowcase = () => {
                   <div key={property.id} className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex-col hover:shadow-md transition-shadow w-full max-w-[320px] mx-auto sm:max-w-none ${index >= 4 ? "hidden md:flex" : "flex"}`}>
                     <div className="aspect-[16/9] bg-slate-200 relative overflow-hidden group cursor-pointer">
                       <ImageCarousel 
-                        images={[property.image, ...getRelatedImages(property.category)]} 
+                        images={getUniqueImages(property.id, property.category, 4)} 
                         alt={property.title} 
                         imageClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                         objectPosition={(property as any).objectPosition || 'center'}

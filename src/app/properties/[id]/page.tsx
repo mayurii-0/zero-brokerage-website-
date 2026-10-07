@@ -2,19 +2,17 @@
 import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useParams, useRouter } from 'next/navigation';
-import { PROPERTIES } from '@/components/PropertyShowcase';
+import { PROPERTIES, getUniqueImages } from '@/components/PropertyShowcase';
 import ImageCarousel from '@/components/ImageCarousel';
 import Navbar from '@/components/Navbar';
 import { ArrowLeft, CheckCircle2, MapPin, Building2, BedDouble, Calendar, Home, ArrowRight, LayoutGrid, X, ShieldCheck, Zap, Car, ArrowUpDown, Dumbbell, Waves, Coffee, Compass, Heart, Share } from 'lucide-react';
 
-const RELATED_IMAGES: Record<string, string[]> = {
-  "Buy": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
-  "Rent / Lease": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
-  "Lands & Farmlands": ["/images/service-land.jpg", "/images/greenfield-land.jpg", "/images/service-land.jpg", "/images/greenfield-land.jpg"],
-  "Furniture Rentals": ["/images/service-furniture.jpg", "/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg"],
-  "Commercial Offices": ["/images/service-office.jpg", "/images/business-workspace.jpg", "/images/service-office.jpg", "/images/business-workspace.jpg"]
-};
-const getRelatedImages = (category: string) => RELATED_IMAGES[category] || ["/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg", "/images/service-furniture.jpg"];
+con...getUniqueImages(property.id, property.category, 4) = [
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753086-00f18efc2291?w=800&q=80",
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80"
+];
 
 export default function PropertyDetailPage() {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
@@ -45,7 +43,7 @@ export default function PropertyDetailPage() {
     );
   }
 
-  const allImages = [property.image, ...getRelatedImages(property.category)];
+  const allImages = getUniqueImages(property.id, property.category, 5);
 
   return (
     <main className="min-h-screen flex flex-col bg-stone-50">

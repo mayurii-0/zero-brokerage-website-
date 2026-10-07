@@ -3,17 +3,8 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 // Removed Star import to fix Turbopack caching issue
-import { PROPERTIES } from '@/components/PropertyShowcase';
+import { PROPERTIES, getUniqueImages } from '@/components/PropertyShowcase';
 import ImageCarousel from '@/components/ImageCarousel';
-
-const RELATED_IMAGES: Record<string, string[]> = {
-  "Buy": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
-  "Rent / Lease": ["/images/urban-stay.jpg", "/images/modern-residence.jpg", "/images/service-bg.jpg", "/images/service-furniture.jpg"],
-  "Lands & Farmlands": ["/images/service-land.jpg", "/images/greenfield-land.jpg", "/images/service-land.jpg", "/images/greenfield-land.jpg"],
-  "Furniture Rentals": ["/images/service-furniture.jpg", "/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg"],
-  "Commercial Offices": ["/images/service-office.jpg", "/images/business-workspace.jpg", "/images/service-office.jpg", "/images/business-workspace.jpg"]
-};
-const getRelatedImages = (category: string) => RELATED_IMAGES[category] || ["/images/urban-stay.jpg", "/images/service-bg.jpg", "/images/modern-residence.jpg", "/images/service-furniture.jpg"];
 
 export default function PropertiesPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -583,7 +574,7 @@ export default function PropertiesPage() {
               <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex flex-col w-full max-w-[320px] mx-auto sm:max-w-none">
                 <div className="aspect-video sm:aspect-auto sm:h-64 w-full relative group cursor-pointer overflow-hidden bg-slate-100">
                   <ImageCarousel 
-                    images={[item.image, ...getRelatedImages(item.category)]} 
+                    images={getUniqueImages(item.id, item.category, 4)} 
                     alt={item.title} 
                     imageClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                   />
