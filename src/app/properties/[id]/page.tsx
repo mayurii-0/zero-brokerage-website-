@@ -56,14 +56,10 @@ export default function PropertyDetailPage() {
             className="fixed inset-0 z-[100] bg-white overflow-y-auto"
           >
             <div className="sticky top-0 bg-white/80 backdrop-blur-md px-6 py-4 border-b border-slate-100 flex justify-between items-center z-10">
-              <button 
-                onClick={() => setShowAllPhotos(false)}
-                className="p-2 hover:bg-slate-100 rounded-full transition-colors flex items-center text-slate-800 font-semibold"
-              >
-                <X size={24} className="mr-2" /> Close
-              </button>
               <div className="font-bold text-slate-900">{property.title} - Photos</div>
-              <div className="w-24"></div> {/* spacer for centering */}
+              <button onClick={() => setShowAllPhotos(false)} className="p-2 hover:bg-slate-100 rounded-full transition-colors flex items-center justify-center text-slate-800">
+                <X size={24} />
+              </button>
             </div>
             
             <div className="max-w-4xl mx-auto py-10 px-4 space-y-4">
@@ -283,6 +279,8 @@ export default function PropertyDetailPage() {
     </main>
   );
 }
+
+
 
 
 

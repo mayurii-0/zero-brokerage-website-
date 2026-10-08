@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState, useRef, useEffect, ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,9 +20,25 @@ export default function CustomSelect({ value, onChange, className = '', children
         setIsOpen(false);
       }
     };
+
+    const handleScroll = (event: Event) => {
+      // Prevent closing if scrolling inside the dropdown itself
+      if (containerRef.current && containerRef.current.contains(event.target as Node)) {
+        return;
+      }
+      if (isOpen) {
+        setIsOpen(false);
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    window.addEventListener("scroll", handleScroll, true);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll, true);
+    };
+  }, [isOpen]);
 
   const options: { value: string; label: ReactNode }[] = [];
   React.Children.forEach(children, (child) => {
@@ -119,3 +135,4 @@ export default function CustomSelect({ value, onChange, className = '', children
     </div>
   );
 }
+

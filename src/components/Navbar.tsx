@@ -105,21 +105,17 @@ const Navbar = () => {
         {/* Mobile Menu Panel */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="lg:hidden overflow-hidden border-t border-slate-100"
-            >
+            <motion.div initial={{ height: 0, opacity: 0, overflow: "hidden" }} animate={{ height: "auto", opacity: 1, transitionEnd: { overflow: "visible", height: "auto" } }} exit={{ height: 0, opacity: 0, overflow: "hidden" }} className="lg:hidden border-t border-slate-100">
               <div className="py-4 space-y-4 flex flex-col">
                 <Link href="/" className="px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>Home</Link>
                                   <div>
                     <div className="flex items-center justify-between px-4 py-2 text-[#0F172A] hover:text-[#1ebbbb] font-bold text-xs uppercase tracking-wider cursor-pointer" onClick={() => setIsMobilePropertiesOpen(!isMobilePropertiesOpen)}>
                       <span>Properties & Assets</span>
-                      <svg className={"w-4 h-4 transition-transform "} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                      <svg className={`w-4 h-4 transition-transform duration-200 ${isMobilePropertiesOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                     </div>
                     {isMobilePropertiesOpen && (
                       <div className="flex flex-col pl-8 py-2 space-y-4 border-l-2 border-[#1ebbbb]/20 ml-4 mt-1 mb-2">
+                          <Link href="/properties" className="text-[#1ebbbb] text-[11px] font-extrabold uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>View All Properties</Link>
                         <Link href="/#properties-buy" className="text-slate-600 text-[11px] font-bold uppercase tracking-wider hover:text-[#1ebbbb]" onClick={() => { handleTabClick('Buy'); setMobileMenuOpen(false); }}>Buy</Link>
                         <Link href="/#properties-rent" className="text-slate-600 text-[11px] font-bold uppercase tracking-wider hover:text-[#1ebbbb]" onClick={() => { handleTabClick('Rent / Lease'); setMobileMenuOpen(false); }}>Rent / Lease</Link>
                         <Link href="/#properties-lands" className="text-slate-600 text-[11px] font-bold uppercase tracking-wider hover:text-[#1ebbbb]" onClick={() => { handleTabClick('Lands & Farmlands'); setMobileMenuOpen(false); }}>Lands & Farmlands</Link>
@@ -146,6 +142,9 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
 
 
 

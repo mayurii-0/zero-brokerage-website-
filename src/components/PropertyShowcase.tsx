@@ -1113,7 +1113,7 @@ const PropertyShowcase = () => {
           <div id="properties-furniture" className="absolute -top-28"></div>
           
           {/* 2. Property Multi-Filter Bar (Now unified) */}
-          <div className="p-4 sm:p-8 border-b border-slate-100">
+          <div className="p-4 sm:p-8 border-b border-slate-100 relative z-20">
             {/* Top Type Tabs */}
             <div className="flex overflow-x-auto whitespace-nowrap gap-4 sm:gap-6 border-b border-slate-100 pb-2 scrollbar-hide">
               {TABS.map(tab => (
@@ -1162,12 +1162,7 @@ const PropertyShowcase = () => {
             {/* Expanded More Options */}
             <AnimatePresence>
               {showMoreOptions && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden mt-6"
-                >
+                <motion.div initial={{ opacity: 0, height: 0, overflow: "hidden" }} animate={{ opacity: 1, height: "auto", overflow: "visible" }} exit={{ opacity: 0, height: 0, overflow: "hidden" }} className="mt-6">
                   <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 pt-2 pb-1 px-1">
                     
                     {/* Status / Age */}
@@ -1324,7 +1319,7 @@ const PropertyShowcase = () => {
               </div>
               <button 
                 onClick={() => setShowMoreOptions(!showMoreOptions)}
-                className="text-xs font-bold text-indigo-600 uppercase tracking-wide flex items-center gap-1 hover:text-indigo-700 transition-colors"
+                className="text-xs font-bold text-[#1ebbbb] uppercase tracking-wide flex items-center gap-1 hover:text-[#19a5a5] transition-colors"
               >
                 {showMoreOptions ? '- Less options' : '+ More options'}
               </button>
@@ -1418,6 +1413,9 @@ const PropertyShowcase = () => {
 }
 
 export default PropertyShowcase;
+
+
+
 
 
 

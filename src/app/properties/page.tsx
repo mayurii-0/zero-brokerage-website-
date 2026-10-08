@@ -27,6 +27,15 @@ export default function PropertiesPage() {
 
   const [showMoreFilters, setShowMoreFilters] = useState(false);
 
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('category');
+    if (cat) {
+      setCategory(cat);
+      setAppliedFilters(prev => ({ ...prev, category: cat }));
+    }
+  }, []);
+
   // State to hold the filters that have been explicitly applied via the button
   const [appliedFilters, setAppliedFilters] = useState({
     searchTerm: "",
@@ -266,7 +275,7 @@ export default function PropertiesPage() {
         </div>
 
         {/* Custom Filter Bar (Comprehensive) */}
-        <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 mb-10">
+        <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 mb-10 relative z-20">
           
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             
@@ -357,12 +366,7 @@ export default function PropertiesPage() {
           {/* More Filters (Collapsible) */}
           <AnimatePresence>
             {showMoreFilters && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden mt-6"
-              >
+              <motion.div initial={{ opacity: 0, height: 0, overflow: "hidden" }} animate={{ opacity: 1, height: "auto", overflow: "visible" }} exit={{ opacity: 0, height: 0, overflow: "hidden" }} className="mt-6">
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 pt-2 pb-1 px-1">
                   
                   {/* Status / Age */}
@@ -519,7 +523,7 @@ export default function PropertiesPage() {
               </div>
               <button 
                 onClick={() => setShowMoreFilters(!showMoreFilters)}
-                className="text-xs font-bold text-indigo-600 uppercase tracking-wider hover:text-indigo-800 transition-colors whitespace-nowrap"
+                className="text-xs font-bold text-[#1ebbbb] uppercase tracking-wider hover:text-[#19a5a5] transition-colors whitespace-nowrap"
               >
                 {showMoreFilters ? '- LESS OPTIONS' : '+ MORE OPTIONS'}
               </button>
@@ -676,6 +680,10 @@ export default function PropertiesPage() {
     </main>
   );
 }
+
+
+
+
 
 
 

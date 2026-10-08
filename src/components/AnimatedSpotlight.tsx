@@ -12,7 +12,7 @@ const SLIDES = [
     price: "₹45K / mo • 2 BHK • Mumbai",
     image: "/images/urban-stay.jpg",
     cta: "Explore Property →",
-    href: "/properties"
+    href: "/properties?category=Furniture+Rentals"
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const SLIDES = [
     price: "₹1.25L / mo • 20 Seats • Pune",
     image: "/images/business-workspace.jpg",
     cta: "Explore Property →",
-    href: "/properties"
+    href: "/properties?category=Commercial+Offices"
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const SLIDES = [
     price: "₹1.85 Cr • 3 BHK • Indore",
     image: "/images/modern-residence.jpg",
     cta: "Explore Property →",
-    href: "/properties"
+    href: "/properties?category=Buy"
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const SLIDES = [
     price: "₹85L • 1.5 Acres • Indore",
     image: "/images/greenfield-land.jpg",
     cta: "Explore Property →",
-    href: "/properties"
+    href: "/properties?category=Lands+%26+Farmlands"
   }
 ];
 

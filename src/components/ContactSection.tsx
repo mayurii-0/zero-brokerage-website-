@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 const ContactSection = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -114,7 +115,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <label className="block text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 md:mb-2">Phone Number</label>
-                  <input type="tel" required pattern="\d{10}" maxLength={10} title="Phone number must be exactly 10 digits" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-sm focus:outline-none focus:border-[#1ebbbb] focus:ring-1 focus:ring-[#1ebbbb] transition-all" placeholder="9876543210" />
+                  <input type="tel" required pattern="\d{10}" maxLength={10} title="Phone number must be exactly 10 digits" onInput={(e) => { e.currentTarget.value = e.currentTarget.value.replace(/\D/g, ""); }} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-sm focus:outline-none focus:border-[#1ebbbb] focus:ring-1 focus:ring-[#1ebbbb] transition-all" placeholder="9876543210" />
                 </div>
               </div>
 
@@ -123,8 +124,8 @@ const ContactSection = () => {
                 <textarea required rows={3} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-sm focus:outline-none focus:border-[#1ebbbb] focus:ring-1 focus:ring-[#1ebbbb] transition-all resize-none md:rows-4" placeholder="How can we help you?"></textarea>
               </div>
 
-              <button type="submit" className="w-full bg-slate-900 hover:bg-[#1ebbbb] text-white font-bold text-xs md:text-sm tracking-wider uppercase py-3 md:py-4 rounded-xl transition-all shadow-lg hover:shadow-xl mt-1 md:mt-2">
-                Send Message
+              <button disabled={isSubmitting} type="submit" className="w-full bg-slate-900 hover:bg-[#1ebbbb] disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold text-xs md:text-sm tracking-wider uppercase py-3 md:py-4 rounded-xl transition-all shadow-lg hover:shadow-xl mt-1 md:mt-2 flex items-center justify-center">
+                {isSubmitting ? (<><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div> SENDING...</>) : "SEND MESSAGE"}
               </button>
             </form>
           </div>
@@ -136,3 +137,5 @@ const ContactSection = () => {
 };
 
 export default ContactSection;
+
+
