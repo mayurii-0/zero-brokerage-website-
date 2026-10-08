@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -9,7 +10,7 @@ import ImageCarousel from '@/components/ImageCarousel';
 import CustomSelect from '@/components/CustomSelect';
 import ShareModal from '@/components/ShareModal';
 
-export default function PropertiesPage() {
+function PropertiesContent() {
   const router = useRouter();
   const [shareData, setShareData] = useState({isOpen: false, title: '', url: ''});
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,14 +28,17 @@ export default function PropertiesPage() {
 
   const [showMoreFilters, setShowMoreFilters] = useState(false);
 
-  React.useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cat = params.get('category');
-    if (cat) {
-      setCategory(cat);
-      setAppliedFilters(prev => ({ ...prev, category: cat }));
-    }
-  }, []);
+  
+    const searchParams = useSearchParams();
+    React.useEffect(() => {
+      const cat = searchParams.get('category');
+      if (cat) {
+        setCategory(cat);
+        setAppliedFilters(prev => ({ ...prev, category: cat }));
+        setCurrentPage(1); // Fix page reset on redirect
+      }
+    }, [searchParams]);
+
 
   // State to hold the filters that have been explicitly applied via the button
   const [appliedFilters, setAppliedFilters] = useState({
@@ -562,8 +566,9 @@ export default function PropertiesPage() {
                     return;
                   }
                   setAppliedFilters({ searchTerm, category, city, propertyType, propertyStatus, bhk, listedBy, minPrice, maxPrice, minSize, maxSize });
-                }}
-                className="px-4 py-2 sm:px-8 sm:py-3 bg-[#1ebbbb] hover:bg-[#19a5a5] text-white font-bold rounded-xl transition-colors shadow-lg text-xs sm:text-sm w-full md:w-auto tracking-wide uppercase"
+                    setCurrentPage(1);
+                  }}
+                  className="px-4 py-2 sm:px-8 sm:py-3 bg-[#1ebbbb] hover:bg-[#19a5a5] text-white font-bold rounded-xl transition-colors shadow-lg text-xs sm:text-sm w-full md:w-auto tracking-wide uppercase"
               >
                 APPLY FILTER
               </button>
@@ -694,3 +699,12 @@ export default function PropertiesPage() {
 
 
 
+
+
+export default function PropertiesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen pt-32 text-center text-slate-500 font-bold">Loading...</div>}>
+      <PropertiesContent />
+    </Suspense>
+  );
+}
